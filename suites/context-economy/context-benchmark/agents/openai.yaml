@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Context Benchmark"
+  short_description: "Prove context savings and fidelity separately"
+  default_prompt: "Use $context-benchmark to run this fixed context test set and report savings, fidelity, budget compliance, and failures."

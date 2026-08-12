@@ -3,7 +3,7 @@
 ## Context economy
 
 ```text
-Use context-economy to prepare these files for the current task. Convert only when worthwhile, fingerprint and remove exact duplicates, choose pass-through/select/compact/cache-stable mode, preserve anchored evidence, and report estimated source, packed, omitted, and preparation costs.
+Use context-economy to prepare these files for the current task. Convert only when worthwhile, fingerprint and remove exact duplicates, choose pass-through or anchored selection, enforce the complete-pack budget, and report estimated source, packed, omitted, and preparation costs.
 ```
 
 ## Frontend design

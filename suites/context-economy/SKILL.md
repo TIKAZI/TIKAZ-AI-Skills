@@ -1,6 +1,6 @@
 ---
 name: context-economy
-description: Use when files, long conversations, repeated instructions, or oversized source material must be prepared for a bounded Codex task without losing traceability or recovery state.
+description: Route context preparation for Codex. Use when files, folders, long conversations, repeated instructions, oversized source material, context health, or savings claims require packing, checkpointing, auditing, or benchmarking without losing traceability.
 ---
 
 # Context Economy for Codex
@@ -13,13 +13,13 @@ Spend context where it matters. Optimize total context cost—not token count al
 
 ## Workflow
 
-1. Fix the task, expected output, risk level, and context budget.
-2. Route files through `content-intake`; route conversation-only work through `conversation-checkpoint`.
-3. Use `context-ledger` once canonical Markdown exists.
-4. Ask `context-budget` to choose exactly one mode: `pass-through`, `select`, `compact`, or `cache-stable`.
-5. Use `relevance-gate` only for `select` or as evidence input to `compact`.
-6. Use `context-packager` to create the final bounded handoff.
-7. Report estimated input/packed tokens, conversion overhead, omitted anchors, and verification limits.
+1. Fix the task, expected output, risk level, and final context budget.
+2. Route files, folders, code, logs, and structured data to `context-pack`.
+3. Route conversation continuation or handoff to `conversation-checkpoint`.
+4. Route context diagnosis to `context-audit` without rewriting the source.
+5. Route measurable claims to `context-benchmark` using fixed cases.
+6. Select one primary workflow and use the others only as supporting verification.
+7. Report input and final tokens, omitted evidence, protected facts, and verification limits.
 
 ## Stop conditions
 

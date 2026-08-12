@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Context Audit"
+  short_description: "Score context health with explainable findings"
+  default_prompt: "Use $context-audit to inspect this context for relevance, repetition, safety, traceability, cacheability, and recovery gaps."

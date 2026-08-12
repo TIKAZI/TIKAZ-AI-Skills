@@ -1,4 +1,0 @@
-interface:
-  display_name: "Content Intake"
-  short_description: "Create and verify canonical Markdown assets"
-  default_prompt: "Use $content-intake to choose the cheapest safe conversion route and verify the canonical Markdown output."

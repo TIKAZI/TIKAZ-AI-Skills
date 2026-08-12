@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "0.5.0",
   "owner": "TIKAZI",
   "collection": "TIKAZ-AI-Skills",
   "suites": {
@@ -8,8 +8,8 @@
       "title": "TIKAZ Context Economy for Codex",
       "tagline": "Lean, traceable context packs that spend tokens only where the task needs them.",
       "accent": "A78BFA",
-      "highlights": ["One orchestrator and six independently installable context specialists", "Deterministic Markdown indexing, exact deduplication, task-aware selection, and recovery snapshots", "Pass-through and cache-stable modes refuse wasteful or risky compression"],
-      "prompts": ["Prepare these Markdown and text sources for this task. Measure the budget, remove exact duplicates, retain anchored evidence, and build a context pack without claiming guaranteed savings.", "Create a recoverable checkpoint from this long conversation. Preserve decisions, constraints, completed evidence, file paths, numbers, commands, and open questions.", "Decide whether this repeated project context should pass through, be selected, compacted, or kept cache-stable, then explain the break-even evidence."]
+      "highlights": ["One orchestrator and four independently useful context specialists", "Hard-budget packs, exact deduplication, anchored selection, and recovery checkpoints", "Six-dimension audit and a 30-case public correctness benchmark keep claims inspectable"],
+      "prompts": ["Prepare these files for this task. Enforce the complete-pack budget, remove exact duplicates, retain anchored evidence, and make every omission visible.", "Create a recoverable checkpoint from this long conversation. Preserve decisions, constraints, completed evidence, file paths, numbers, commands, and open questions.", "Audit this context across relevance, redundancy, traceability, safety, cacheability, and recoverability, then run the fixed benchmark before making an efficiency claim."]
     },
     "frontend-design": {
       "repository": "TIKAZ-Codex-Frontend-Design",

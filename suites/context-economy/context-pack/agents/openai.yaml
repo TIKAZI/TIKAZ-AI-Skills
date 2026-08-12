@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Context Pack"
+  short_description: "Build bounded, traceable Codex context"
+  default_prompt: "Use $context-pack to prepare these files or folders as one bounded, traceable Codex context pack."

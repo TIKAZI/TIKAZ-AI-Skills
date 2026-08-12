@@ -1,11 +1,13 @@
 import importlib.util
+import json
+import re
 import tempfile
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULE_PATH = ROOT / "suites" / "context-economy" / "scripts" / "context_economy.py"
+MODULE_PATH = ROOT / "suites" / "context-economy" / "scripts" / "tikaz_context.py"
 
 
 def load_context_economy():
@@ -69,19 +71,62 @@ class ContextEconomyPrimitiveTests(unittest.TestCase):
         self.assertEqual(first[0].source, "release.md")
         self.assertEqual([(c.source, c.anchor) for c in first], [(c.source, c.anchor) for c in second])
 
-    def test_choose_mode_uses_break_even_and_stable_reuse(self) -> None:
+    def test_choose_mode_exposes_only_implemented_pack_paths(self) -> None:
         ce = load_context_economy()
 
         self.assertEqual(ce.choose_mode(300, 500, 0, 20), "pass-through")
         self.assertEqual(ce.choose_mode(3000, 800, 100, 80), "select")
-        self.assertEqual(ce.choose_mode(3000, 800, 1600, 80), "compact")
+        self.assertEqual(ce.choose_mode(3000, 800, 1600, 80), "select")
         self.assertEqual(
             ce.choose_mode(3000, 800, 100, 80, reuse_count=5, stable_prefix=True),
-            "cache-stable",
+            "select",
         )
 
 
 class ContextEconomyPipelineTests(unittest.TestCase):
+    def test_pack_accepts_core_structured_formats_and_directories(self) -> None:
+        ce = load_context_economy()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            sources = root / "sources"
+            sources.mkdir()
+            (sources / "rules.yaml").write_text("release: 2.4.1\nowner: TIKAZ\n", encoding="utf-8")
+            (sources / "data.json").write_text('{"release":"2.4.1","ready":true}', encoding="utf-8")
+            (sources / "table.csv").write_text("name,status\nrelease,ready\n", encoding="utf-8")
+            (sources / "page.html").write_text("<h1>Release</h1><p>Version 2.4.1 is ready.</p>", encoding="utf-8")
+
+            result = ce.build_pack([sources], "release 2.4.1 ready", 400, root / "out")
+
+            self.assertLessEqual(result.packed_tokens, 400)
+            canon = sorted(path.name for path in (root / "out" / "canon").glob("*.md"))
+            self.assertEqual(canon, ["data.json.md", "page.html.md", "rules.yaml.md", "table.csv.md"])
+
+    def test_complete_pack_respects_hard_budget(self) -> None:
+        ce = load_context_economy()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "large.md"
+            source.write_text("# Release\n" + ("release validation evidence details. " * 250), encoding="utf-8")
+
+            result = ce.build_pack([source], "release validation", 120, root / "out")
+
+            self.assertLessEqual(result.packed_tokens, 120)
+            self.assertNotEqual(result.mode, "budget-conflict")
+
+    def test_essential_block_returns_budget_conflict_instead_of_overage(self) -> None:
+        ce = load_context_economy()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "command.md"
+            source.write_text("# Command\n```powershell\n" + ("Write-Output protected\n" * 80) + "```\n", encoding="utf-8")
+
+            result = ce.build_pack([source], "command protected", 40, root / "out")
+
+            self.assertEqual(result.mode, "budget-conflict")
+            self.assertLessEqual(result.packed_tokens, 40)
+            report = (root / "out" / "savings-report.md").read_text(encoding="utf-8")
+            self.assertIn("minimum viable", report.lower())
+
     def test_repository_demo_has_positive_end_to_end_context_saving(self) -> None:
         ce = load_context_economy()
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -96,6 +141,26 @@ class ContextEconomyPipelineTests(unittest.TestCase):
             )
 
             self.assertLess(result.packed_tokens, result.source_tokens)
+
+    def test_pack_inventory_lists_every_unselected_unique_anchor(self) -> None:
+        ce = load_context_economy()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "source.md"
+            source.write_text(
+                "# Release\nVersion 2.4.1 passes tests.\n\n"
+                "# Design\nUse a calm violet interface.\n\n"
+                "# Future\nConsider localization next quarter.\n",
+                encoding="utf-8",
+            )
+            result = ce.build_pack([source], "release tests", 145, root / "out")
+            pack = (root / "out" / "packs" / "current-task.context.md").read_text(encoding="utf-8")
+            ledger = json.loads((root / "out" / "ledger.json").read_text(encoding="utf-8"))
+            selected_anchors = set(re.findall(r"\[source\.md#([^\]]+)\]", pack.split("## Omitted Anchors")[0]))
+            omitted_anchors = set(re.findall(r"\[source\.md#([^\]]+)\]", pack.split("## Omitted Anchors")[1]))
+            ledger_anchors = {item["anchor"] for item in ledger["unique_chunks"]}
+            self.assertEqual(selected_anchors | omitted_anchors, ledger_anchors)
+            self.assertEqual(result.omitted_chunks, len(omitted_anchors))
 
     def test_build_pack_writes_smaller_stable_anchored_artifacts(self) -> None:
         ce = load_context_economy()

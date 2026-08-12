@@ -21,7 +21,7 @@ class ContextEconomyDistributionTests(unittest.TestCase):
         exporter = load_exporter()
         manifest = exporter.read_manifest(ROOT)
 
-        self.assertEqual(manifest["version"], "0.4.0")
+        self.assertEqual(manifest["version"], "0.5.0")
         self.assertIn("context-economy", manifest["suites"])
         self.assertEqual(len(manifest["suites"]), 7)
 
@@ -33,10 +33,10 @@ class ContextEconomyDistributionTests(unittest.TestCase):
             hero = (output / "assets" / "hero.svg").read_text(encoding="utf-8")
             skills = list(output.rglob("SKILL.md"))
 
-            self.assertEqual(len(skills), 7)
+            self.assertEqual(len(skills), 5)
             self.assertIn("all seven TIKAZ AI Skills for Codex suites", readme)
-            self.assertIn("v0.4.0", hero)
-            self.assertEqual((output / "VERSION").read_text(encoding="utf-8"), "0.4.0\n")
+            self.assertIn("v0.5.0", hero)
+            self.assertEqual((output / "VERSION").read_text(encoding="utf-8"), "0.5.0\n")
 
 
 if __name__ == "__main__":

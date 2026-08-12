@@ -13,11 +13,11 @@ release version 0.4.0 validation tests commands evidence anchors
 Run:
 
 ```powershell
-python .\suites\context-economy\scripts\context_economy.py pack `
+python .\suites\context-economy\scripts\tikaz_context.py pack `
   --input .\examples\context-economy-source.md `
   --input .\examples\context-economy-extra.md `
   --query 'release version 0.4.0 validation tests commands evidence anchors' `
-  --budget 180 `
+  --budget 360 `
   --output .\.context-economy-demo
 ```
 
@@ -28,12 +28,12 @@ python .\suites\context-economy\scripts\context_economy.py pack `
 | Source input | 364 |
 | Unique content after exact deduplication | 329 |
 | Exact duplicate content removed | 35 |
-| Final context pack including protocol labels | 306 |
-| Net difference | 58 fewer (15.9%) |
+| Final context pack including protocol labels | 311 |
+| Net difference | 53 fewer (14.6%) |
 
-The run selected `select` mode, retained two anchored sections, and listed four omitted anchors. It preserved version `0.4.0`, the source URL, and the complete PowerShell validation block.
+The run selected `pass-through` mode, retained three unique anchored sections, and removed one exact duplicate. It preserved version `0.4.0`, the source URL, and the complete PowerShell validation block.
 
-The first implementation failed this demonstration: protocol labels and duplicated protected facts produced a 448-token pack from a 364-token input. That regression is now fixed by a test requiring positive end-to-end savings on this fixture. The change also stopped repeating protected facts already present in exact evidence and added a relative relevance threshold rather than filling the budget with weak matches.
+The 30-case public correctness suite separately reports 100% budget compliance, declared protected-fact recall, and expected-anchor correctness on its synthetic fixtures. Across the suite, 1,375 estimated source tokens become 3,588 packed tokens, a 160.95% increase because protocol labels dominate. Only 14 cases declare protected facts, so this is neither an all-facts claim nor a savings claim. This longer fixture demonstrates the break-even case instead.
 
 ## Limits
 

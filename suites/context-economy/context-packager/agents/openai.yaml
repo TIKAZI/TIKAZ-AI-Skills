@@ -1,4 +1,0 @@
-interface:
-  display_name: "Context Packager"
-  short_description: "Build a bounded portable context handoff"
-  default_prompt: "Use $context-packager to assemble the selected evidence and task state into one bounded, traceable context pack."
