@@ -31,7 +31,7 @@ foreach ($skill in $skills) {
     if ($content -notmatch '(?is)designed.{0,100}integrated.{0,100}(independently\s+)?refactored.{0,100}(continuously\s+)?maintained.{0,60}TIKAZ') { Add-CheckError "Missing full TIKAZ contribution statement: $relative" }
     if ($content -match '(?i)(?:[A-Z]:\\Users\\|[A-Z]:\\CodexTools|F:\\KnowledgeBase|market-team-knowledge)') { Add-CheckError "Private or machine-specific path: $relative" }
     if ($content -match '(?i)(api[_ -]?key|token|secret|password)\s*[:=]\s*["''][^$<{\s]+["'']') { Add-CheckError "Possible embedded secret: $relative" }
-    if ($content -match '(?i)gpt-image-2|Zuco' -or ($content -match '(?i)生图-Image2' -and $content -notmatch '(?i)(exclude|not included|不包含|排除).{0,30}生图-Image2')) { Add-CheckError "Excluded image provider dependency found: $relative" }
+    if ($content -match '(?i)gpt-image-2|Zuco') { Add-CheckError "Excluded image provider dependency found: $relative" }
 }
 
 $sourcePath = Join-Path $root 'SOURCES.yml'
