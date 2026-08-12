@@ -24,3 +24,17 @@ jobs:
             python $validator $_.Directory.FullName
             if ($LASTEXITCODE -ne 0) { throw "Skill validation failed: $($_.FullName)" }
           }
+  distributions:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [frontend-design, video-intelligence, engineering, knowledge-research, presentation, visual-content]
+    steps:
+      - uses: actions/checkout@v5
+      - name: Build distribution
+        shell: powershell
+        run: python .\scripts\export_distribution.py --suite ${{ matrix.suite }} --output .\_distribution
+      - name: Validate distribution
+        shell: powershell
+        run: .\_distribution\scripts\validate_distribution.ps1

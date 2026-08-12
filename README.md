@@ -76,6 +76,21 @@ label evidence levels, and list every claim that remains unverified.
 
 There are **25 installable Skills**, including the six suite orchestrators. Use a suite orchestrator for an end-to-end outcome; install a child Skill when you need only one focused capability.
 
+### Install a complete suite separately
+
+The monorepo is the **single source of truth**. Six focused repositories are automatically generated from it so each suite can be discovered, starred, cloned, and installed on its own without creating seven drifting codebases.
+
+| Standalone distribution | Best entry point |
+|---|---|
+| [TIKAZ Frontend Design for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) | Interface art direction, implementation, and visual QA |
+| [TIKAZ Video Intelligence for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) | Timestamped video evidence and synthesis |
+| [TIKAZ Engineering Workflows for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) | Repository delivery, impact analysis, review, and operations |
+| [TIKAZ Knowledge & Research for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Knowledge-Research) | Research, source normalization, decisions, and reusable memory |
+| [TIKAZ Presentation Workflows for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Presentation) | HTML, editable PPTX, and editorial web decks |
+| [TIKAZ Visual Content for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Visual-Content) | Illustration direction, concise writing, and lawful music |
+
+Each distribution records the exact canonical commit in `DISTRIBUTION.yml`, validates independently, and synchronizes weekly or on demand. Cross-suite development and source-of-truth Issues stay in this repository.
+
 ## Start in 60 seconds
 
 ### 1. Clone

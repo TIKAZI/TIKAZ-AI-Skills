@@ -1,0 +1,55 @@
+{
+  "version": "0.2.0",
+  "owner": "TIKAZI",
+  "collection": "TIKAZ-AI-Skills",
+  "suites": {
+    "frontend-design": {
+      "repository": "TIKAZ-Codex-Frontend-Design",
+      "title": "TIKAZ Frontend Design for Codex",
+      "tagline": "Art-directed frontend workflows that prove the visual direction before scaling implementation.",
+      "accent": "8B5CF6",
+      "highlights": ["Four product-surface modes instead of one landing-page aesthetic", "Design Read and three project dials before implementation", "Revision-bound desktop/mobile proof and engineering QA"],
+      "prompts": ["Redesign this dashboard. Classify the surface and approve a desktop/mobile art-direction proof before expanding the full product.", "Audit this interface for generic visual patterns, then distill it without turning it into a marketing page.", "Create a DESIGN.md for this app, implement the representative viewport, and verify responsive and reduced-motion states."]
+    },
+    "video-intelligence": {
+      "repository": "TIKAZ-Codex-Video-Intelligence",
+      "title": "TIKAZ Video Intelligence for Codex",
+      "tagline": "Evidence-graded video reading with timestamps, keyframes, source cards, and cross-video synthesis.",
+      "accent": "22D3EE",
+      "highlights": ["Five evidence levels from metadata to primary-source verification", "Transcript, visual observation, external verification, and inference stay separate", "Partial failures remain visible in the source ledger"],
+      "prompts": ["Compare these videos with timestamps and label the evidence level behind every important claim.", "Read this local lecture, inspect keyframes where the transcript is insufficient, and produce an auditable source card.", "Synthesize these tutorials, show disagreements and missing dependencies, then recommend a workflow with confidence levels."]
+    },
+    "engineering": {
+      "repository": "TIKAZ-Codex-Engineering",
+      "title": "TIKAZ Engineering Workflows for Codex",
+      "tagline": "Production delivery from specification and impact mapping to tests, review, and release evidence.",
+      "accent": "60A5FA",
+      "highlights": ["One lifecycle owner from acceptance criteria to handoff", "Unified clean-room code intelligence for architecture and impact", "Security, Supabase, and video-workbench adapters route without expanding scope"],
+      "prompts": ["Map the impact of this API change, implement it in small slices, and provide test and rollback evidence.", "Review this unfamiliar repository and produce an architecture map before proposing a cross-file refactor.", "Audit this third-party Skill for credential, permission, dependency, and prompt-injection risks before installation."]
+    },
+    "knowledge-research": {
+      "repository": "TIKAZ-Codex-Knowledge-Research",
+      "title": "TIKAZ Knowledge & Research for Codex",
+      "tagline": "Traceable research and decisions with evidence ledgers, disagreement, confidence, and knowledge feedback.",
+      "accent": "34D399",
+      "highlights": ["Question and evidence threshold are fixed before synthesis", "Conversion, retrieval, evidence, inference, and recommendation remain distinct", "Personal knowledge is adopted only when it changes execution"],
+      "prompts": ["Compare these papers with inclusion criteria, contrary evidence, confidence, and claims that need revalidation.", "Convert this document to Markdown, inspect fidelity, then extract decision-ready claims without inventing citations.", "Retrieve relevant personal project decisions and record only knowledge that materially changes the plan."]
+    },
+    "presentation": {
+      "repository": "TIKAZ-Codex-Presentation",
+      "title": "TIKAZ Presentation Workflows for Codex",
+      "tagline": "Narrative-first HTML, PPTX, and editorial web decks with page contracts and rendered QA.",
+      "accent": "F59E0B",
+      "highlights": ["Choose exactly one output builder for each final deck", "Every slide receives a claim, evidence, visual job, and speaker intent", "Rendered overflow, media licensing, and final artifact integrity are completion gates"],
+      "prompts": ["Choose HTML or PPTX for this talk, write page contracts, and render representative pages before completing the deck.", "Create an editable PowerPoint from this brief and inspect every dense slide for overflow and collisions.", "Turn this essay into a single-file editorial web deck with restrained motion and offline verification."]
+    },
+    "visual-content": {
+      "repository": "TIKAZ-Codex-Visual-Content",
+      "title": "TIKAZ Visual Content for Codex",
+      "tagline": "Provider-neutral illustration, concise writing, and lawful music workflows with publishing QA.",
+      "accent": "F472B6",
+      "highlights": ["One visual identity and one shot card own each asset", "Chinese labels, factual claims, alt text, and publishing-size legibility are verified", "Music discovery retains license and attribution evidence"],
+      "prompts": ["Turn this essay into one original hand-drawn metaphor with a shot card, verified Chinese labels, and alt text.", "Explain this warehouse process as a sourced 16:9 logistics diagram with aligned nodes and explicit exceptions.", "Remove filler from this caption, then find lawful music and retain the download and attribution evidence."]
+    }
+  }
+}
