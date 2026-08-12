@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Engineering"
+  short_description: "Evidence-driven software delivery from spec to release"
+  default_prompt: "Use $engineering to map impact, define acceptance evidence, implement in small slices, and verify before release."

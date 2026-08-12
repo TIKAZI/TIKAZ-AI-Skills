@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Frontend Design"
+  short_description: "Art-directed frontend design, implementation, and QA"
+  default_prompt: "Use $frontend-design to choose a surface mode, create an art-direction proof, then implement and verify the approved design."

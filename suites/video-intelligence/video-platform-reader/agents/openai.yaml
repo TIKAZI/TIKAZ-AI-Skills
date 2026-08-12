@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Video Platform Reader"
+  short_description: "Evidence-based cross-platform video reading and synthesis"
+  default_prompt: "Use $video-platform-reader to analyze these videos with timestamps, evidence levels, and explicit gaps."

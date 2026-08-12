@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Video Intelligence"
+  short_description: "Traceable cross-platform video research and synthesis"
+  default_prompt: "Use $video-intelligence to build an evidence ledger, analyze each video, and synthesize only after source-level verification."

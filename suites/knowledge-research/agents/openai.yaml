@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Knowledge Research"
+  short_description: "Traceable research, decisions, and personal knowledge feedback"
+  default_prompt: "Use $knowledge-research to define the evidence threshold, build a source ledger, and separate facts, inference, and recommendations."

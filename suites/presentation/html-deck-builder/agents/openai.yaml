@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ HTML Deck Builder"
+  short_description: "Build verified browser-editable HTML presentations"
+  default_prompt: "Use $html-deck-builder to create an HTML presentation with page contracts and render QA."

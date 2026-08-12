@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Magazine Web Deck"
+  short_description: "Create distinctive editorial single-file web decks"
+  default_prompt: "Use $magazine-web-deck to design a single-file editorial web presentation and verify it visually."

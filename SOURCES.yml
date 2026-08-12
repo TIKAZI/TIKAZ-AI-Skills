@@ -1,0 +1,176 @@
+schema_version: 2
+maintainer: TIKAZ
+repository_license: MIT
+policy: >-
+  The release tree contains TIKAZ-authored original, clean-room, and adapter
+  material. Research references are acknowledged but not redistributed.
+  Unknown-license, noncommercial, or incompatible vendored content fails the
+  release gate.
+
+skills:
+  video-platform-reader:
+    mode: clean-room
+    bundled_upstream: false
+    research_references:
+      - url: https://github.com/keepongo/video-summarizer
+        revision: 481a772
+        observed_license: unknown
+    license: MIT
+    release_status: ready
+    tikaz_changes: [cross-platform source ledger, five evidence levels, claim-type separation, keyframe escalation, partial-failure handling, synthesis contract]
+
+  frontend-design-studio:
+    mode: original-integration
+    bundled_upstream: false
+    research_references:
+      - {url: https://github.com/google-labs-code/design.md, observed_license: Apache-2.0}
+      - {url: https://github.com/Leonxlnx/taste-skill, observed_license: MIT}
+      - {url: https://github.com/pbakaus/impeccable, observed_license: Apache-2.0}
+      - {url: https://github.com/DavidHDev/vue-bits, observed_license: MIT}
+    license: MIT
+    release_status: ready
+    tikaz_changes: [four surface modes, Design Read, three project dials, art-direction proof, conflict hierarchy, revision-bound lifecycle gates, deterministic QA scripts]
+
+  code-intelligence:
+    mode: clean-room
+    bundled_upstream: false
+    research_references:
+      - {url: https://github.com/colbymchenry/codegraph, observed_license: MIT}
+      - {url: https://github.com/abhigyanpatwari/GitNexus, observed_license: PolyForm-Noncommercial-1.0.0}
+    license: MIT
+    release_status: ready
+    note: No GitNexus code or documentation is distributed.
+    tikaz_changes: [unified repository mapping, semantic impact analysis, evidence-backed PR review, refactor invariants]
+
+  engineering-delivery:
+    mode: adapter
+    bundled_upstream: false
+    research_references:
+      - {url: https://github.com/addyosmani/agent-skills, observed_license: MIT}
+    license: MIT
+    release_status: ready
+    tikaz_changes: [single lifecycle owner, acceptance-evidence ledger, scoped validation, release and rollback handoff]
+
+  skill-security-audit:
+    mode: adapter
+    bundled_upstream: false
+    research_references:
+      - {url: https://github.com/NVIDIA/SkillSpector, observed_license: Apache-2.0}
+    license: MIT
+    release_status: ready
+    tikaz_changes: [suite import gate, severity contract, permission and prompt-injection checks]
+
+  supabase-operations:
+    mode: adapter
+    bundled_upstream: false
+    research_references:
+      - {url: https://github.com/supabase/supabase, observed_license: Apache-2.0}
+    license: MIT
+    release_status: ready
+    tikaz_changes: [migration rollback gate, RLS and secret boundary, representative-query verification]
+
+  academic-research:
+    mode: clean-room
+    bundled_upstream: false
+    research_references:
+      - {url: https://github.com/Imbad0202/academic-research-skills, observed_license: CC-BY-NC-4.0}
+    license: MIT
+    release_status: ready
+    note: No CC-BY-NC text is distributed.
+    tikaz_changes: [evidence ledger integration, disagreement and confidence recording, reusable knowledge handoff]
+
+  product-strategy:
+    mode: clean-room
+    bundled_upstream: false
+    research_references:
+      - {url: https://github.com/phuryn/pm-skills, observed_license: MIT}
+    license: MIT
+    release_status: ready
+    tikaz_changes: [decision-first evidence contract, ranked recommendation, explicit assumptions and metrics]
+
+  concise-writing-editor:
+    mode: clean-room
+    bundled_upstream: false
+    research_references:
+      - {url: https://github.com/hardikpandya/stop-slop, observed_license: MIT}
+    license: MIT
+    release_status: ready
+    tikaz_changes: [fact-preserving compression, voice retention, evidence and limitation safeguards]
+
+  html-deck-builder:
+    mode: clean-room
+    bundled_upstream: false
+    removed_upstream_reference:
+      url: https://github.com/chuspeeism/dashi-ppt-skill
+      revision: 7cb2334
+      observed_license: AGPL-3.0
+    license: MIT
+    release_status: ready
+    tikaz_changes: [tool-agnostic HTML workflow, page contracts, offline policy, accessibility and render QA]
+
+  magazine-web-deck:
+    mode: clean-room
+    bundled_upstream: false
+    removed_upstream_reference:
+      url: https://github.com/op7418/guizang-ppt-skill
+      revision: c91369c
+      observed_license: AGPL-3.0
+    license: MIT
+    release_status: ready
+    tikaz_changes: [editorial pacing roles, composition variation map, motion budget, single-file portability gate]
+
+  powerpoint-deck-builder:
+    mode: original
+    bundled_upstream: false
+    license: MIT
+    release_status: ready
+    tikaz_changes: [tool-agnostic editable-PPTX workflow, template fidelity, rendered QA, artifact verification]
+
+  xiaohei-article-illustrator:
+    mode: original
+    bundled_upstream: false
+    license: MIT
+    release_status: ready
+    tikaz_changes: [thesis-to-shot translation, metaphor selection, label budget, character role, accessibility and publishing QA]
+
+  zhuge-logistics-illustrator:
+    mode: original
+    bundled_upstream: false
+    license: MIT
+    release_status: ready
+    tikaz_changes: [logistics diagram grammar, aligned node system, claim verification, source ledger and visual QA]
+
+  personal-knowledge-memory:
+    mode: original
+    bundled_upstream: false
+    license: MIT
+    release_status: ready
+    tikaz_changes: [portable configuration, adopt-only-when-used rule, evidence-bound feedback]
+
+  document-to-markdown:
+    mode: adapter
+    bundled_upstream: false
+    license: MIT
+    release_status: ready
+    tikaz_changes: [converter-neutral workflow, representative fidelity inspection, explicit loss reporting]
+
+  solo-business-operations:
+    mode: original
+    bundled_upstream: false
+    license: MIT
+    release_status: ready
+    tikaz_changes: [capacity-aware operating plan, risk and review cadence, legal and financial uncertainty boundary]
+
+  legal-free-music:
+    mode: original
+    bundled_upstream: false
+    license: MIT
+    release_status: ready
+    tikaz_changes: [lawful-source routing, download-vs-cache distinction, license and attribution evidence]
+
+  video-workbench:
+    mode: adapter
+    bundled_upstream: false
+    license: MIT
+    release_status: ready
+    tikaz_changes: [repository-neutral state model, representative media job, desktop and mobile evidence]

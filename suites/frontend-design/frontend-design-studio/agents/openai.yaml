@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Design Studio"
+  short_description: "用单一艺术方向设计、实现并验收不普通的网页与应用前端"
+  default_prompt: "Use $frontend-design-studio to define one Design Read and art-direction proof, then implement and visually verify desktop and mobile surfaces."

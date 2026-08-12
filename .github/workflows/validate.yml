@@ -1,0 +1,26 @@
+name: Validate Skills
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate repository policy
+        shell: powershell
+        run: .\scripts\validate_skills.ps1
+      - name: Validate Skill frontmatter
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $env:PYTHONUTF8 = '1'
+          $validator = Join-Path $env:USERPROFILE '.codex-shared\skills\.system\skill-creator\scripts\quick_validate.py'
+          if (-not (Test-Path $validator)) { Write-Host 'Codex quick_validate.py is not available; repository validation remains required.'; exit 0 }
+          Get-ChildItem .\suites -Recurse -Filter SKILL.md -File | ForEach-Object {
+            python $validator $_.Directory.FullName
+            if ($LASTEXITCODE -ne 0) { throw "Skill validation failed: $($_.FullName)" }
+          }

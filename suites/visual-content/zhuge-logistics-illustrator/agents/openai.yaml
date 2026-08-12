@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Zhuge Logistics Illustrator"
+  short_description: "Create source-aware Chinese logistics explainers"
+  default_prompt: "Use $zhuge-logistics-illustrator to convert this logistics concept into a sourced 16:9 explainer."

@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+node_modules/
+config.json
+*.env
+!.env.example
+*_cookies.txt
+cache/
+outputs/

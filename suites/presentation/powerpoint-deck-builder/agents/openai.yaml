@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ PowerPoint Deck Builder"
+  short_description: "Create editable PPTX decks with rendered visual QA"
+  default_prompt: "Use $powerpoint-deck-builder to create an editable PPTX and verify the rendered slides."

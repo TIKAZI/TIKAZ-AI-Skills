@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Presentation"
+  short_description: "Narrative-first routing and QA for HTML and PowerPoint decks"
+  default_prompt: "Use $presentation to select one deck builder, define the narrative and page contract, then render and verify the final delivery."

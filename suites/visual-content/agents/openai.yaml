@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Visual Content"
+  short_description: "Style-routed illustrations, clean copy, and lawful media"
+  default_prompt: "Use $visual-content to extract the message, choose one visual identity, define a shot card, and verify the asset at publishing size."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Xiaohei Article Illustrator"
+  short_description: "Art-direct concise hand-drawn article illustrations"
+  default_prompt: "Use $xiaohei-article-illustrator to turn this article thesis into an original shot card and verified illustration."
