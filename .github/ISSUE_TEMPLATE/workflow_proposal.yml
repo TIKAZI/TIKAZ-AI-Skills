@@ -1,0 +1,23 @@
+name: Workflow proposal
+description: Propose a behavioral improvement or a new independently useful workflow.
+title: "[Proposal]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: Describe the recurring job and why existing routing is insufficient.
+    validations: {required: true}
+  - type: textarea
+    id: examples
+    attributes:
+      label: Realistic prompts and outputs
+      description: Give at least three prompts and the evidence required for success.
+    validations: {required: true}
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources and license status
+      description: List research references, copied/derived files, and their licenses.
+    validations: {required: true}

@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 MANAGED = {
-    ".github", ".gitignore", "README.md", "LICENSE", "CONTRIBUTING.md",
+    ".github", ".gitignore", "README.md", "LICENSE", "CONTRIBUTING.md", "CHANGELOG.md", "SECURITY.md",
     "SOURCES.yml", "THIRD_PARTY_NOTICES.md", "DISTRIBUTION.yml", "VERSION",
     "SKILL.md", "agents", "assets", "references", "scripts",
 }
@@ -46,7 +46,7 @@ def copy_suite(root: Path, suite: str, output: Path) -> None:
             shutil.copytree(item, destination)
         else:
             shutil.copy2(item, destination)
-    for name in ("LICENSE", "CONTRIBUTING.md", "SOURCES.yml", "THIRD_PARTY_NOTICES.md", ".gitignore"):
+    for name in ("LICENSE", "CONTRIBUTING.md", "CHANGELOG.md", "SECURITY.md", "SOURCES.yml", "THIRD_PARTY_NOTICES.md", ".gitignore"):
         shutil.copy2(root / name, output / name)
 
 

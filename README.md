@@ -17,6 +17,7 @@
 </p>
 
 <p align="center">
+  <a href="https://tikazi.github.io/TIKAZ-AI-Skills/">Live documentation</a> ·
   <a href="#start-in-60-seconds">Quick start</a> ·
   <a href="#the-six-suite-system">Six suites</a> ·
   <a href="examples/prompts.md">Prompts</a> ·
@@ -121,6 +122,8 @@ expanding the whole page.
 ```
 
 See [copy-ready prompts](examples/prompts.md) for every suite.
+
+Method demonstrations: [frontend art-direction proof](examples/frontend-design-proof.md) · [video evidence card](examples/video-evidence-card.md)
 
 ## Why it is more than a prompt collection
 

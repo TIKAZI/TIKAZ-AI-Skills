@@ -1,0 +1,29 @@
+name: Bug report
+description: Report incorrect routing, broken scripts, portability problems, or validation failures.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: dropdown
+    id: suite
+    attributes:
+      label: Suite
+      options: [frontend-design, video-intelligence, engineering, knowledge-research, presentation, visual-content, collection]
+    validations: {required: true}
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Include the prompt, expected behavior, actual behavior, and relevant files.
+    validations: {required: true}
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Verification evidence
+      description: Add command output, screenshots, or an artifact link. Remove secrets and private data.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Safety checks
+      options:
+        - label: I removed credentials, cookies, and private source material.
+          required: true
