@@ -73,7 +73,7 @@ if ($pythonFiles.Count) {
     else {
         foreach ($file in $pythonFiles) {
             $check = 'import ast, pathlib, sys; ast.parse(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))'
-            & $python.Source -c $check -- $file.FullName 2>&1 | Out-Null
+            & $python.Source -c $check $file.FullName 2>&1 | Out-Null
             if ($LASTEXITCODE -ne 0) { Add-CheckError "Python syntax failed: $($file.FullName.Substring($root.Length + 1))" }
         }
     }
