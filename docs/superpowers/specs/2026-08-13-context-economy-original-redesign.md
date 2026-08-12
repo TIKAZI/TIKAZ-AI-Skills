@@ -27,16 +27,19 @@ Product identity:
 
 ## Product boundary
 
-The public product contains two installable Skills, not seven:
+The public product contains five installable Skills: one orchestrator and four independently useful workflows.
 
 | Skill | User job | Owned outcome |
 |---|---|---|
-| `context-economy` | Prepare files, folders, logs, or structured data for a bounded task | Auditable context pack and quality report |
+| `context-economy` | Route the complete workflow and enforce the final completion gate | One primary workflow, one verified outcome |
+| `context-pack` | Prepare files, folders, logs, code, or structured data for a bounded task | Auditable context pack and evidence report |
 | `conversation-checkpoint` | Continue, hand off, or compact a long conversation safely | Recoverable conversation state |
+| `context-audit` | Diagnose redundancy, conflicts, safety, traceability, cacheability, and recoverability | Explainable Context Health report |
+| `context-benchmark` | Compare raw and prepared context on savings, fidelity, and task quality | Reproducible per-case benchmark report |
 
-Indexing, fingerprinting, deduplication, budgeting, ranking, packing, and diagnostics are internal engine modules. They must not be advertised as independent Skills merely to increase the collection count.
+Indexing, fingerprinting, deduplication, budgeting, ranking, stable-prefix planning, tokenization, protected-fact detection, and artifact assembly are internal engine modules. They must not be advertised as independent Skills merely to increase the collection count.
 
-`content-intake`, `context-ledger`, `context-budget`, `relevance-gate`, and `context-packager` are retired as public Skill entry points. Their useful contracts are absorbed into the engine.
+`content-intake`, `context-ledger`, `context-budget`, `relevance-gate`, and `context-packager` are retired as public Skill entry points. Their useful contracts are absorbed into `context-pack` and the shared engine.
 
 ## Originality and clean-room policy
 
@@ -86,7 +89,7 @@ User file/folder
   -> context pack + report
 ```
 
-The user should normally need one instruction:
+The orchestrator routes file and folder work to `context-pack`. The user should normally need one instruction:
 
 ```text
 Use context-economy to prepare these files for reviewing the release risks.
@@ -125,7 +128,9 @@ Only implemented modes may appear in user-facing output:
 1. `pass-through`: return the original canonical source when it already fits and preparation has no positive break-even.
 2. `select`: retain exact anchored excerpts under the final-pack budget.
 3. `checkpoint`: create structured, recoverable conversation state.
-4. `stable-prefix`: emit a byte-stable reusable prefix plus variable task evidence when reuse is demonstrable.
+4. `audit`: diagnose context health without silently rewriting the source.
+5. `benchmark`: compare raw and prepared contexts with separate efficiency and quality measurements.
+6. `stable-prefix`: emit a byte-stable reusable prefix plus variable task evidence when reuse is demonstrable.
 
 Learned or model-assisted compression is deferred and, when later introduced, must be called `semantic-compress`. It must never be silently substituted for exact selection.
 
@@ -166,6 +171,7 @@ The initial CLI surface is intentionally small:
 ```text
 tikaz-context pack <inputs...> --task <text> --budget <tokens> --output <dir>
 tikaz-context checkpoint --source <conversation> --output <file>
+tikaz-context audit <inputs...> [--task <text>] --output <dir>
 tikaz-context doctor [--json]
 tikaz-context benchmark --manifest <file> --output <dir>
 ```
@@ -175,6 +181,8 @@ Codex integration consumes the generated artifact directly. An optional MCP adap
 - `pack_context`
 - `read_context_pack`
 - `create_checkpoint`
+- `audit_context`
+- `run_context_benchmark`
 - `context_doctor`
 
 No adapter may read or write outside its configured workspace unless the user explicitly broadens access.
@@ -242,7 +250,16 @@ Target structure:
 suites/context-economy/
 ├─ SKILL.md
 ├─ agents/openai.yaml
+├─ context-pack/
+│  ├─ SKILL.md
+│  └─ agents/openai.yaml
 ├─ conversation-checkpoint/
+│  ├─ SKILL.md
+│  └─ agents/openai.yaml
+├─ context-audit/
+│  ├─ SKILL.md
+│  └─ agents/openai.yaml
+├─ context-benchmark/
 │  ├─ SKILL.md
 │  └─ agents/openai.yaml
 ├─ scripts/
@@ -295,7 +312,7 @@ User-facing repository documentation remains outside the Skill folder where prac
 
 The redesign is ready for release only when:
 
-- exactly two public Skills pass metadata and trigger tests;
+- exactly five public Skills pass metadata and trigger tests;
 - every advertised mode has a distinct implemented code path;
 - all core formats work through one command;
 - final packs obey hard budgets or return a tested `budget-conflict` result;
