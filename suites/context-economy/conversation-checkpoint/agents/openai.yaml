@@ -1,0 +1,4 @@
+interface:
+  display_name: "Conversation Checkpoint"
+  short_description: "Preserve recoverable state from long conversations"
+  default_prompt: "Use $conversation-checkpoint to turn this conversation into a recoverable state snapshot with protected facts and open questions."

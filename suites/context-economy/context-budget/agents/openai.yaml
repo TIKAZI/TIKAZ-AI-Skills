@@ -1,0 +1,4 @@
+interface:
+  display_name: "Context Budget"
+  short_description: "Choose when context optimization is worthwhile"
+  default_prompt: "Use $context-budget to choose pass-through, select, compact, or cache-stable mode from measured cost and information risk."

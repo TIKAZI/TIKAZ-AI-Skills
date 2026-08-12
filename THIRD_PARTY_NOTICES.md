@@ -7,6 +7,7 @@ Research that materially informed the problem framing includes:
 - Google Labs `design.md`, Leonxlnx `taste-skill`, pbakaus `impeccable`, and DavidHDev `vue-bits` for frontend design problem framing. TIKAZ authored the surface-routing, Design Read, three-dial art direction, proof/revision lifecycle, conflict hierarchy, templates, and deterministic QA integration in this repository.
 - colbymchenry `codegraph` and abhigyanpatwari `GitNexus` for code-intelligence problem framing. No GitNexus code or text is distributed; its PolyForm Noncommercial license is not applied to TIKAZ's independently written workflow.
 - addyosmani `agent-skills`, NVIDIA `SkillSpector`, Supabase, phuryn `pm-skills`, Imbad0202 `academic-research-skills`, hardikpandya `stop-slop`, and keepongo `video-summarizer` as research references in their respective domains.
+- Microsoft `MarkItDown`, Docling, LLMLingua/LongLLMLingua, the “Lost in the Middle” and prompt-compression research papers, and OpenAI prompt-caching/compaction documentation informed the Context Economy problem analysis. TIKAZ independently authored the suite terminology, mode decision, deterministic algorithms, artifact contracts, protected-fact checks, tests, and packaging in this repository; no referenced implementation or prose is redistributed.
 
 Full URLs, recorded revisions where known, license observations, contribution types, and distribution status are maintained in [SOURCES.yml](SOURCES.yml).
 

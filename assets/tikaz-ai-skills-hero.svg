@@ -1,6 +1,6 @@
 <svg width="1440" height="560" viewBox="0 0 1440 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">TIKAZ AI Skills for Codex</title>
-  <desc id="desc">Six composable evidence-first workflows connected to one verified delivery system.</desc>
+  <desc id="desc">Seven composable evidence-first workflows connected to one verified delivery system.</desc>
   <defs>
     <linearGradient id="bg" x1="72" y1="22" x2="1360" y2="560" gradientUnits="userSpaceOnUse">
       <stop stop-color="#0B1020"/>
@@ -31,38 +31,43 @@
   <g font-family="Segoe UI, Arial, sans-serif">
     <text x="86" y="94" fill="#A5B4FC" font-size="18" font-weight="650" letter-spacing="4">TIKAZ / OPEN WORKFLOW SYSTEM</text>
     <text x="82" y="174" fill="#F8FAFC" font-size="64" font-weight="720" letter-spacing="-2">AI Skills for Codex</text>
-    <text x="86" y="220" fill="#CBD5E1" font-size="24" font-weight="420">Six composable workflows. One evidence-first quality contract.</text>
+    <text x="86" y="220" fill="#CBD5E1" font-size="24" font-weight="420">Seven composable workflows. One evidence-first quality contract.</text>
   </g>
   <g filter="url(#shadow)" font-family="Segoe UI, Arial, sans-serif">
     <g transform="translate(86 296)">
-      <rect width="192" height="72" rx="16" fill="#17152D" stroke="#8B5CF6" stroke-opacity="0.7"/>
+      <rect width="168" height="72" rx="16" fill="#17152D" stroke="#8B5CF6" stroke-opacity="0.7"/>
       <circle cx="28" cy="25" r="6" fill="#A78BFA"/>
       <text x="24" y="52" fill="#F1F5F9" font-size="16" font-weight="600">FRONTEND</text>
     </g>
-    <g transform="translate(294 296)">
-      <rect width="192" height="72" rx="16" fill="#111B2A" stroke="#22D3EE" stroke-opacity="0.7"/>
+    <g transform="translate(264 296)">
+      <rect width="168" height="72" rx="16" fill="#111B2A" stroke="#22D3EE" stroke-opacity="0.7"/>
       <circle cx="28" cy="25" r="6" fill="#22D3EE"/>
       <text x="24" y="52" fill="#F1F5F9" font-size="16" font-weight="600">VIDEO</text>
     </g>
-    <g transform="translate(502 296)">
-      <rect width="192" height="72" rx="16" fill="#151827" stroke="#64748B" stroke-opacity="0.7"/>
-      <circle cx="28" cy="25" r="6" fill="#94A3B8"/>
-      <text x="24" y="52" fill="#F1F5F9" font-size="16" font-weight="600">ENGINEERING</text>
+    <g transform="translate(442 296)">
+      <rect width="168" height="72" rx="16" fill="#17152D" stroke="#A78BFA" stroke-opacity="0.7"/>
+      <circle cx="28" cy="25" r="6" fill="#A78BFA"/>
+      <text x="24" y="52" fill="#F1F5F9" font-size="14" font-weight="600">CONTEXT</text>
     </g>
-    <g transform="translate(710 296)">
-      <rect width="192" height="72" rx="16" fill="#151827" stroke="#64748B" stroke-opacity="0.7"/>
+    <g transform="translate(620 296)">
+      <rect width="168" height="72" rx="16" fill="#151827" stroke="#64748B" stroke-opacity="0.7"/>
       <circle cx="28" cy="25" r="6" fill="#94A3B8"/>
-      <text x="24" y="52" fill="#F1F5F9" font-size="16" font-weight="600">RESEARCH</text>
+      <text x="24" y="52" fill="#F1F5F9" font-size="14" font-weight="600">ENGINEERING</text>
     </g>
-    <g transform="translate(918 296)">
-      <rect width="192" height="72" rx="16" fill="#151827" stroke="#64748B" stroke-opacity="0.7"/>
+    <g transform="translate(798 296)">
+      <rect width="168" height="72" rx="16" fill="#151827" stroke="#64748B" stroke-opacity="0.7"/>
       <circle cx="28" cy="25" r="6" fill="#94A3B8"/>
-      <text x="24" y="52" fill="#F1F5F9" font-size="16" font-weight="600">PRESENTATION</text>
+      <text x="24" y="52" fill="#F1F5F9" font-size="14" font-weight="600">RESEARCH</text>
     </g>
-    <g transform="translate(1126 296)">
-      <rect width="228" height="72" rx="16" fill="#151827" stroke="#64748B" stroke-opacity="0.7"/>
+    <g transform="translate(976 296)">
+      <rect width="168" height="72" rx="16" fill="#151827" stroke="#64748B" stroke-opacity="0.7"/>
       <circle cx="28" cy="25" r="6" fill="#94A3B8"/>
-      <text x="24" y="52" fill="#F1F5F9" font-size="16" font-weight="600">VISUAL CONTENT</text>
+      <text x="24" y="52" fill="#F1F5F9" font-size="13" font-weight="600">PRESENTATION</text>
+    </g>
+    <g transform="translate(1154 296)">
+      <rect width="200" height="72" rx="16" fill="#151827" stroke="#64748B" stroke-opacity="0.7"/>
+      <circle cx="28" cy="25" r="6" fill="#94A3B8"/>
+      <text x="24" y="52" fill="#F1F5F9" font-size="14" font-weight="600">VISUAL CONTENT</text>
     </g>
   </g>
   <path d="M182 398H1258" stroke="url(#accent)" stroke-width="3" stroke-linecap="round"/>

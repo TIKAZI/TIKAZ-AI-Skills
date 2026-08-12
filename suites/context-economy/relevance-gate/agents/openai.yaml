@@ -1,0 +1,4 @@
+interface:
+  display_name: "Relevance Gate"
+  short_description: "Select exact task-relevant source sections"
+  default_prompt: "Use $relevance-gate to select and order exact anchored sections for this task without unsupported summarization."

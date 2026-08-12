@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.4.0] - 2026-08-13
+
+### Added
+
+- Context Economy for Codex as the seventh independently installable suite.
+- Six focused context Skills for intake, ledgering, budget decisions, relevance selection, packaging, and conversation recovery.
+- A dependency-free deterministic CLI for Markdown chunking, SHA-256 fingerprints, exact deduplication, token estimates, context packs, savings reports, and snapshot validation.
+- Test-first coverage for primitives, end-to-end artifact stability, protected facts, and standalone distribution export.
+
+### Changed
+
+- Expanded the collection to seven suites and 32 installable Skills.
+- Made standalone distribution hero versions derive from the canonical manifest instead of a hard-coded version.
+
 ## [0.3.0] - 2026-08-12
 
 ### Added

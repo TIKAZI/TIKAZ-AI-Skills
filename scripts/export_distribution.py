@@ -50,13 +50,13 @@ def copy_suite(root: Path, suite: str, output: Path) -> None:
         shutil.copy2(root / name, output / name)
 
 
-def hero_svg(title: str, tagline: str, accent: str) -> str:
+def hero_svg(title: str, tagline: str, accent: str, version: str) -> str:
     safe_title = title.replace("&", "&amp;")
     safe_tagline = tagline.replace("&", "&amp;")
     return f'''<svg width="1440" height="500" viewBox="0 0 1440 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{safe_title}">
 <defs><linearGradient id="bg" x1="0" y1="0" x2="1440" y2="500"><stop stop-color="#090D18"/><stop offset="1" stop-color="#101A24"/></linearGradient><radialGradient id="g"><stop stop-color="#{accent}" stop-opacity=".34"/><stop offset="1" stop-color="#{accent}" stop-opacity="0"/></radialGradient></defs>
 <rect width="1440" height="500" rx="30" fill="url(#bg)"/><circle cx="1180" cy="80" r="520" fill="url(#g)"/><path d="M0 100H1440M0 200H1440M0 300H1440M0 400H1440M240 0V500M480 0V500M720 0V500M960 0V500M1200 0V500" stroke="#94A3B8" stroke-opacity=".055"/>
-<g font-family="Segoe UI,Arial,sans-serif"><text x="86" y="92" fill="#{accent}" font-size="18" font-weight="700" letter-spacing="4">PART OF TIKAZ AI SKILLS FOR CODEX</text><text x="82" y="190" fill="#F8FAFC" font-size="58" font-weight="720" letter-spacing="-2">{safe_title}</text><foreignObject x="86" y="224" width="900" height="110"><div xmlns="http://www.w3.org/1999/xhtml" style="color:#CBD5E1;font:24px Segoe UI,Arial,sans-serif;line-height:1.45">{safe_tagline}</div></foreignObject><rect x="86" y="374" width="260" height="58" rx="29" fill="#{accent}"/><text x="128" y="411" fill="#07111B" font-size="16" font-weight="750" letter-spacing="1.3">INSTALL ONE WORKFLOW</text><text x="1080" y="430" fill="#94A3B8" font-size="15">TIKAZ EDITION · v0.2.0</text></g></svg>'''
+<g font-family="Segoe UI,Arial,sans-serif"><text x="86" y="92" fill="#{accent}" font-size="18" font-weight="700" letter-spacing="4">PART OF TIKAZ AI SKILLS FOR CODEX</text><text x="82" y="190" fill="#F8FAFC" font-size="58" font-weight="720" letter-spacing="-2">{safe_title}</text><foreignObject x="86" y="224" width="900" height="110"><div xmlns="http://www.w3.org/1999/xhtml" style="color:#CBD5E1;font:24px Segoe UI,Arial,sans-serif;line-height:1.45">{safe_tagline}</div></foreignObject><rect x="86" y="374" width="260" height="58" rx="29" fill="#{accent}"/><text x="128" y="411" fill="#07111B" font-size="16" font-weight="750" letter-spacing="1.3">INSTALL ONE WORKFLOW</text><text x="1080" y="430" fill="#94A3B8" font-size="15">TIKAZ EDITION · v{version}</text></g></svg>'''
 
 
 def workflow_files(owner: str, collection: str, suite: str) -> dict[str, str]:
@@ -136,7 +136,7 @@ def readme(info: dict, suite: str, version: str, owner: str, collection: str) ->
 <h1 align="center">{info['title']}</h1>
 <p align="center"><strong>{info['tagline']}</strong></p>
 <p align="center"><a href="https://github.com/{owner}/{repo}/actions/workflows/validate.yml"><img src="https://github.com/{owner}/{repo}/actions/workflows/validate.yml/badge.svg" alt="Validate" /></a> <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-f4c95d.svg" alt="MIT" /></a> <img src="https://img.shields.io/badge/version-{version}-{info['accent']}.svg" alt="{version}" /></p>
-<p align="center"><a href="https://github.com/{owner}/{collection}">← Explore all six TIKAZ AI Skills for Codex suites</a></p>
+<p align="center"><a href="https://github.com/{owner}/{collection}">← Explore all seven TIKAZ AI Skills for Codex suites</a></p>
 
 ---
 
@@ -196,7 +196,7 @@ def build(root: Path, suite: str, output: Path) -> None:
     clean_output(output)
     copy_suite(root, suite, output)
     (output / "assets").mkdir(exist_ok=True)
-    (output / "assets" / "hero.svg").write_text(hero_svg(info["title"], info["tagline"], info["accent"]), encoding="utf-8")
+    (output / "assets" / "hero.svg").write_text(hero_svg(info["title"], info["tagline"], info["accent"], manifest["version"]), encoding="utf-8")
     (output / "README.md").write_text(readme(info, suite, manifest["version"], manifest["owner"], manifest["collection"]), encoding="utf-8")
     (output / "VERSION").write_text(manifest["version"] + "\n", encoding="utf-8")
     try:

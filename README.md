@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/tikaz-ai-skills-hero.svg" alt="TIKAZ AI Skills for Codex — six composable, evidence-first workflows" width="100%" />
+  <img src="assets/tikaz-ai-skills-hero.svg" alt="TIKAZ AI Skills for Codex — seven composable, evidence-first workflows" width="100%" />
 </p>
 
 <h1 align="center">TIKAZ AI Skills for Codex</h1>
@@ -12,14 +12,14 @@
 <p align="center">
   <a href="https://github.com/TIKAZI/TIKAZ-AI-Skills/actions/workflows/validate.yml"><img src="https://github.com/TIKAZI/TIKAZ-AI-Skills/actions/workflows/validate.yml/badge.svg" alt="Validate Skills" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-f4c95d.svg" alt="MIT License" /></a>
-  <img src="https://img.shields.io/badge/suites-6-8b5cf6.svg" alt="6 suites" />
-  <img src="https://img.shields.io/badge/skills-25-22d3ee.svg" alt="25 Skills" />
+  <img src="https://img.shields.io/badge/suites-7-8b5cf6.svg" alt="7 suites" />
+  <img src="https://img.shields.io/badge/skills-32-22d3ee.svg" alt="32 Skills" />
 </p>
 
 <p align="center">
   <a href="https://tikazi.github.io/TIKAZ-AI-Skills/">Live documentation</a> ·
   <a href="#start-in-60-seconds">Quick start</a> ·
-  <a href="#the-six-suite-system">Six suites</a> ·
+  <a href="#the-seven-suite-system">Seven suites</a> ·
   <a href="examples/prompts.md">Prompts</a> ·
   <a href="SOURCES.yml">Provenance</a> ·
   <a href="CONTRIBUTING.md">Contributing</a>
@@ -27,9 +27,9 @@
 
 ---
 
-## One collection. Six workflows. One quality contract.
+## One collection. Seven workflows. One quality contract.
 
-TIKAZ AI Skills is a monorepo maintained by **TIKAZ** for **Codex and compatible Skill hosts**, with contributions welcome. Six suites live together because useful work crosses boundaries: video evidence can become research, research can become a deck, and an approved interface can move into engineering delivery.
+TIKAZ AI Skills is a monorepo maintained by **TIKAZ** for **Codex and compatible Skill hosts**, with contributions welcome. Seven suites live together because useful work crosses boundaries: Context Economy can prepare the smallest reliable handoff, video evidence can become research, research can become a deck, and an approved interface can move into engineering delivery.
 
 Each suite remains independently installable. The collection supplies the shared rules that keep handoffs coherent:
 
@@ -64,10 +64,11 @@ Use video-platform-reader to compare these videos. Keep timestamps,
 label evidence levels, and list every claim that remains unverified.
 ```
 
-## The six-suite system
+## The seven-suite system
 
 | Suite | Skills | Owns | Typical path |
 |---|---:|---|---|
+| **[Context Economy](suites/context-economy)** | 7 | Efficient, recoverable context | intake → ledger → budget → relevance → context pack |
 | **[Video Intelligence](suites/video-intelligence)** | 2 | Auditable video learning | sources → transcript/ASR → keyframes → evidence cards → synthesis |
 | **[Frontend Design](suites/frontend-design)** | 2 | Distinctive product interfaces | surface → Design Read → proof → implementation → visual QA |
 | **[Engineering](suites/engineering)** | 6 | Safe repository delivery | specification → impact map → code → tests → review → release evidence |
@@ -75,14 +76,15 @@ label evidence levels, and list every claim that remains unverified.
 | **[Presentation](suites/presentation)** | 4 | Verified decks | narrative → one format → page contracts → render QA → artifact |
 | **[Visual Content](suites/visual-content)** | 5 | Publishable content assets | thesis → one style → shot card → creation → publishing QA |
 
-There are **25 installable Skills**, including the six suite orchestrators. Use a suite orchestrator for an end-to-end outcome; install a child Skill when you need only one focused capability.
+There are **32 installable Skills**, including the seven suite orchestrators. Use a suite orchestrator for an end-to-end outcome; install a child Skill when you need only one focused capability.
 
 ### Install a complete suite separately
 
-The monorepo is the **single source of truth**. Six focused repositories are automatically generated from it so each suite can be discovered, starred, cloned, and installed on its own without creating seven drifting codebases.
+The monorepo is the **single source of truth**. Seven focused repositories are automatically generated from it so each suite can be discovered, starred, cloned, and installed on its own without creating eight drifting codebases.
 
 | Standalone distribution | Best entry point |
 |---|---|
+| [TIKAZ Context Economy for Codex](suites/context-economy) *(canonical preview)* | File normalization, context budgeting, exact selection, and recoverable checkpoints |
 | [TIKAZ Frontend Design for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) | Interface art direction, implementation, and visual QA |
 | [TIKAZ Video Intelligence for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) | Timestamped video evidence and synthesis |
 | [TIKAZ Engineering Workflows for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) | Repository delivery, impact analysis, review, and operations |
@@ -123,7 +125,7 @@ expanding the whole page.
 
 See [copy-ready prompts](examples/prompts.md) for every suite.
 
-Method demonstrations: [frontend art-direction proof](examples/frontend-design-proof.md) · [video evidence card](examples/video-evidence-card.md)
+Method demonstrations: [Context Economy fixture](examples/context-economy-proof.md) · [frontend art-direction proof](examples/frontend-design-proof.md) · [video evidence card](examples/video-evidence-card.md)
 
 ## Why it is more than a prompt collection
 
@@ -138,7 +140,8 @@ Method demonstrations: [frontend art-direction proof](examples/frontend-design-p
 
 ```text
 TIKAZ-AI-Skills/
-├─ suites/                    # six independently installable workflow suites
+├─ suites/                    # seven independently installable workflow suites
+│  ├─ context-economy/        # context budgeting, selection, packaging, and recovery
 │  ├─ frontend-design/        # flagship: art direction + implementation gates
 │  ├─ video-intelligence/     # flagship: evidence-based video understanding
 │  ├─ engineering/
@@ -160,7 +163,7 @@ powershell -NoProfile -ExecutionPolicy Bypass `
   -File '.\scripts\validate_skills.ps1'
 ```
 
-It checks all 25 Skills for structure, attribution, source policy, portability, routing, UI metadata, generated files, and Python syntax. A green check proves repository consistency; optional platform access still depends on the user's environment and permissions.
+It checks all 32 Skills for structure, attribution, source policy, portability, routing, UI metadata, generated files, and Python syntax. A green check proves repository consistency; optional platform access still depends on the user's environment and permissions.
 
 ## Authorship, sources, and license
 

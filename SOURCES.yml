@@ -13,6 +13,60 @@ policy: >-
   release gate.
 
 skills:
+  content-intake:
+    mode: clean-room
+    bundled_upstream: false
+    research_references:
+      - {url: https://github.com/microsoft/markitdown, observed_license: MIT}
+      - {url: https://github.com/docling-project/docling, observed_license: MIT}
+    license: MIT
+    release_status: ready
+    tikaz_changes: [cost-aware conversion routing, canonical asset contract, representative fidelity gate, untrusted-input boundary]
+
+  context-ledger:
+    mode: original
+    bundled_upstream: false
+    license: MIT
+    release_status: ready
+    tikaz_changes: [stable heading anchors, SHA-256 source and chunk fingerprints, exact deduplication ledger, protected-fact inventory]
+
+  context-budget:
+    mode: original-integration
+    bundled_upstream: false
+    research_references:
+      - {url: https://developers.openai.com/api/docs/guides/prompt-caching, observed_license: terms-governed-documentation}
+      - {url: https://developers.openai.com/api/docs/guides/compaction, observed_license: terms-governed-documentation}
+      - {url: https://arxiv.org/abs/2604.02985, observed_license: research-reference-only}
+    license: MIT
+    release_status: ready
+    tikaz_changes: [four-mode decision contract, break-even refusal, preparation-cost accounting, stable-prefix preservation]
+
+  relevance-gate:
+    mode: clean-room
+    bundled_upstream: false
+    research_references:
+      - {url: https://arxiv.org/abs/2310.06839, observed_license: research-reference-only}
+      - {url: https://arxiv.org/abs/2307.03172, observed_license: research-reference-only}
+    license: MIT
+    release_status: ready
+    tikaz_changes: [transparent lexical ranking, heading and protected-fact bonuses, exact anchored selection, deliberate evidence ordering]
+
+  context-packager:
+    mode: original
+    bundled_upstream: false
+    license: MIT
+    release_status: ready
+    tikaz_changes: [portable pack contract, exact-source and state separation, omitted-anchor inventory, deterministic savings report]
+
+  conversation-checkpoint:
+    mode: original-integration
+    bundled_upstream: false
+    research_references:
+      - {url: https://developers.openai.com/api/docs/guides/compaction, observed_license: terms-governed-documentation}
+    license: MIT
+    release_status: ready
+    tikaz_changes: [seven-section recovery state, protected-fact coverage validator, evidence-bound completion state, visible omission reporting]
+
   video-platform-reader:
     mode: clean-room
     bundled_upstream: false

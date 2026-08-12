@@ -1,0 +1,4 @@
+interface:
+  display_name: "Context Ledger"
+  short_description: "Fingerprint, index, and deduplicate context"
+  default_prompt: "Use $context-ledger to create stable section anchors, fingerprints, and an exact-duplicate ledger for these canonical sources."
