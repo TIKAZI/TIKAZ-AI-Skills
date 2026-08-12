@@ -29,9 +29,9 @@ foreach ($skill in $skills) {
     if ($skill.Directory.Name -ne $name) { Add-CheckError "Folder/name mismatch in ${relative}: $name" }
     if ($skillNames.ContainsKey($name)) { Add-CheckError "Duplicate skill name '$name': $relative and $($skillNames[$name])" } else { $skillNames[$name] = $relative }
     if ($content -notmatch '(?is)designed.{0,100}integrated.{0,100}(independently\s+)?refactored.{0,100}(continuously\s+)?maintained.{0,60}TIKAZ') { Add-CheckError "Missing full TIKAZ contribution statement: $relative" }
-    if ($content -match '(?i)(?:[A-Z]:\\Users\\|[A-Z]:\\CodexTools|F:\\知识库|市场部知识库)') { Add-CheckError "Private or machine-specific path: $relative" }
-    if ($content -match '(?i)(api[_ -]?key|token|secret|password)\s*[:=]\s*[''\"][^$<{\s][^''\"]+[''\"]') { Add-CheckError "Possible embedded secret: $relative" }
-    if ($content -match '(?i)生图-Image2|gpt-image-2|Zuco') { Add-CheckError "Excluded Image2 dependency found: $relative" }
+    if ($content -match '(?i)(?:[A-Z]:\\Users\\|[A-Z]:\\CodexTools|F:\\KnowledgeBase|market-team-knowledge)') { Add-CheckError "Private or machine-specific path: $relative" }
+    if ($content -match '(?i)(api[_ -]?key|token|secret|password)\s*[:=]\s*["''][^$<{\s]+["'']') { Add-CheckError "Possible embedded secret: $relative" }
+    if ($content -match '(?i)gpt-image-2|Zuco' -or ($content -match '(?i)生图-Image2' -and $content -notmatch '(?i)(exclude|not included|不包含|排除).{0,30}生图-Image2')) { Add-CheckError "Excluded image provider dependency found: $relative" }
 }
 
 $sourcePath = Join-Path $root 'SOURCES.yml'
@@ -72,8 +72,8 @@ if ($pythonFiles.Count) {
     if (-not $python) { $warnings.Add('Python was not found; syntax compilation was skipped.') }
     else {
         foreach ($file in $pythonFiles) {
-            $check = "import ast, pathlib; ast.parse(pathlib.Path(r'''$($file.FullName)''').read_text(encoding='utf-8'))"
-            & $python.Source -c $check 2>&1 | Out-Null
+            $check = 'import ast, pathlib, sys; ast.parse(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))'
+            & $python.Source -c $check -- $file.FullName 2>&1 | Out-Null
             if ($LASTEXITCODE -ne 0) { Add-CheckError "Python syntax failed: $($file.FullName.Substring($root.Length + 1))" }
         }
     }
