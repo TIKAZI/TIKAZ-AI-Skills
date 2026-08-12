@@ -72,10 +72,10 @@ if ($pythonFiles.Count) {
     if (-not $python) { $warnings.Add('Python was not found; syntax compilation was skipped.') }
     else {
         foreach ($file in $pythonFiles) {
-            $check = 'import ast, pathlib, sys; ast.parse(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))'
-            & $python.Source -c $check $file.FullName 2>&1 | Out-Null
+            & $python.Source -m py_compile $file.FullName 2>&1 | Out-Null
             if ($LASTEXITCODE -ne 0) { Add-CheckError "Python syntax failed: $($file.FullName.Substring($root.Length + 1))" }
         }
+        Get-ChildItem -LiteralPath $suitesRoot -Recurse -Directory -Force | Where-Object { $_.Name -eq '__pycache__' } | ForEach-Object { Remove-Item -LiteralPath $_.FullName -Recurse -Force }
     }
 }
 
