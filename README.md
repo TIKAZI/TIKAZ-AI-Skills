@@ -29,7 +29,7 @@
 
 ## One collection. Six workflows. One quality contract.
 
-TIKAZ AI Skills is a community-maintained monorepo for **Codex and compatible Skill hosts**. Six suites live together because useful work crosses boundaries: video evidence can become research, research can become a deck, and an approved interface can move into engineering delivery.
+TIKAZ AI Skills is a monorepo maintained by **TIKAZ** for **Codex and compatible Skill hosts**, with contributions welcome. Six suites live together because useful work crosses boundaries: video evidence can become research, research can become a deck, and an approved interface can move into engineering delivery.
 
 Each suite remains independently installable. The collection supplies the shared rules that keep handoffs coherent:
 

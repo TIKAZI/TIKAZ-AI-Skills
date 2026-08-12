@@ -144,7 +144,9 @@ def readme(info: dict, suite: str, version: str, owner: str, collection: str) ->
 
 This repository is the independently installable **{suite}** distribution from [TIKAZ AI Skills for Codex](https://github.com/{owner}/{collection}). The monorepo is the canonical development source; this repository is automatically synchronized and optimized for people who need only this workflow.
 
-Designed, integrated, refactored, and continuously maintained by **TIKAZ**. This is a community-maintained project, not an OpenAI-official repository.
+Designed, integrated, refactored, and continuously maintained by **TIKAZ**; community contributions are welcome. This is an independent project, not an OpenAI-official repository.
+
+This repository is an automatically synchronized distribution of the canonical [TIKAZ-AI-Skills](https://github.com/{owner}/{collection}) monorepo. Cross-suite issues and source changes belong in the canonical repository.
 
 ## What makes it different
 

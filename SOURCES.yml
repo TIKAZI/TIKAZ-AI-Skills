@@ -1,6 +1,11 @@
 schema_version: 2
 maintainer: TIKAZ
 repository_license: MIT
+authorship_note: >-
+  TIKAZ is the maintainer and the author of the collection architecture,
+  routing contracts, integration work, refactors, validation gates, and
+  release packaging. Referenced projects are research inputs only unless a
+  specific entry says otherwise; no third-party source is redistributed here.
 policy: >-
   The release tree contains TIKAZ-authored original, clean-room, and adapter
   material. Research references are acknowledged but not redistributed.
