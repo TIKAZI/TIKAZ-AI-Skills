@@ -1,95 +1,153 @@
-# TIKAZ AI Skills
+<p align="center">
+  <img src="assets/tikaz-ai-skills-hero.svg" alt="TIKAZ AI Skills for Codex — six composable, evidence-first workflows" width="100%" />
+</p>
 
-[![Validate Skills](https://github.com/TIKAZI/TIKAZ-AI-Skills/actions/workflows/validate.yml/badge.svg)](https://github.com/TIKAZI/TIKAZ-AI-Skills/actions/workflows/validate.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Suites](https://img.shields.io/badge/suites-6-7c3aed.svg)](#six-suites)
-[![Skills](https://img.shields.io/badge/skills-25-0ea5e9.svg)](#six-suites)
+<h1 align="center">TIKAZ AI Skills for Codex</h1>
 
-A curated collection of six composable AI-agent workflows for video intelligence, frontend design, engineering, research, presentations, and visual content.
+<p align="center">
+  <strong>面向 Codex 的可组合、可验证工作流集合</strong><br />
+  Turn one-off prompts into routed workflows with evidence, quality gates, and portable handoffs.
+</p>
 
-The collection architecture, routing contracts, clean-room adaptations, portability rules, and validation gates are designed, integrated, refactored, and continuously maintained by **TIKAZ**.
+<p align="center">
+  <a href="https://github.com/TIKAZI/TIKAZ-AI-Skills/actions/workflows/validate.yml"><img src="https://github.com/TIKAZI/TIKAZ-AI-Skills/actions/workflows/validate.yml/badge.svg" alt="Validate Skills" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-f4c95d.svg" alt="MIT License" /></a>
+  <img src="https://img.shields.io/badge/suites-6-8b5cf6.svg" alt="6 suites" />
+  <img src="https://img.shields.io/badge/skills-25-22d3ee.svg" alt="25 Skills" />
+</p>
 
-> **TIKAZ AI Skills：面向 Codex 的工作流集合**
->
-> 把一次性的提示词，组织成可路由、可验证、可迁移的工作流。每套 Skill 都有明确的负责人、输入输出合同和完成门禁。
+<p align="center">
+  <a href="#start-in-60-seconds">Quick start</a> ·
+  <a href="#the-six-suite-system">Six suites</a> ·
+  <a href="examples/prompts.md">Prompts</a> ·
+  <a href="SOURCES.yml">Provenance</a> ·
+  <a href="CONTRIBUTING.md">Contributing</a>
+</p>
 
-## Why this collection
+---
 
-Most Skill collections stop at instructions that sound useful. TIKAZ AI Skills treats a Skill as a small product workflow: route to one owner, carry evidence and uncertainty through handoffs, verify the result, and keep it portable across environments.
+## One collection. Six workflows. One quality contract.
 
-Start with the two flagship suites: [`frontend-design`](suites/frontend-design) for distinctive interfaces and [`video-intelligence`](suites/video-intelligence) for auditable video learning.
+TIKAZ AI Skills is a community-maintained monorepo for **Codex and compatible Skill hosts**. Six suites live together because useful work crosses boundaries: video evidence can become research, research can become a deck, and an approved interface can move into engineering delivery.
 
-## What is original here
-
-This is not a renamed mirror of other skill repositories. The TIKAZ Edition adds a shared operating model:
-
-- exactly one primary Skill owns each deliverable;
-- evidence, confidence, source, and license status travel with handoffs;
-- visual work requires an early representative proof and rendered QA;
-- engineering work requires impact analysis and objective verification;
-- local paths, credentials, private knowledge bases, and provider assumptions are excluded;
-- a release gate blocks missing attribution, unknown licenses, private paths, and invalid routing.
-
-Research references and upstream projects are named in [SOURCES.yml](SOURCES.yml) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Public source code does not automatically become TIKAZ-owned; third-party rights remain with their authors.
-
-## Six suites
-
-| Suite | Included Skills | Workflow |
-|---|---:|---|
-| `video-intelligence` | 2 | inventory sources → acquire evidence → timestamps/keyframes → source cards → compare |
-| `frontend-design` | 2 | classify surface → Design Read → art-direction proof → build → visual and engineering QA |
-| `engineering` | 6 | specify → map impact → implement → test → review → release evidence |
-| `knowledge-research` | 6 | frame question → normalize sources → evidence ledger → synthesize → knowledge feedback |
-| `presentation` | 4 | narrative brief → choose one format → page contracts → render QA → verify artifact |
-| `visual-content` | 5 | extract thesis → choose one style → shot card → create → publishing-size QA |
-
-The count includes each suite-level orchestrator. There are **25 installable Skills** in total.
-
-## Install
-
-Clone the repository, then copy either a suite folder or an individual child Skill into the Skill directory supported by your agent host. Keep the folder name unchanged because it must match the `name` in `SKILL.md`.
-
-Example for a project-local Codex installation:
-
-```powershell
-Copy-Item -Recurse -LiteralPath '.\suites\frontend-design\frontend-design-studio' -Destination '.\.agents\skills\frontend-design-studio'
-```
-
-Some Skills orchestrate optional external tools. They detect what the current environment actually provides and must not claim unavailable platform access or local executables.
-
-## 60-second start
-
-Clone the repository, copy one suite or child Skill into the directory supported by your Codex host, then name the Skill in your prompt:
+Each suite remains independently installable. The collection supplies the shared rules that keep handoffs coherent:
 
 ```text
-Use frontend-design to redesign this dashboard. First produce a Design Read and a desktop/mobile proof; do not expand the full page until the proof passes.
+USER GOAL
+   ↓
+ONE PRIMARY SUITE  ──→  specialist Skills only when needed
+   ↓
+STRUCTURED HANDOFF ──→  evidence · uncertainty · source · license
+   ↓
+QUALITY GATE       ──→  render · test · review · artifact proof
+   ↓
+VERIFIED DELIVERY
+```
+
+This is not an OpenAI-official repository. It is designed, integrated, refactored, and continuously maintained by **TIKAZ** for real Codex workflows.
+
+## Start with the flagships
+
+| | Suite | What makes it different |
+|---|---|---|
+| **01** | **[Frontend Design](suites/frontend-design)** | Classifies the product surface, commits to one visual world, and requires a desktop/mobile art-direction proof before full implementation. |
+| **02** | **[Video Intelligence](suites/video-intelligence)** | Never treats metadata, transcript, keyframe, and primary-source verification as equivalent evidence. Produces timestamped, auditable synthesis. |
+
+```text
+Use frontend-design to redesign this dashboard. Write the Design Read,
+set the three project dials, and approve a desktop/mobile proof first.
 ```
 
 ```text
-Use video-platform-reader to compare these videos. Keep timestamps, label evidence levels, and list every claim that could not be verified.
+Use video-platform-reader to compare these videos. Keep timestamps,
+label evidence levels, and list every claim that remains unverified.
 ```
 
-More copy-ready prompts are in [examples/prompts.md](examples/prompts.md).
+## The six-suite system
 
-## Example prompts
+| Suite | Skills | Owns | Typical path |
+|---|---:|---|---|
+| **[Video Intelligence](suites/video-intelligence)** | 2 | Auditable video learning | sources → transcript/ASR → keyframes → evidence cards → synthesis |
+| **[Frontend Design](suites/frontend-design)** | 2 | Distinctive product interfaces | surface → Design Read → proof → implementation → visual QA |
+| **[Engineering](suites/engineering)** | 6 | Safe repository delivery | specification → impact map → code → tests → review → release evidence |
+| **[Knowledge & Research](suites/knowledge-research)** | 6 | Traceable decisions | question → sources → evidence ledger → disagreement → recommendation |
+| **[Presentation](suites/presentation)** | 4 | Verified decks | narrative → one format → page contracts → render QA → artifact |
+| **[Visual Content](suites/visual-content)** | 5 | Publishable content assets | thesis → one style → shot card → creation → publishing QA |
 
-- “Use `video-platform-reader` to compare these three videos, keep timestamps, and tell me which visual claims remain unverified.”
-- “Use `frontend-design` to redesign this dashboard. Approve a desktop/mobile art-direction proof before expanding the full product.”
-- “Use `engineering` to map the impact of this API change, implement it in small slices, and give me test and rollback evidence.”
-- “Use `knowledge-research` to compare these sources, separate fact from inference, and show contradictory evidence.”
-- “Use `presentation` to choose HTML or PPTX for this talk, then render and inspect the finished deck.”
-- “Use `visual-content` to turn this logistics article into a sourced 16:9 explainer with alt text.”
+There are **25 installable Skills**, including the six suite orchestrators. Use a suite orchestrator for an end-to-end outcome; install a child Skill when you need only one focused capability.
 
-## Validate before publishing
+## Start in 60 seconds
+
+### 1. Clone
+
+```bash
+git clone https://github.com/TIKAZI/TIKAZ-AI-Skills.git
+cd TIKAZ-AI-Skills
+```
+
+### 2. Install one Skill
+
+Copy the suite or child folder into the Skill directory supported by your Codex environment. Keep the folder name identical to the `name` in `SKILL.md`.
+
+Project-local example on PowerShell:
 
 ```powershell
-pwsh -File .\scripts\validate_skills.ps1
+Copy-Item -Recurse `
+  -LiteralPath '.\suites\frontend-design\frontend-design-studio' `
+  -Destination '.\.agents\skills\frontend-design-studio'
 ```
 
-The command validates structure, attribution, source policy, portability, routing targets, UI metadata, and Python syntax. A successful local run is evidence of repository consistency, not proof that every external tool or platform is available.
+### 3. Invoke it naturally
 
-## License and attribution
+```text
+Use frontend-design-studio to turn this bland landing page into one coherent
+visual world. Show the first viewport and one representative section before
+expanding the whole page.
+```
 
-TIKAZ-authored files are available under the [MIT License](LICENSE). Research references are not bundled dependencies and remain under their own licenses. If future contributions vendor third-party files, their original notices and compatible license must travel with them; unknown-license material is rejected.
+See [copy-ready prompts](examples/prompts.md) for every suite.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a Skill.
+## Why it is more than a prompt collection
+
+- **One owner per deliverable** — supporting Skills cannot compete for control.
+- **Evidence travels with work** — claims retain timestamps, confidence, sources, and unresolved gaps.
+- **Visual proof before scale** — frontend, presentation, and illustration workflows verify representative output early.
+- **Objective completion gates** — builds, tests, rendered artifacts, and file state outrank agent confidence.
+- **Portable by design** — no private drive paths, embedded credentials, or universal claims about optional tools.
+- **Auditable provenance** — clean-room work, adapters, references, and removed upstream material are distinguished explicitly.
+
+## Repository map
+
+```text
+TIKAZ-AI-Skills/
+├─ suites/                    # six independently installable workflow suites
+│  ├─ frontend-design/        # flagship: art direction + implementation gates
+│  ├─ video-intelligence/     # flagship: evidence-based video understanding
+│  ├─ engineering/
+│  ├─ knowledge-research/
+│  ├─ presentation/
+│  └─ visual-content/
+├─ examples/                  # copy-ready invocation prompts
+├─ scripts/                   # repository validation gate
+├─ SOURCES.yml                # source mode, license, and TIKAZ contribution
+└─ THIRD_PARTY_NOTICES.md     # research acknowledgements and boundaries
+```
+
+## Validation
+
+Every push runs the repository policy gate on GitHub Actions.
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File '.\scripts\validate_skills.ps1'
+```
+
+It checks all 25 Skills for structure, attribution, source policy, portability, routing, UI metadata, generated files, and Python syntax. A green check proves repository consistency; optional platform access still depends on the user's environment and permissions.
+
+## Authorship, sources, and license
+
+The collection architecture, TIKAZ Edition workflows, routing contracts, lifecycle gates, templates, portability rules, and validation scripts are designed, integrated, refactored, and continuously maintained by **TIKAZ**.
+
+Research references do not transfer authorship. Their URLs, observed licenses, distribution status, and the concrete TIKAZ contribution are recorded in [SOURCES.yml](SOURCES.yml) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+TIKAZ-authored files are released under the [MIT License](LICENSE). Contributions should improve behavior, evidence, portability, or verification—not merely rename an existing Skill. See [CONTRIBUTING.md](CONTRIBUTING.md).
