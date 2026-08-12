@@ -2,7 +2,7 @@
 
 ## Status
 
-Approved direction. Implementation may proceed under the constraints below.
+Superseded by [2026-08-13-context-economy-original-redesign.md](2026-08-13-context-economy-original-redesign.md). This document records the first implemented prototype and must not be used as the current release specification.
 
 ## Product definition
 
