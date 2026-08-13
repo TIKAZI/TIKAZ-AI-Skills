@@ -1,10 +1,26 @@
 # Context Economy for Codex
 
-**Spend context where it matters.**
+**Fidelity-first context preparation for files, prompts, conversations, tables, and visual evidence.**
 
 Designed, integrated, independently refactored, and continuously maintained by **TIKAZ**.
 
-Context Economy turns files and long conversations into bounded, traceable context for Codex. Its multimodal compiler keeps text in reusable Markdown, routes only informative figures or complex tables to a visual-evidence queue, preserves source anchors, and measures the full input cost chain without confusing bytes with tokens.
+Context Economy is not a “compress everything” trick. It prepares the **smallest useful context that can still be checked**: documents become reusable Markdown, task-relevant evidence keeps stable source anchors, protected facts are verified, and visuals follow an explicit Text / Hybrid / Source route instead of being silently discarded or all sent to a vision model.
+
+The optimization target is **lower context cost without silent information loss**. Reduction percentages are evidence from declared benchmarks, not the product promise.
+
+## What it actually does
+
+| Input or condition | Route | Result |
+|---|---|---|
+| Markdown, text, code, logs, structured data | **Text** | Canonical Markdown, exact/structural deduplication, anchored task selection, hard-budget context pack |
+| PDF or Office document with extractable text | **Text or Hybrid** | External conversion to Markdown, page/section anchors, literal fact and table checks |
+| Informative figure or complex table | **Hybrid** | Keep Markdown as the primary context and queue only relevant visual evidence for a vision-capable host |
+| Decorative or repeated image | **Skip with evidence** | Record why it was omitted instead of spending visual context on it |
+| Scan, layout-heavy file, missing converter, or uncertain extraction | **Source** | Preserve the original file/page and expose the unresolved gap; do not pretend conversion succeeded |
+| Long conversation | **Checkpoint** | Recoverable state with decisions, constraints, completed evidence, files, numbers, and open questions |
+| Repeated prompt instructions | **Exact or Structural** | Remove literal or formatting-only repetition while retaining the first original wording and protected facts |
+
+Image routing is implemented and benchmarked. Image **meaning recognition** is performed only when the host provides vision and is not included in the current 100% literal-fidelity claims.
 
 ## Installable workflow
 
@@ -20,7 +36,7 @@ The default CLI uses only the Python standard library and performs no network ca
 
 See the reproducible [Context Economy method demonstration](../../examples/context-economy-proof.md) and the [fixed-version comparison](../../docs/research/context-compression-comparison.md). The benchmark separates micro correctness from long-context efficiency so protocol overhead cannot hide behind one average.
 
-## Reproducible evidence
+## Reproducible evidence — measured, not advertised as universal
 
 Current public synthetic benchmark (`50` cases), plus a separate generated-PDF fixture benchmark:
 
@@ -38,6 +54,14 @@ Current public synthetic benchmark (`50` cases), plus a separate generated-PDF f
 | Generated-PDF literal fidelity | **100% text / numbers / table cells / page anchors** | 3 TIKAZ-authored PDFs; installed pdfplumber adapter; visual meaning excluded |
 
 Read the generated [evidence card](benchmarks/results/README.md), [machine-readable metrics](benchmarks/results/metrics.json), [raw cases](benchmarks/results/cases.json), and [PDF fidelity evidence](benchmarks/pdf/results/README.md). Real-world/scanned PDF fidelity, actual provider input-token savings, vision-description accuracy, and downstream blind-answer quality remain explicitly **Pending**.
+
+### How to read these numbers
+
+- **69.7%** describes six long-context task variants over one synthetic source. It is not a universal saving guarantee.
+- **14.6% Exact** includes controls with no exact repetition, so safe pass-through lowers the headline number by design.
+- **49.5% Structural** removes formatting-only repetition without paraphrasing instructions.
+- **100% protected facts and anchors** means every declared literal item survived these cases; it does not prove general semantic equivalence.
+- **100% generated-PDF fidelity** covers declared text, numbers, cells, and page anchors—not OCR, layout reconstruction, or diagram interpretation.
 
 ## Quick start
 

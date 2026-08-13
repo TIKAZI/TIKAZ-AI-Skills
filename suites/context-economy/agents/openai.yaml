@@ -1,4 +1,4 @@
 interface:
   display_name: "TIKAZ Context Economy"
-  short_description: "Lean, traceable context packs for Codex"
-  default_prompt: "Use $context-economy to prepare this source or conversation within a measured context budget while preserving evidence and recovery state."
+  short_description: "Fidelity-first multimodal context for Codex"
+  default_prompt: "Use $context-economy to route these files, prompts, or conversations through the smallest checkable Text, Hybrid, or Source context while preserving facts, anchors, visual evidence, and recovery state."

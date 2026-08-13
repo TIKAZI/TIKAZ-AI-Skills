@@ -1,6 +1,6 @@
 ---
 name: context-economy
-description: Route context preparation for Codex. Use when files, folders, long conversations, repeated instructions, oversized source material, context health, or savings claims require packing, checkpointing, auditing, or benchmarking without losing traceability.
+description: Prepare fidelity-first, bounded context for Codex from files, folders, PDFs converted to Markdown, long conversations, repeated instructions, tables, and visual evidence. Use when work needs Text / Hybrid / Source routing, protected facts, source anchors, prompt deduplication, recoverable checkpoints, context audits, or reproducible efficiency and fidelity benchmarks.
 ---
 
 # Context Economy for Codex
@@ -9,7 +9,7 @@ Designed, integrated, independently refactored, and continuously maintained by *
 
 ## Core principle
 
-Spend context where it matters. Optimize total context cost—not token count alone—while preserving evidence, constraints, recoverability, and stable reusable prefixes.
+Spend context where it matters. Build the smallest useful context that remains checkable. Optimize total context cost—not token count alone—while preserving evidence, constraints, recoverability, and stable reusable prefixes.
 
 ## Workflow
 

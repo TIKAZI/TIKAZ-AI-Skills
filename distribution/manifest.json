@@ -6,10 +6,10 @@
     "context-economy": {
       "repository": "TIKAZ-Codex-Context-Economy",
       "title": "TIKAZ Context Economy for Codex",
-      "tagline": "A traceable multimodal context compiler for files, prompts, evidence, and bounded Codex context.",
+      "tagline": "A fidelity-first multimodal context compiler for the smallest useful context that remains checkable.",
       "accent": "A78BFA",
-      "highlights": ["Adaptive Text / Hybrid / Source routing preserves informative figures and complex tables without sending every image", "A full Context Cost Ledger separates file bytes, canonical text, prompt/protocol, selected evidence, visual work, and final context", "Hard-budget packs plus separate correctness, efficiency, and future multimodal fidelity profiles keep claims inspectable"],
-      "prompts": ["Prepare these files for this task. Enforce the complete-pack budget, remove exact duplicates, retain anchored evidence, and make every omission visible.", "Create a recoverable checkpoint from this long conversation. Preserve decisions, constraints, completed evidence, file paths, numbers, commands, and open questions.", "Audit this context across relevance, redundancy, traceability, safety, cacheability, and recoverability, then run the fixed benchmark before making an efficiency claim."]
+      "highlights": ["Adaptive Text / Hybrid / Source routing preserves informative figures and complex tables without sending every image", "Document-to-Markdown preparation keeps page anchors, protected facts, table checks, and unresolved visual evidence inspectable", "Exact and structural prompt preparation plus hard-budget packs reduce avoidable context without semantic rewriting"],
+      "prompts": ["Prepare these files for this task. Choose Text, Hybrid, or Source, enforce the complete-pack budget, retain protected facts and anchors, and make every omission visible.", "Create a recoverable checkpoint from this long conversation. Preserve decisions, constraints, completed evidence, file paths, numbers, commands, and open questions.", "Audit this context across relevance, redundancy, traceability, safety, cacheability, and recoverability, then run the fixed benchmark before making an efficiency or fidelity claim."]
     },
     "frontend-design": {
       "repository": "TIKAZ-Codex-Frontend-Design",
