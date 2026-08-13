@@ -20,11 +20,11 @@ This suite can be installed as one routed workflow, while every child Skill can 
 
 | Skill | Role | Core promise |
 |---|---|---|
-| [`visual-content`](SKILL.md) | Orchestrator | Orchestrate article illustration, logistics explainers, writing cleanup, and lawful music discovery with explicit style routing, asset provenance, accessibility text, an… |
-| [`concise-writing-editor`](concise-writing-editor/SKILL.md) | Specialist | Remove AI filler, vague claims, repetitive structure, inflated transitions, and low-information phrasing while preserving meaning and voice. |
-| [`xiaohei-article-illustrator`](xiaohei-article-illustrator/SKILL.md) | Specialist | Art-direct concise hand-drawn Chinese article illustrations from an article thesis using a small dark character, white space, sparse color annotations, visual metaphor,… |
-| [`zhuge-logistics-illustrator`](zhuge-logistics-illustrator/SKILL.md) | Specialist | Art-direct 16:9 Chinese logistics explainers with aligned process structures, short labels, restrained teal-green emphasis, a small guide character, source-aware claims,… |
-| [`legal-free-music`](legal-free-music/SKILL.md) | Specialist | 查找和下载合法免费的音乐。用户说‘音乐-免费合法’、‘免费下歌’、‘找免费无损音乐’、‘找可下载的高品质歌曲’、‘找公版/CC 授权音乐’、‘找 Bandcamp 免费下载’、‘找 Internet Archive 现场录音’等任务时使用；只使用公版、Creative Commons、艺术家自愿免费下载、Bandcamp name-yo… |
+| [`visual-content`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/visual-content/index.html) | Orchestrator | Orchestrate article illustration, logistics explainers, writing cleanup, and lawful music discovery with explicit style routing, asset provenance, accessibility text, an… |
+| [`concise-writing-editor`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/concise-writing-editor/index.html) | Specialist | Remove AI filler, vague claims, repetitive structure, inflated transitions, and low-information phrasing while preserving meaning and voice. |
+| [`xiaohei-article-illustrator`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/xiaohei-article-illustrator/index.html) | Specialist | Art-direct concise hand-drawn Chinese article illustrations from an article thesis using a small dark character, white space, sparse color annotations, visual metaphor,… |
+| [`zhuge-logistics-illustrator`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/zhuge-logistics-illustrator/index.html) | Specialist | Art-direct 16:9 Chinese logistics explainers with aligned process structures, short labels, restrained teal-green emphasis, a small guide character, source-aware claims,… |
+| [`legal-free-music`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/legal-free-music/index.html) | Specialist | 查找和下载合法免费的音乐。用户说‘音乐-免费合法’、‘免费下歌’、‘找免费无损音乐’、‘找可下载的高品质歌曲’、‘找公版/CC 授权音乐’、‘找 Bandcamp 免费下载’、‘找 Internet Archive 现场录音’等任务时使用；只使用公版、Creative Commons、艺术家自愿免费下载、Bandcamp name-yo… |
 
 The root orchestrator owns end-to-end routing. A specialist owns only the output named in its `SKILL.md`; it does not need the orchestrator to be installed.
 

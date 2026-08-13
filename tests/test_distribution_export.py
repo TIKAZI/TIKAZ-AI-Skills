@@ -41,6 +41,8 @@ class ContextEconomyDistributionTests(unittest.TestCase):
             self.assertIn("English", chinese_readme)
             self.assertIn("](SOURCES.yml)", chinese_readme)
             self.assertNotIn("../../SOURCES.yml", chinese_readme)
+            self.assertIn("https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-pack/index.html", readme)
+            self.assertIn("https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-pack/index.html", chinese_readme)
             self.assertEqual((output / "VERSION").read_text(encoding="utf-8"), "0.8.0\n")
             self.assertIn("*.pdf binary", (output / ".gitattributes").read_text(encoding="utf-8"))
 

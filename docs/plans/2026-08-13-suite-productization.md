@@ -53,6 +53,16 @@ Verification: the independent-use validator reports no missing contract fields.
 - [x] Review provenance, limitations, and generated diffs.
 - [ ] Publish only after explicit release authorization.
 
+### Phase 6: Bilingual project pages and evidence-first positioning
+
+- [x] Generate one English and one Chinese project page for every Skill without duplicating the execution source.
+- [x] Group all 30 project pages under the seven workflow families.
+- [x] Put verified measurements or inspectable quality gates before usage details.
+- [x] Link the root, suite, Pages, and standalone distribution entry points to rendered project pages.
+- [ ] Complete desktop/mobile visual QA, full validation, and publication sync.
+
+Verification: 30 English and 30 Chinese project pages exist; all public links resolve; measured claims preserve their fixed-benchmark boundary; other suites do not invent performance percentages.
+
 ## Risks
 
 | Risk | Mitigation |

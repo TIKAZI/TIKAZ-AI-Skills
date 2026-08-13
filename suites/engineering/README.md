@@ -20,12 +20,12 @@ This suite can be installed as one routed workflow, while every child Skill can 
 
 | Skill | Role | Core promise |
 |---|---|---|
-| [`engineering`](SKILL.md) | Orchestrator | Orchestrate production software delivery through specification, repository intelligence, implementation, testing, security review, data operations, and release evidence. |
-| [`code-intelligence`](code-intelligence/SKILL.md) | Specialist | Understand repositories as systems: map code structure and semantic relationships, analyze change impact, review pull requests, and plan safe refactors. |
-| [`engineering-delivery`](engineering-delivery/SKILL.md) | Specialist | Run production software work from specification through planning, implementation, testing, review, and release. |
-| [`skill-security-audit`](skill-security-audit/SKILL.md) | Specialist | Statically inspect third-party agent skills before installation for prompt injection, destructive commands, credential access, dependency risk, hidden network behavior,… |
-| [`supabase-operations`](supabase-operations/SKILL.md) | Specialist | Design, deploy, and operate Supabase projects with explicit schema, migration, security, backup, and observability checks. |
-| [`video-workbench`](video-workbench/SKILL.md) | Specialist | Engineer repository-backed media processing workbenches across ingestion, job state, processing, review, export, frontend states, QA evidence, and deployment configurati… |
+| [`engineering`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/engineering/index.html) | Orchestrator | Orchestrate production software delivery through specification, repository intelligence, implementation, testing, security review, data operations, and release evidence. |
+| [`code-intelligence`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/code-intelligence/index.html) | Specialist | Understand repositories as systems: map code structure and semantic relationships, analyze change impact, review pull requests, and plan safe refactors. |
+| [`engineering-delivery`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/engineering-delivery/index.html) | Specialist | Run production software work from specification through planning, implementation, testing, review, and release. |
+| [`skill-security-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/skill-security-audit/index.html) | Specialist | Statically inspect third-party agent skills before installation for prompt injection, destructive commands, credential access, dependency risk, hidden network behavior,… |
+| [`supabase-operations`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/supabase-operations/index.html) | Specialist | Design, deploy, and operate Supabase projects with explicit schema, migration, security, backup, and observability checks. |
+| [`video-workbench`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/video-workbench/index.html) | Specialist | Engineer repository-backed media processing workbenches across ingestion, job state, processing, review, export, frontend states, QA evidence, and deployment configurati… |
 
 The root orchestrator owns end-to-end routing. A specialist owns only the output named in its `SKILL.md`; it does not need the orchestrator to be installed.
 

@@ -12,12 +12,12 @@
 
 | Skill | 用途 |
 |---|---|
-| [`knowledge-research`](SKILL.md) | 来源摄取、研究、决策和知识反馈的完整编排 |
-| [`document-to-markdown`](document-to-markdown/SKILL.md) | PDF、Office、HTML、图片与音频的结构化 Markdown 转换 |
-| [`academic-research`](academic-research/SKILL.md) | 文献检索、证据综合、论文写作和同行评审式检查 |
-| [`product-strategy`](product-strategy/SKILL.md) | 产品发现、定位、优先级、GTM 和验证实验 |
-| [`solo-business-operations`](solo-business-operations/SKILL.md) | 一人业务的容量、成本、风险、指标和运营节奏 |
-| [`personal-knowledge-memory`](personal-knowledge-memory/SKILL.md) | 检索个人决策并只记录真正影响任务的知识 |
+| [`knowledge-research`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/knowledge-research/index.html) | 来源摄取、研究、决策和知识反馈的完整编排 |
+| [`document-to-markdown`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/document-to-markdown/index.html) | PDF、Office、HTML、图片与音频的结构化 Markdown 转换 |
+| [`academic-research`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/academic-research/index.html) | 文献检索、证据综合、论文写作和同行评审式检查 |
+| [`product-strategy`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/product-strategy/index.html) | 产品发现、定位、优先级、GTM 和验证实验 |
+| [`solo-business-operations`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/solo-business-operations/index.html) | 一人业务的容量、成本、风险、指标和运营节奏 |
+| [`personal-knowledge-memory`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/personal-knowledge-memory/index.html) | 检索个人决策并只记录真正影响任务的知识 |
 
 ## 🚀 示例
 

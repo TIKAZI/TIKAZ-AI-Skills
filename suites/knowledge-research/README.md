@@ -20,12 +20,12 @@ This suite can be installed as one routed workflow, while every child Skill can 
 
 | Skill | Role | Core promise |
 |---|---|---|
-| [`knowledge-research`](SKILL.md) | Orchestrator | Orchestrate source ingestion, academic research, product decisions, personal knowledge retrieval, and evidence-backed memory feedback. |
-| [`document-to-markdown`](document-to-markdown/SKILL.md) | Specialist | Convert PDF, Office, HTML, images, and audio into structured Markdown while preserving headings, tables, links, and provenance where possible. |
-| [`academic-research`](academic-research/SKILL.md) | Specialist | Plan literature reviews, search and evaluate sources, synthesize evidence, draft research writing, and perform peer-review-style critique. |
-| [`product-strategy`](product-strategy/SKILL.md) | Specialist | Support product discovery, market research, positioning, prioritization, execution planning, go-to-market, and product analytics. |
-| [`solo-business-operations`](solo-business-operations/SKILL.md) | Specialist | Plan and operate a one-person business across product, content, finance, operations, legal coordination, customer support, and engineering. |
-| [`personal-knowledge-memory`](personal-knowledge-memory/SKILL.md) | Specialist | Retrieve relevant personal project decisions, playbooks, knowledge, skills, and verified outcomes before important work, then record only knowledge that materially affec… |
+| [`knowledge-research`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/knowledge-research/index.html) | Orchestrator | Orchestrate source ingestion, academic research, product decisions, personal knowledge retrieval, and evidence-backed memory feedback. |
+| [`document-to-markdown`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/document-to-markdown/index.html) | Specialist | Convert PDF, Office, HTML, images, and audio into structured Markdown while preserving headings, tables, links, and provenance where possible. |
+| [`academic-research`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/academic-research/index.html) | Specialist | Plan literature reviews, search and evaluate sources, synthesize evidence, draft research writing, and perform peer-review-style critique. |
+| [`product-strategy`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/product-strategy/index.html) | Specialist | Support product discovery, market research, positioning, prioritization, execution planning, go-to-market, and product analytics. |
+| [`solo-business-operations`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/solo-business-operations/index.html) | Specialist | Plan and operate a one-person business across product, content, finance, operations, legal coordination, customer support, and engineering. |
+| [`personal-knowledge-memory`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/personal-knowledge-memory/index.html) | Specialist | Retrieve relevant personal project decisions, playbooks, knowledge, skills, and verified outcomes before important work, then record only knowledge that materially affec… |
 
 The root orchestrator owns end-to-end routing. A specialist owns only the output named in its `SKILL.md`; it does not need the orchestrator to be installed.
 

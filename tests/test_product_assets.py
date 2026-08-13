@@ -47,6 +47,58 @@ class ProductAssetTests(unittest.TestCase):
             for name in skill_names.values():
                 self.assertRegex(content, rf"(?<![a-z0-9-]){re.escape(name)}(?![a-z0-9-])", f"{document}: {name}")
 
+    def test_every_skill_has_bilingual_project_pages_and_public_entry_links(self) -> None:
+        generator = load_generator()
+        skill_files = sorted((ROOT / "suites").rglob("SKILL.md"))
+        names = []
+        for path in skill_files:
+            name, _ = generator.parse_frontmatter(path)
+            names.append(name)
+            english = ROOT / "docs" / "skills" / name / "index.html"
+            chinese = ROOT / "docs" / "zh" / "skills" / name / "index.html"
+            self.assertTrue(english.is_file(), english)
+            self.assertTrue(chinese.is_file(), chinese)
+            en = english.read_text(encoding="utf-8")
+            zh = chinese.read_text(encoding="utf-8")
+            self.assertIn(f'<h1>{name}</h1>', en)
+            self.assertIn(f'<h1>{name}</h1>', zh)
+            self.assertIn("Install independently", en)
+            self.assertIn("独立安装", zh)
+            self.assertIn("SKILL.md", en)
+            self.assertIn("SKILL.md", zh)
+            self.assertIn("Evidence and core advantages", en)
+            self.assertIn("证据与核心优势", zh)
+            self.assertEqual(en.count('class="project-evidence"'), 1)
+            self.assertEqual(zh.count('class="project-evidence"'), 1)
+            self.assertIn(f"../../zh/skills/{name}/index.html", en)
+            self.assertIn(f"../../../skills/{name}/index.html", zh)
+
+        self.assertEqual(len(names), 30)
+        self.assertEqual(len(list((ROOT / "docs" / "skills").glob("*/index.html"))), 30)
+        self.assertEqual(len(list((ROOT / "docs" / "zh" / "skills").glob("*/index.html"))), 30)
+        entry_documents = (
+            (ROOT / "README.md", "https://tikazi.github.io/TIKAZ-AI-Skills/skills/{name}/index.html"),
+            (ROOT / "README.zh-CN.md", "https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/{name}/index.html"),
+            (ROOT / "docs" / "index.html", 'href="skills/{name}/index.html"'),
+            (ROOT / "docs" / "zh" / "index.html", 'href="skills/{name}/index.html"'),
+        )
+        for document, pattern in entry_documents:
+            content = document.read_text(encoding="utf-8")
+            for name in names:
+                self.assertIn(pattern.format(name=name), content, f"{document}: {name}")
+
+        context = (ROOT / "docs" / "skills" / "context-economy" / "index.html").read_text(encoding="utf-8")
+        context_zh = (ROOT / "docs" / "zh" / "skills" / "context-economy" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("69.73%", context)
+        self.assertIn("4,698 → 1,422", context)
+        self.assertIn("46/46", context)
+        self.assertIn("not universal accuracy", context)
+        self.assertIn("不代表通用准确率", context_zh)
+
+        frontend = (ROOT / "docs" / "skills" / "frontend-design" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("4 surface modes", frontend)
+        self.assertIn("not untested performance percentages", frontend)
+
     def test_generate_catalog_and_suite_workflows(self) -> None:
         generator = load_generator()
         with tempfile.TemporaryDirectory() as temp_dir:

@@ -20,8 +20,8 @@ This suite can be installed as one routed workflow, while every child Skill can 
 
 | Skill | Role | Core promise |
 |---|---|---|
-| [`video-intelligence`](SKILL.md) | Orchestrator | Orchestrate evidence-based video research across platforms, transcripts, Whisper fallback, keyframes, source verification, and cross-video synthesis. |
-| [`video-platform-reader`](video-platform-reader/SKILL.md) | Specialist | Read one or many public-platform or local videos through a portable evidence workflow using available metadata, subtitles, timestamped speech recognition, keyframes, and… |
+| [`video-intelligence`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/video-intelligence/index.html) | Orchestrator | Orchestrate evidence-based video research across platforms, transcripts, Whisper fallback, keyframes, source verification, and cross-video synthesis. |
+| [`video-platform-reader`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/video-platform-reader/index.html) | Specialist | Read one or many public-platform or local videos through a portable evidence workflow using available metadata, subtitles, timestamped speech recognition, keyframes, and… |
 
 The root orchestrator owns end-to-end routing. A specialist owns only the output named in its `SKILL.md`; it does not need the orchestrator to be installed.
 

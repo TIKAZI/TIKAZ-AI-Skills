@@ -20,10 +20,10 @@ This suite can be installed as one routed workflow, while every child Skill can 
 
 | Skill | Role | Core promise |
 |---|---|---|
-| [`presentation`](SKILL.md) | Orchestrator | Route and govern presentation creation across browser-editable HTML decks, native editable PowerPoint, and magazine-style web decks. |
-| [`html-deck-builder`](html-deck-builder/SKILL.md) | Specialist | Plan and build browser-editable HTML presentations with narrative contracts, responsive slide layouts, keyboard navigation, offline-safe assets, and render verification. |
-| [`powerpoint-deck-builder`](powerpoint-deck-builder/SKILL.md) | Specialist | Plan, create, revise, and verify native editable PowerPoint presentations with source-aware content, reusable layouts, speaker notes, and rendered visual QA. |
-| [`magazine-web-deck`](magazine-web-deck/SKILL.md) | Specialist | Create editorial or Swiss-inspired single-file web presentations with strong typographic hierarchy, horizontal navigation, responsive composition, and restrained motion. |
+| [`presentation`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/presentation/index.html) | Orchestrator | Route and govern presentation creation across browser-editable HTML decks, native editable PowerPoint, and magazine-style web decks. |
+| [`html-deck-builder`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/html-deck-builder/index.html) | Specialist | Plan and build browser-editable HTML presentations with narrative contracts, responsive slide layouts, keyboard navigation, offline-safe assets, and render verification. |
+| [`powerpoint-deck-builder`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/powerpoint-deck-builder/index.html) | Specialist | Plan, create, revise, and verify native editable PowerPoint presentations with source-aware content, reusable layouts, speaker notes, and rendered visual QA. |
+| [`magazine-web-deck`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/magazine-web-deck/index.html) | Specialist | Create editorial or Swiss-inspired single-file web presentations with strong typographic hierarchy, horizontal navigation, responsive composition, and restrained motion. |
 
 The root orchestrator owns end-to-end routing. A specialist owns only the output named in its `SKILL.md`; it does not need the orchestrator to be installed.
 

@@ -12,11 +12,11 @@
 
 | Skill | 用途 |
 |---|---|
-| [`visual-content`](SKILL.md) | 从内容观点、风格选择到发布 QA 的完整编排 |
-| [`concise-writing-editor`](concise-writing-editor/SKILL.md) | 去除 AI 套话、重复结构和低信息密度表达 |
-| [`xiaohei-article-illustrator`](xiaohei-article-illustrator/SKILL.md) | 小黑手绘式中文文章隐喻、Shot Card 与配图 QA |
-| [`zhuge-logistics-illustrator`](zhuge-logistics-illustrator/SKILL.md) | 16:9 中文物流流程、比较与风险信息图 |
-| [`legal-free-music`](legal-free-music/SKILL.md) | 公版、CC、艺术家免费下载与 Name-your-price 音乐 |
+| [`visual-content`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/visual-content/index.html) | 从内容观点、风格选择到发布 QA 的完整编排 |
+| [`concise-writing-editor`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/concise-writing-editor/index.html) | 去除 AI 套话、重复结构和低信息密度表达 |
+| [`xiaohei-article-illustrator`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/xiaohei-article-illustrator/index.html) | 小黑手绘式中文文章隐喻、Shot Card 与配图 QA |
+| [`zhuge-logistics-illustrator`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/zhuge-logistics-illustrator/index.html) | 16:9 中文物流流程、比较与风险信息图 |
+| [`legal-free-music`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/legal-free-music/index.html) | 公版、CC、艺术家免费下载与 Name-your-price 音乐 |
 
 ## 🚀 示例
 

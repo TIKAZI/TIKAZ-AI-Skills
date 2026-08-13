@@ -18,8 +18,8 @@
 
 | Skill | 角色 | 用途 |
 |---|---|---|
-| [`video-intelligence`](SKILL.md) | 编排器 | 多视频证据整理、冲突比较与综合 |
-| [`video-platform-reader`](video-platform-reader/SKILL.md) | 专业 Skill | 单独读取公开视频、播客或本地媒体并生成证据卡 |
+| [`video-intelligence`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/video-intelligence/index.html) | 编排器 | 多视频证据整理、冲突比较与综合 |
+| [`video-platform-reader`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/video-platform-reader/index.html) | 专业 Skill | 单独读取公开视频、播客或本地媒体并生成证据卡 |
 
 ## 🚀 示例
 

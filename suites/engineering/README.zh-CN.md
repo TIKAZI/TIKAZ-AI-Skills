@@ -12,12 +12,12 @@
 
 | Skill | 用途 |
 |---|---|
-| [`engineering`](SKILL.md) | 端到端工程编排与完成质量门 |
-| [`code-intelligence`](code-intelligence/SKILL.md) | 仓库结构、语义关系、影响分析、PR 审查与重构规划 |
-| [`engineering-delivery`](engineering-delivery/SKILL.md) | 规格、计划、实现、测试、复查与交付 |
-| [`skill-security-audit`](skill-security-audit/SKILL.md) | 安装第三方 Skill 前的静态安全审计 |
-| [`supabase-operations`](supabase-operations/SKILL.md) | Supabase 架构、迁移、RLS、备份与回滚 |
-| [`video-workbench`](video-workbench/SKILL.md) | 媒体处理工作台的任务状态、处理管线、前端与部署工程 |
+| [`engineering`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/engineering/index.html) | 端到端工程编排与完成质量门 |
+| [`code-intelligence`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/code-intelligence/index.html) | 仓库结构、语义关系、影响分析、PR 审查与重构规划 |
+| [`engineering-delivery`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/engineering-delivery/index.html) | 规格、计划、实现、测试、复查与交付 |
+| [`skill-security-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/skill-security-audit/index.html) | 安装第三方 Skill 前的静态安全审计 |
+| [`supabase-operations`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/supabase-operations/index.html) | Supabase 架构、迁移、RLS、备份与回滚 |
+| [`video-workbench`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/video-workbench/index.html) | 媒体处理工作台的任务状态、处理管线、前端与部署工程 |
 
 ## 🚀 示例
 

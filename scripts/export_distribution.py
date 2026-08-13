@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -131,10 +132,14 @@ Write-Output "PASS: validated $($skills.Count) Skills in this distribution."
 '''
 
 
-def readme(info: dict, suite: str, version: str, owner: str, collection: str) -> str:
+def readme(info: dict, suite: str, version: str, owner: str, collection: str, skill_names: list[str]) -> str:
     repo = info["repository"]
     highlights = "\n".join(f"- **{item}**" for item in info["highlights"])
     prompts = "\n\n".join(f"```text\n{prompt}\n```" for prompt in info["prompts"])
+    skill_links = "\n".join(
+        f"- [`{name}`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/{name}/index.html)"
+        for name in skill_names
+    )
     return f'''<p align="center"><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
 
 <p align="center"><img src="assets/hero.svg" alt="{info['title']}" width="100%" /></p>
@@ -165,6 +170,12 @@ Clone or download this repository, then copy the repository folder into the Skil
 ```bash
 git clone https://github.com/{owner}/{repo}.git
 ```
+
+## 🧩 Use one Skill independently
+
+Every Skill below has its own promise, installation command, example, execution contract, limits, and bilingual project page:
+
+{skill_links}
 
 ## 🚀 Try it
 
@@ -205,6 +216,7 @@ def localized_readme(root: Path, suite: str) -> str:
         .replace("../../SOURCES.yml", "SOURCES.yml")
         .replace("../../THIRD_PARTY_NOTICES.md", "THIRD_PARTY_NOTICES.md")
         .replace("../../docs/visual-system.md", "https://github.com/TIKAZI/TIKAZ-AI-Skills/blob/main/docs/visual-system.md")
+        .replace("../../docs/zh/skills/", "https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/")
     )
 
 
@@ -215,9 +227,15 @@ def build(root: Path, suite: str, output: Path) -> None:
     info = manifest["suites"][suite]
     clean_output(output)
     copy_suite(root, suite, output)
+    skill_names = []
+    for skill_path in sorted(output.rglob("SKILL.md")):
+        match = re.search(r"(?m)^name:\s*([a-z0-9-]+)\s*$", skill_path.read_text(encoding="utf-8"))
+        if not match:
+            raise ValueError(f"Invalid Skill frontmatter: {skill_path}")
+        skill_names.append(match.group(1))
     (output / "assets").mkdir(exist_ok=True)
     (output / "assets" / "hero.svg").write_text(hero_svg(info["title"], info["tagline"], info["accent"], manifest["version"]), encoding="utf-8")
-    (output / "README.md").write_text(readme(info, suite, manifest["version"], manifest["owner"], manifest["collection"]), encoding="utf-8")
+    (output / "README.md").write_text(readme(info, suite, manifest["version"], manifest["owner"], manifest["collection"], skill_names), encoding="utf-8")
     (output / "README.zh-CN.md").write_text(localized_readme(root, suite), encoding="utf-8")
     (output / "VERSION").write_text(manifest["version"] + "\n", encoding="utf-8")
     try:

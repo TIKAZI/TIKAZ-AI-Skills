@@ -89,36 +89,36 @@ Each link below opens that Skill's own executable contract. Install an **orchest
 
 | Workflow | Skill | Role | Use it on its own for |
 |---|---|---|---|
-| Context Economy | [`context-economy`](suites/context-economy/SKILL.md) | Orchestrator | Automatically route pasted text, files, PDFs, tables, and visuals into the safest compact context path. |
-| Context Economy | [`context-pack`](suites/context-economy/context-pack/SKILL.md) | Specialist | Build a bounded, traceable context pack from files, folders, code, logs, or structured data. |
-| Context Economy | [`conversation-checkpoint`](suites/context-economy/conversation-checkpoint/SKILL.md) | Specialist | Turn a long conversation into recoverable decisions, state, evidence, and open questions. |
-| Context Economy | [`context-audit`](suites/context-economy/context-audit/SKILL.md) | Specialist | Audit relevance, repetition, traceability, safety, cacheability, and recoverability. |
-| Context Economy | [`context-benchmark`](suites/context-economy/context-benchmark/SKILL.md) | Specialist | Measure savings and fidelity on versioned, reproducible cases. |
-| Frontend Design | [`frontend-design`](suites/frontend-design/SKILL.md) | Orchestrator | Route product art direction, implementation, responsive QA, and engineering handoff. |
-| Frontend Design | [`frontend-design-studio`](suites/frontend-design/frontend-design-studio/SKILL.md) | Specialist | Design, implement, critique, polish, and verify a distinctive production interface. |
-| Video Intelligence | [`video-intelligence`](suites/video-intelligence/SKILL.md) | Orchestrator | Coordinate cross-platform video research with evidence levels and synthesis. |
-| Video Intelligence | [`video-platform-reader`](suites/video-intelligence/video-platform-reader/SKILL.md) | Specialist | Read public or local videos with metadata, timestamps, ASR, keyframes, and source cards. |
-| Engineering | [`engineering`](suites/engineering/SKILL.md) | Orchestrator | Own production delivery from specification and impact mapping through release evidence. |
-| Engineering | [`code-intelligence`](suites/engineering/code-intelligence/SKILL.md) | Specialist | Map repository structure, semantic relationships, change impact, PR risk, and refactors. |
-| Engineering | [`engineering-delivery`](suites/engineering/engineering-delivery/SKILL.md) | Specialist | Implement a scoped software change with tests, review, and release handoff. |
-| Engineering | [`skill-security-audit`](suites/engineering/skill-security-audit/SKILL.md) | Specialist | Statically inspect a third-party Skill before installation. |
-| Engineering | [`supabase-operations`](suites/engineering/supabase-operations/SKILL.md) | Specialist | Design and operate Supabase schema, migrations, security, backups, and observability. |
-| Engineering | [`video-workbench`](suites/engineering/video-workbench/SKILL.md) | Specialist | Engineer a repository-backed media processing workbench from ingestion to deployment. |
-| Knowledge & Research | [`knowledge-research`](suites/knowledge-research/SKILL.md) | Orchestrator | Route sources, research, decisions, personal knowledge, and evidence feedback. |
-| Knowledge & Research | [`document-to-markdown`](suites/knowledge-research/document-to-markdown/SKILL.md) | Specialist | Convert documents, webpages, images, and audio to structured, source-aware Markdown. |
-| Knowledge & Research | [`academic-research`](suites/knowledge-research/academic-research/SKILL.md) | Specialist | Run literature review, evidence synthesis, research writing, and peer-style critique. |
-| Knowledge & Research | [`product-strategy`](suites/knowledge-research/product-strategy/SKILL.md) | Specialist | Work through product discovery, positioning, priorities, GTM, and analytics. |
-| Knowledge & Research | [`solo-business-operations`](suites/knowledge-research/solo-business-operations/SKILL.md) | Specialist | Coordinate a one-person business across product, content, finance, operations, and support. |
-| Knowledge & Research | [`personal-knowledge-memory`](suites/knowledge-research/personal-knowledge-memory/SKILL.md) | Specialist | Retrieve relevant personal decisions and record only knowledge that changes execution. |
-| Presentation | [`presentation`](suites/presentation/SKILL.md) | Orchestrator | Choose and govern one presentation format from narrative through rendered QA. |
-| Presentation | [`html-deck-builder`](suites/presentation/html-deck-builder/SKILL.md) | Specialist | Build a browser-editable, offline-safe HTML deck. |
-| Presentation | [`powerpoint-deck-builder`](suites/presentation/powerpoint-deck-builder/SKILL.md) | Specialist | Create and verify a native editable PowerPoint deck. |
-| Presentation | [`magazine-web-deck`](suites/presentation/magazine-web-deck/SKILL.md) | Specialist | Create an editorial or Swiss-inspired single-file web presentation. |
-| Visual Content | [`visual-content`](suites/visual-content/SKILL.md) | Orchestrator | Route writing, illustration, logistics diagrams, music, accessibility, and publishing QA. |
-| Visual Content | [`concise-writing-editor`](suites/visual-content/concise-writing-editor/SKILL.md) | Specialist | Remove AI filler and repetition while preserving meaning and voice. |
-| Visual Content | [`xiaohei-article-illustrator`](suites/visual-content/xiaohei-article-illustrator/SKILL.md) | Specialist | Art-direct concise hand-drawn Chinese article illustrations with a consistent character. |
-| Visual Content | [`zhuge-logistics-illustrator`](suites/visual-content/zhuge-logistics-illustrator/SKILL.md) | Specialist | Art-direct source-aware 16:9 Chinese logistics explainers. |
-| Visual Content | [`legal-free-music`](suites/visual-content/legal-free-music/SKILL.md) | Specialist | Find lawfully downloadable public-domain, CC, or artist-authorized music with license evidence. |
+| Context Economy | [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-economy/index.html) | Orchestrator | Automatically route pasted text, files, PDFs, tables, and visuals into the safest compact context path. |
+| Context Economy | [`context-pack`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-pack/index.html) | Specialist | Build a bounded, traceable context pack from files, folders, code, logs, or structured data. |
+| Context Economy | [`conversation-checkpoint`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/conversation-checkpoint/index.html) | Specialist | Turn a long conversation into recoverable decisions, state, evidence, and open questions. |
+| Context Economy | [`context-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-audit/index.html) | Specialist | Audit relevance, repetition, traceability, safety, cacheability, and recoverability. |
+| Context Economy | [`context-benchmark`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-benchmark/index.html) | Specialist | Measure savings and fidelity on versioned, reproducible cases. |
+| Frontend Design | [`frontend-design`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/frontend-design/index.html) | Orchestrator | Route product art direction, implementation, responsive QA, and engineering handoff. |
+| Frontend Design | [`frontend-design-studio`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/frontend-design-studio/index.html) | Specialist | Design, implement, critique, polish, and verify a distinctive production interface. |
+| Video Intelligence | [`video-intelligence`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/video-intelligence/index.html) | Orchestrator | Coordinate cross-platform video research with evidence levels and synthesis. |
+| Video Intelligence | [`video-platform-reader`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/video-platform-reader/index.html) | Specialist | Read public or local videos with metadata, timestamps, ASR, keyframes, and source cards. |
+| Engineering | [`engineering`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/engineering/index.html) | Orchestrator | Own production delivery from specification and impact mapping through release evidence. |
+| Engineering | [`code-intelligence`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/code-intelligence/index.html) | Specialist | Map repository structure, semantic relationships, change impact, PR risk, and refactors. |
+| Engineering | [`engineering-delivery`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/engineering-delivery/index.html) | Specialist | Implement a scoped software change with tests, review, and release handoff. |
+| Engineering | [`skill-security-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/skill-security-audit/index.html) | Specialist | Statically inspect a third-party Skill before installation. |
+| Engineering | [`supabase-operations`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/supabase-operations/index.html) | Specialist | Design and operate Supabase schema, migrations, security, backups, and observability. |
+| Engineering | [`video-workbench`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/video-workbench/index.html) | Specialist | Engineer a repository-backed media processing workbench from ingestion to deployment. |
+| Knowledge & Research | [`knowledge-research`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/knowledge-research/index.html) | Orchestrator | Route sources, research, decisions, personal knowledge, and evidence feedback. |
+| Knowledge & Research | [`document-to-markdown`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/document-to-markdown/index.html) | Specialist | Convert documents, webpages, images, and audio to structured, source-aware Markdown. |
+| Knowledge & Research | [`academic-research`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/academic-research/index.html) | Specialist | Run literature review, evidence synthesis, research writing, and peer-style critique. |
+| Knowledge & Research | [`product-strategy`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/product-strategy/index.html) | Specialist | Work through product discovery, positioning, priorities, GTM, and analytics. |
+| Knowledge & Research | [`solo-business-operations`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/solo-business-operations/index.html) | Specialist | Coordinate a one-person business across product, content, finance, operations, and support. |
+| Knowledge & Research | [`personal-knowledge-memory`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/personal-knowledge-memory/index.html) | Specialist | Retrieve relevant personal decisions and record only knowledge that changes execution. |
+| Presentation | [`presentation`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/presentation/index.html) | Orchestrator | Choose and govern one presentation format from narrative through rendered QA. |
+| Presentation | [`html-deck-builder`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/html-deck-builder/index.html) | Specialist | Build a browser-editable, offline-safe HTML deck. |
+| Presentation | [`powerpoint-deck-builder`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/powerpoint-deck-builder/index.html) | Specialist | Create and verify a native editable PowerPoint deck. |
+| Presentation | [`magazine-web-deck`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/magazine-web-deck/index.html) | Specialist | Create an editorial or Swiss-inspired single-file web presentation. |
+| Visual Content | [`visual-content`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/visual-content/index.html) | Orchestrator | Route writing, illustration, logistics diagrams, music, accessibility, and publishing QA. |
+| Visual Content | [`concise-writing-editor`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/concise-writing-editor/index.html) | Specialist | Remove AI filler and repetition while preserving meaning and voice. |
+| Visual Content | [`xiaohei-article-illustrator`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/xiaohei-article-illustrator/index.html) | Specialist | Art-direct concise hand-drawn Chinese article illustrations with a consistent character. |
+| Visual Content | [`zhuge-logistics-illustrator`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/zhuge-logistics-illustrator/index.html) | Specialist | Art-direct source-aware 16:9 Chinese logistics explainers. |
+| Visual Content | [`legal-free-music`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/legal-free-music/index.html) | Specialist | Find lawfully downloadable public-domain, CC, or artist-authorized music with license evidence. |
 
 ### Install a complete suite separately
 

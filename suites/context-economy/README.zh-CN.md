@@ -14,11 +14,11 @@ Context Economy 不是“全部压缩”的技巧。它准备的是**仍然可�
 
 | Skill | 单独使用场景 | 主要输出 |
 |---|---|---|
-| [`context-economy`](SKILL.md) | 输入混合或需要自动选择处理路线 | 路由结果、上下文、遗漏项与验证边界 |
-| [`context-pack`](context-pack/SKILL.md) | 文件、代码或日志需要形成一次任务移交 | Context Markdown、锚点、视觉队列和成本台账 |
-| [`conversation-checkpoint`](conversation-checkpoint/SKILL.md) | 长对话需要压缩、恢复或移交 | 七部分的可恢复任务状态 |
-| [`context-audit`](context-audit/SKILL.md) | 只诊断现有上下文而不改写 | 六维 Context Health 报告 |
-| [`context-benchmark`](context-benchmark/SKILL.md) | 节省与保真主张需要可复现实证 | 原始用例、指标、汇总和证据卡 |
+| [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-economy/index.html) | 输入混合或需要自动选择处理路线 | 路由结果、上下文、遗漏项与验证边界 |
+| [`context-pack`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-pack/index.html) | 文件、代码或日志需要形成一次任务移交 | Context Markdown、锚点、视觉队列和成本台账 |
+| [`conversation-checkpoint`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/conversation-checkpoint/index.html) | 长对话需要压缩、恢复或移交 | 七部分的可恢复任务状态 |
+| [`context-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-audit/index.html) | 只诊断现有上下文而不改写 | 六维 Context Health 报告 |
+| [`context-benchmark`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-benchmark/index.html) | 节省与保真主张需要可复现实证 | 原始用例、指标、汇总和证据卡 |
 
 安装套件可获得完整编排；复制任一子文件夹即可单独安装专业 Skill。
 

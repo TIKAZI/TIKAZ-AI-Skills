@@ -66,36 +66,36 @@ TIKAZ AI Skills 是由 **TIKAZ** 主导设计、整合、独立重构和持续�
 
 | 工作流 | Skill | 角色 | 单独使用时负责 |
 |---|---|---|---|
-| 上下文经济 | [`context-economy`](suites/context-economy/SKILL.md) | 编排器 | 自动判断文本、文件、PDF、表格和图片应走压缩、混合还是原始来源路线。 |
-| 上下文经济 | [`context-pack`](suites/context-economy/context-pack/SKILL.md) | 专项 | 把文件、目录、代码、日志和结构化数据整理成有预算、可追溯的上下文包。 |
-| 上下文经济 | [`conversation-checkpoint`](suites/context-economy/conversation-checkpoint/SKILL.md) | 专项 | 把长对话整理为可恢复的决策、状态、证据和待办。 |
-| 上下文经济 | [`context-audit`](suites/context-economy/context-audit/SKILL.md) | 专项 | 审计相关性、重复、可追溯性、安全、缓存和恢复能力。 |
-| 上下文经济 | [`context-benchmark`](suites/context-economy/context-benchmark/SKILL.md) | 专项 | 在版本化固定样例上测量节省与保真。 |
-| 前端设计 | [`frontend-design`](suites/frontend-design/SKILL.md) | 编排器 | 统筹产品艺术方向、实现、响应式 QA 和工程移交。 |
-| 前端设计 | [`frontend-design-studio`](suites/frontend-design/frontend-design-studio/SKILL.md) | 专项 | 设计、实现、审查、打磨并验证有辨识度的生产界面。 |
-| 视频智能 | [`video-intelligence`](suites/video-intelligence/SKILL.md) | 编排器 | 统筹跨平台视频研究、证据分级与综合报告。 |
-| 视频智能 | [`video-platform-reader`](suites/video-intelligence/video-platform-reader/SKILL.md) | 专项 | 用元数据、时间戳、ASR、关键帧和来源卡阅读公开视频或本地视频。 |
-| 工程 | [`engineering`](suites/engineering/SKILL.md) | 编排器 | 从规格和影响分析一直负责到测试、审查与发布证据。 |
-| 工程 | [`code-intelligence`](suites/engineering/code-intelligence/SKILL.md) | 专项 | 分析仓库结构、语义关系、变更影响、PR 风险和重构范围。 |
-| 工程 | [`engineering-delivery`](suites/engineering/engineering-delivery/SKILL.md) | 专项 | 完成有边界的软件实现、测试、审查和发布移交。 |
-| 工程 | [`skill-security-audit`](suites/engineering/skill-security-audit/SKILL.md) | 专项 | 安装第三方 Skill 前执行静态安全审计。 |
-| 工程 | [`supabase-operations`](suites/engineering/supabase-operations/SKILL.md) | 专项 | 设计和运营 Supabase 架构、迁移、安全、备份与可观测性。 |
-| 工程 | [`video-workbench`](suites/engineering/video-workbench/SKILL.md) | 专项 | 从导入、任务状态、处理、复核、导出到部署构建媒体工作台。 |
-| 知识与研究 | [`knowledge-research`](suites/knowledge-research/SKILL.md) | 编排器 | 统筹来源、研究、决策、个人知识与证据反馈。 |
-| 知识与研究 | [`document-to-markdown`](suites/knowledge-research/document-to-markdown/SKILL.md) | 专项 | 把文档、网页、图片和音频转换为保留来源的结构化 Markdown。 |
-| 知识与研究 | [`academic-research`](suites/knowledge-research/academic-research/SKILL.md) | 专项 | 执行文献综述、证据综合、论文写作和同行评审式审查。 |
-| 知识与研究 | [`product-strategy`](suites/knowledge-research/product-strategy/SKILL.md) | 专项 | 完成产品发现、定位、优先级、GTM 和分析。 |
-| 知识与研究 | [`solo-business-operations`](suites/knowledge-research/solo-business-operations/SKILL.md) | 专项 | 协调一人业务的产品、内容、财务、运营和支持。 |
-| 知识与研究 | [`personal-knowledge-memory`](suites/knowledge-research/personal-knowledge-memory/SKILL.md) | 专项 | 检索个人决策，并只记录真正改变执行的知识。 |
-| 演示 | [`presentation`](suites/presentation/SKILL.md) | 编排器 | 选择一种演示格式，并从叙事一直管理到渲染 QA。 |
-| 演示 | [`html-deck-builder`](suites/presentation/html-deck-builder/SKILL.md) | 专项 | 构建可在浏览器编辑、可离线使用的 HTML 演示。 |
-| 演示 | [`powerpoint-deck-builder`](suites/presentation/powerpoint-deck-builder/SKILL.md) | 专项 | 创建并验证原生可编辑 PowerPoint。 |
-| 演示 | [`magazine-web-deck`](suites/presentation/magazine-web-deck/SKILL.md) | 专项 | 创建杂志或瑞士风格的单文件网页演示。 |
-| 视觉内容 | [`visual-content`](suites/visual-content/SKILL.md) | 编排器 | 统筹写作、配图、物流图、音乐、无障碍与发布 QA。 |
-| 视觉内容 | [`concise-writing-editor`](suites/visual-content/concise-writing-editor/SKILL.md) | 专项 | 清除 AI 套话和重复，同时保留原意与声音。 |
-| 视觉内容 | [`xiaohei-article-illustrator`](suites/visual-content/xiaohei-article-illustrator/SKILL.md) | 专项 | 用一致角色和手绘隐喻指导中文文章配图。 |
-| 视觉内容 | [`zhuge-logistics-illustrator`](suites/visual-content/zhuge-logistics-illustrator/SKILL.md) | 专项 | 指导有来源依据的 16:9 中文物流科普图。 |
-| 视觉内容 | [`legal-free-music`](suites/visual-content/legal-free-music/SKILL.md) | 专项 | 查找可合法下载的公版、CC 或艺术家授权音乐，并保留许可证证据。 |
+| 上下文经济 | [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-economy/index.html) | 编排器 | 自动判断文本、文件、PDF、表格和图片应走压缩、混合还是原始来源路线。 |
+| 上下文经济 | [`context-pack`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-pack/index.html) | 专项 | 把文件、目录、代码、日志和结构化数据整理成有预算、可追溯的上下文包。 |
+| 上下文经济 | [`conversation-checkpoint`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/conversation-checkpoint/index.html) | 专项 | 把长对话整理为可恢复的决策、状态、证据和待办。 |
+| 上下文经济 | [`context-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-audit/index.html) | 专项 | 审计相关性、重复、可追溯性、安全、缓存和恢复能力。 |
+| 上下文经济 | [`context-benchmark`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-benchmark/index.html) | 专项 | 在版本化固定样例上测量节省与保真。 |
+| 前端设计 | [`frontend-design`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/frontend-design/index.html) | 编排器 | 统筹产品艺术方向、实现、响应式 QA 和工程移交。 |
+| 前端设计 | [`frontend-design-studio`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/frontend-design-studio/index.html) | 专项 | 设计、实现、审查、打磨并验证有辨识度的生产界面。 |
+| 视频智能 | [`video-intelligence`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/video-intelligence/index.html) | 编排器 | 统筹跨平台视频研究、证据分级与综合报告。 |
+| 视频智能 | [`video-platform-reader`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/video-platform-reader/index.html) | 专项 | 用元数据、时间戳、ASR、关键帧和来源卡阅读公开视频或本地视频。 |
+| 工程 | [`engineering`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/engineering/index.html) | 编排器 | 从规格和影响分析一直负责到测试、审查与发布证据。 |
+| 工程 | [`code-intelligence`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/code-intelligence/index.html) | 专项 | 分析仓库结构、语义关系、变更影响、PR 风险和重构范围。 |
+| 工程 | [`engineering-delivery`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/engineering-delivery/index.html) | 专项 | 完成有边界的软件实现、测试、审查和发布移交。 |
+| 工程 | [`skill-security-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/skill-security-audit/index.html) | 专项 | 安装第三方 Skill 前执行静态安全审计。 |
+| 工程 | [`supabase-operations`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/supabase-operations/index.html) | 专项 | 设计和运营 Supabase 架构、迁移、安全、备份与可观测性。 |
+| 工程 | [`video-workbench`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/video-workbench/index.html) | 专项 | 从导入、任务状态、处理、复核、导出到部署构建媒体工作台。 |
+| 知识与研究 | [`knowledge-research`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/knowledge-research/index.html) | 编排器 | 统筹来源、研究、决策、个人知识与证据反馈。 |
+| 知识与研究 | [`document-to-markdown`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/document-to-markdown/index.html) | 专项 | 把文档、网页、图片和音频转换为保留来源的结构化 Markdown。 |
+| 知识与研究 | [`academic-research`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/academic-research/index.html) | 专项 | 执行文献综述、证据综合、论文写作和同行评审式审查。 |
+| 知识与研究 | [`product-strategy`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/product-strategy/index.html) | 专项 | 完成产品发现、定位、优先级、GTM 和分析。 |
+| 知识与研究 | [`solo-business-operations`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/solo-business-operations/index.html) | 专项 | 协调一人业务的产品、内容、财务、运营和支持。 |
+| 知识与研究 | [`personal-knowledge-memory`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/personal-knowledge-memory/index.html) | 专项 | 检索个人决策，并只记录真正改变执行的知识。 |
+| 演示 | [`presentation`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/presentation/index.html) | 编排器 | 选择一种演示格式，并从叙事一直管理到渲染 QA。 |
+| 演示 | [`html-deck-builder`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/html-deck-builder/index.html) | 专项 | 构建可在浏览器编辑、可离线使用的 HTML 演示。 |
+| 演示 | [`powerpoint-deck-builder`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/powerpoint-deck-builder/index.html) | 专项 | 创建并验证原生可编辑 PowerPoint。 |
+| 演示 | [`magazine-web-deck`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/magazine-web-deck/index.html) | 专项 | 创建杂志或瑞士风格的单文件网页演示。 |
+| 视觉内容 | [`visual-content`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/visual-content/index.html) | 编排器 | 统筹写作、配图、物流图、音乐、无障碍与发布 QA。 |
+| 视觉内容 | [`concise-writing-editor`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/concise-writing-editor/index.html) | 专项 | 清除 AI 套话和重复，同时保留原意与声音。 |
+| 视觉内容 | [`xiaohei-article-illustrator`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/xiaohei-article-illustrator/index.html) | 专项 | 用一致角色和手绘隐喻指导中文文章配图。 |
+| 视觉内容 | [`zhuge-logistics-illustrator`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/zhuge-logistics-illustrator/index.html) | 专项 | 指导有来源依据的 16:9 中文物流科普图。 |
+| 视觉内容 | [`legal-free-music`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/legal-free-music/index.html) | 专项 | 查找可合法下载的公版、CC 或艺术家授权音乐，并保留许可证证据。 |
 
 ## 📦 60 秒开始
 

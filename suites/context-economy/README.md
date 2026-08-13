@@ -63,11 +63,11 @@ Every Skill below is independently installable. Use the orchestrator when prepar
 
 | Skill | Use it independently when | Output |
 |---|---|---|
-| [`context-economy`](SKILL.md) | The input type is mixed or the workflow must choose the route | Route decision, bounded context, omissions, verification limits |
-| [`context-pack`](context-pack/SKILL.md) | Files, folders, code, or logs need one task-ready handoff | Context Markdown, anchors, visual queue, and cost ledger |
-| [`conversation-checkpoint`](conversation-checkpoint/SKILL.md) | A long conversation must survive compaction or handoff | Recoverable seven-section task state |
-| [`context-audit`](context-audit/SKILL.md) | Existing context needs diagnosis without rewriting | Six-dimension health report with anchored findings |
-| [`context-benchmark`](context-benchmark/SKILL.md) | Efficiency or fidelity claims need reproducible evidence | Raw cases, metrics, summary, and evidence card |
+| [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-economy/index.html) | The input type is mixed or the workflow must choose the route | Route decision, bounded context, omissions, verification limits |
+| [`context-pack`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-pack/index.html) | Files, folders, code, or logs need one task-ready handoff | Context Markdown, anchors, visual queue, and cost ledger |
+| [`conversation-checkpoint`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/conversation-checkpoint/index.html) | A long conversation must survive compaction or handoff | Recoverable seven-section task state |
+| [`context-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-audit/index.html) | Existing context needs diagnosis without rewriting | Six-dimension health report with anchored findings |
+| [`context-benchmark`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-benchmark/index.html) | Efficiency or fidelity claims need reproducible evidence | Raw cases, metrics, summary, and evidence card |
 
 ### Install only one Skill
 

@@ -20,8 +20,8 @@ This suite can be installed as one routed workflow, while every child Skill can 
 
 | Skill | Role | Core promise |
 |---|---|---|
-| [`frontend-design`](SKILL.md) | Orchestrator | Orchestrate product-aware frontend art direction, implementation, responsive QA, code impact analysis, and engineering handoff. |
-| [`frontend-design-studio`](frontend-design-studio/SKILL.md) | Specialist | Direct, design, implement, animate, critique, audit, polish, and deploy distinctive production frontend interfaces for websites, landing pages, web apps, dashboards, mob… |
+| [`frontend-design`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/frontend-design/index.html) | Orchestrator | Orchestrate product-aware frontend art direction, implementation, responsive QA, code impact analysis, and engineering handoff. |
+| [`frontend-design-studio`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/frontend-design-studio/index.html) | Specialist | Direct, design, implement, animate, critique, audit, polish, and deploy distinctive production frontend interfaces for websites, landing pages, web apps, dashboards, mob… |
 
 The root orchestrator owns end-to-end routing. A specialist owns only the output named in its `SKILL.md`; it does not need the orchestrator to be installed.
 

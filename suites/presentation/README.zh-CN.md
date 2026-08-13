@@ -12,10 +12,10 @@
 
 | Skill | 用途 |
 |---|---|
-| [`presentation`](SKILL.md) | 选择输出格式、规划叙事、统一页面合同与验收 |
-| [`html-deck-builder`](html-deck-builder/SKILL.md) | 浏览器可编辑、可离线打开的 HTML 演示 |
-| [`powerpoint-deck-builder`](powerpoint-deck-builder/SKILL.md) | 原生可编辑 PPTX、模板复用、备注与渲染 QA |
-| [`magazine-web-deck`](magazine-web-deck/SKILL.md) | 杂志或瑞士风格的单文件网页演示 |
+| [`presentation`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/presentation/index.html) | 选择输出格式、规划叙事、统一页面合同与验收 |
+| [`html-deck-builder`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/html-deck-builder/index.html) | 浏览器可编辑、可离线打开的 HTML 演示 |
+| [`powerpoint-deck-builder`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/powerpoint-deck-builder/index.html) | 原生可编辑 PPTX、模板复用、备注与渲染 QA |
+| [`magazine-web-deck`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/magazine-web-deck/index.html) | 杂志或瑞士风格的单文件网页演示 |
 
 ## 🚀 示例
 

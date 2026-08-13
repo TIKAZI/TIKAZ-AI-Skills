@@ -18,8 +18,8 @@
 
 | Skill | 角色 | 用途 |
 |---|---|---|
-| [`frontend-design`](SKILL.md) | 编排器 | 从产品分类、视觉方向到工程移交的完整流程 |
-| [`frontend-design-studio`](frontend-design-studio/SKILL.md) | 专业 Skill | 独立完成设计、实现、动效、审查、打磨与浏览器 QA |
+| [`frontend-design`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/frontend-design/index.html) | 编排器 | 从产品分类、视觉方向到工程移交的完整流程 |
+| [`frontend-design-studio`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/frontend-design-studio/index.html) | 专业 Skill | 独立完成设计、实现、动效、审查、打磨与浏览器 QA |
 
 ## 🚀 示例
 
