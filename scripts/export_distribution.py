@@ -142,7 +142,7 @@ def proof_strip(info: dict, language: str) -> str:
         label = html.escape(proof[label_key])
         note = html.escape(proof[note_key], quote=True)
         cells.append(
-            f'<td data-proof-cell="true" align="center" width="25%" title="{note}">'
+            f'<td data-proof-cell="true" align="center" width="200" title="{note}">'
             f'<h3>{value}</h3><sub>{label}</sub></td>'
         )
     return '<table data-proof-strip="true" width="100%">\n<tr>\n' + "\n".join(cells) + "\n</tr>\n</table>"

@@ -46,6 +46,8 @@ class ContextEconomyDistributionTests(unittest.TestCase):
                 with self.subTest(suite=suite):
                     self.assertEqual(readme.count('data-proof-cell="true"'), 4)
                     self.assertEqual(chinese_readme.count('data-proof-cell="true"'), 4)
+                    self.assertEqual(readme.count('align="center" width="200"'), 4)
+                    self.assertEqual(chinese_readme.count('align="center" width="200"'), 4)
                     self.assertIn("</table>\n\n## ", chinese_readme)
                     self.assertLess(readme.index('data-proof-strip="true"'), readme.index("## ✨ One suite"))
                     for proof in info["proofs"]:

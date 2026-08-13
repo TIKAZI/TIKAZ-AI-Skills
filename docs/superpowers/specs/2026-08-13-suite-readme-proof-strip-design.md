@@ -14,7 +14,7 @@ GitHub-native developer documentation for open-source adopters. The visual langu
 
 ## Layout
 
-The strip sits after the repository badges and collection link, before the first explanatory heading. It uses one full-width native HTML table with four equal cells. Each cell contains:
+The strip sits after the repository badges and collection link, before the first explanatory heading. It uses one native HTML table with four equal 200px cells. This fills a typical GitHub repository README column while GitHub's own table wrapper provides bounded horizontal scrolling on narrower screens. Each cell contains:
 
 1. one short, prominent value;
 2. one concise label;
