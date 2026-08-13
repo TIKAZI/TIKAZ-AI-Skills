@@ -115,8 +115,10 @@ SUITE_ADVANTAGES = {
 CONTEXT_EVIDENCE = {
     "context-economy": [
         ("69.73%", "estimated token reduction", "6 fixed long-context tasks: 4,698 → 1,422", "估算 Token 减少", "6 个固定长上下文任务：4,698 → 1,422"),
+        ("27.78%", "estimated prompt reduction", "6 fixed prompt cases: 252 → 182", "估算提示词减少", "6 个固定提示词样例：252 → 182"),
         ("46/46", "declared protected facts retained", "literal recall, not semantic accuracy", "声明保护事实保留", "字面召回，不等同语义准确率"),
         ("39/39", "expected anchors retained", "fixed public benchmark", "预期锚点保留", "固定公开基准"),
+        ("3/3", "generated PDF literal checks complete", "text, numbers, tables, and page anchors; visual accuracy pending", "生成 PDF 字面检查完成", "文字、数字、表格与页锚点；视觉准确率待测"),
     ],
     "context-pack": [
         ("69.73%", "estimated token reduction", "6 fixed long-context tasks: 4,698 → 1,422", "估算 Token 减少", "6 个固定长上下文任务：4,698 → 1,422"),

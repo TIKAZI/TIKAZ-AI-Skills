@@ -20,8 +20,10 @@ The main README, Chinese mirror, Pages catalog, seven suite READMEs, and seven s
 
 - Context Economy may show checked-in benchmark measurements only with the dataset and measurement boundary visible.
 - `69.73%` means estimated token reduction on six fixed long-context tasks (`4,698 → 1,422`), not universal savings.
+- `27.78%` means estimated reduction across six fixed exact/structural prompt cases (`252 → 182`); semantic rewriting remains disabled pending equivalence evaluation.
 - `46/46` means literal recall of declared protected facts, not semantic or downstream answer accuracy.
 - `39/39` means expected source anchors were retained on the fixed public cases.
+- Three generated PDFs retain all declared text, numbers, table cells, and page anchors; visual-description accuracy remains unscored and cannot be claimed.
 - The `+143.93%` short-input overhead remains visible to show when protocol structure costs more than it saves.
 - Other suites show inspectable workflow properties, stage counts, routing rules, and quality gates. They do not receive invented performance percentages.
 

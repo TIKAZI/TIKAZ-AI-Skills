@@ -91,7 +91,11 @@ class ProductAssetTests(unittest.TestCase):
         context_zh = (ROOT / "docs" / "zh" / "skills" / "context-economy" / "index.html").read_text(encoding="utf-8")
         self.assertIn("69.73%", context)
         self.assertIn("4,698 → 1,422", context)
+        self.assertIn("27.78%", context)
+        self.assertIn("252 → 182", context)
         self.assertIn("46/46", context)
+        self.assertIn("3/3", context)
+        self.assertIn("visual accuracy pending", context)
         self.assertIn("not universal accuracy", context)
         self.assertIn("不代表通用准确率", context_zh)
 
