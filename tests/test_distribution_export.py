@@ -37,6 +37,7 @@ class ContextEconomyDistributionTests(unittest.TestCase):
             self.assertIn("all seven TIKAZ AI Skills for Codex suites", readme)
             self.assertIn("v0.8.0", hero)
             self.assertEqual((output / "VERSION").read_text(encoding="utf-8"), "0.8.0\n")
+            self.assertIn("*.pdf binary", (output / ".gitattributes").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":
