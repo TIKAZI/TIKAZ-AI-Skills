@@ -83,6 +83,43 @@ There are **30 installable Skills**, including the seven suite orchestrators. Us
 
 Browse the generated [30-Skill Catalog](docs/skills-catalog.md). Every entry links to its canonical `SKILL.md` and is checked for an independent trigger, input, output, example, validation, fallback, limitation, TIKAZ contribution, and Codex UI metadata.
 
+### Every Skill, individually installable
+
+Each link below opens that Skill's own executable contract. Install an **orchestrator** for the complete routed workflow, or copy only a **specialist** folder when that focused output is all you need.
+
+| Workflow | Skill | Role | Use it on its own for |
+|---|---|---|---|
+| Context Economy | [`context-economy`](suites/context-economy/SKILL.md) | Orchestrator | Automatically route pasted text, files, PDFs, tables, and visuals into the safest compact context path. |
+| Context Economy | [`context-pack`](suites/context-economy/context-pack/SKILL.md) | Specialist | Build a bounded, traceable context pack from files, folders, code, logs, or structured data. |
+| Context Economy | [`conversation-checkpoint`](suites/context-economy/conversation-checkpoint/SKILL.md) | Specialist | Turn a long conversation into recoverable decisions, state, evidence, and open questions. |
+| Context Economy | [`context-audit`](suites/context-economy/context-audit/SKILL.md) | Specialist | Audit relevance, repetition, traceability, safety, cacheability, and recoverability. |
+| Context Economy | [`context-benchmark`](suites/context-economy/context-benchmark/SKILL.md) | Specialist | Measure savings and fidelity on versioned, reproducible cases. |
+| Frontend Design | [`frontend-design`](suites/frontend-design/SKILL.md) | Orchestrator | Route product art direction, implementation, responsive QA, and engineering handoff. |
+| Frontend Design | [`frontend-design-studio`](suites/frontend-design/frontend-design-studio/SKILL.md) | Specialist | Design, implement, critique, polish, and verify a distinctive production interface. |
+| Video Intelligence | [`video-intelligence`](suites/video-intelligence/SKILL.md) | Orchestrator | Coordinate cross-platform video research with evidence levels and synthesis. |
+| Video Intelligence | [`video-platform-reader`](suites/video-intelligence/video-platform-reader/SKILL.md) | Specialist | Read public or local videos with metadata, timestamps, ASR, keyframes, and source cards. |
+| Engineering | [`engineering`](suites/engineering/SKILL.md) | Orchestrator | Own production delivery from specification and impact mapping through release evidence. |
+| Engineering | [`code-intelligence`](suites/engineering/code-intelligence/SKILL.md) | Specialist | Map repository structure, semantic relationships, change impact, PR risk, and refactors. |
+| Engineering | [`engineering-delivery`](suites/engineering/engineering-delivery/SKILL.md) | Specialist | Implement a scoped software change with tests, review, and release handoff. |
+| Engineering | [`skill-security-audit`](suites/engineering/skill-security-audit/SKILL.md) | Specialist | Statically inspect a third-party Skill before installation. |
+| Engineering | [`supabase-operations`](suites/engineering/supabase-operations/SKILL.md) | Specialist | Design and operate Supabase schema, migrations, security, backups, and observability. |
+| Engineering | [`video-workbench`](suites/engineering/video-workbench/SKILL.md) | Specialist | Engineer a repository-backed media processing workbench from ingestion to deployment. |
+| Knowledge & Research | [`knowledge-research`](suites/knowledge-research/SKILL.md) | Orchestrator | Route sources, research, decisions, personal knowledge, and evidence feedback. |
+| Knowledge & Research | [`document-to-markdown`](suites/knowledge-research/document-to-markdown/SKILL.md) | Specialist | Convert documents, webpages, images, and audio to structured, source-aware Markdown. |
+| Knowledge & Research | [`academic-research`](suites/knowledge-research/academic-research/SKILL.md) | Specialist | Run literature review, evidence synthesis, research writing, and peer-style critique. |
+| Knowledge & Research | [`product-strategy`](suites/knowledge-research/product-strategy/SKILL.md) | Specialist | Work through product discovery, positioning, priorities, GTM, and analytics. |
+| Knowledge & Research | [`solo-business-operations`](suites/knowledge-research/solo-business-operations/SKILL.md) | Specialist | Coordinate a one-person business across product, content, finance, operations, and support. |
+| Knowledge & Research | [`personal-knowledge-memory`](suites/knowledge-research/personal-knowledge-memory/SKILL.md) | Specialist | Retrieve relevant personal decisions and record only knowledge that changes execution. |
+| Presentation | [`presentation`](suites/presentation/SKILL.md) | Orchestrator | Choose and govern one presentation format from narrative through rendered QA. |
+| Presentation | [`html-deck-builder`](suites/presentation/html-deck-builder/SKILL.md) | Specialist | Build a browser-editable, offline-safe HTML deck. |
+| Presentation | [`powerpoint-deck-builder`](suites/presentation/powerpoint-deck-builder/SKILL.md) | Specialist | Create and verify a native editable PowerPoint deck. |
+| Presentation | [`magazine-web-deck`](suites/presentation/magazine-web-deck/SKILL.md) | Specialist | Create an editorial or Swiss-inspired single-file web presentation. |
+| Visual Content | [`visual-content`](suites/visual-content/SKILL.md) | Orchestrator | Route writing, illustration, logistics diagrams, music, accessibility, and publishing QA. |
+| Visual Content | [`concise-writing-editor`](suites/visual-content/concise-writing-editor/SKILL.md) | Specialist | Remove AI filler and repetition while preserving meaning and voice. |
+| Visual Content | [`xiaohei-article-illustrator`](suites/visual-content/xiaohei-article-illustrator/SKILL.md) | Specialist | Art-direct concise hand-drawn Chinese article illustrations with a consistent character. |
+| Visual Content | [`zhuge-logistics-illustrator`](suites/visual-content/zhuge-logistics-illustrator/SKILL.md) | Specialist | Art-direct source-aware 16:9 Chinese logistics explainers. |
+| Visual Content | [`legal-free-music`](suites/visual-content/legal-free-music/SKILL.md) | Specialist | Find lawfully downloadable public-domain, CC, or artist-authorized music with license evidence. |
+
 ### Install a complete suite separately
 
 The monorepo is the **single source of truth**. Seven focused repositories are automatically generated from it so each suite can be discovered, starred, cloned, and installed on its own without creating eight drifting codebases.

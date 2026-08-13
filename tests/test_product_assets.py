@@ -38,6 +38,15 @@ class ProductAssetTests(unittest.TestCase):
                 for name in expected:
                     self.assertRegex(readme, rf"(?<![a-z0-9-])`{re.escape(name)}`(?![a-z0-9-])", f"{suite_dir.name}/{readme_name}: {name}")
 
+        public_entries = (
+            ROOT / "README.md", ROOT / "README.zh-CN.md",
+            ROOT / "docs" / "index.html", ROOT / "docs" / "zh" / "index.html",
+        )
+        for document in public_entries:
+            content = document.read_text(encoding="utf-8")
+            for name in skill_names.values():
+                self.assertRegex(content, rf"(?<![a-z0-9-]){re.escape(name)}(?![a-z0-9-])", f"{document}: {name}")
+
     def test_generate_catalog_and_suite_workflows(self) -> None:
         generator = load_generator()
         with tempfile.TemporaryDirectory() as temp_dir:
