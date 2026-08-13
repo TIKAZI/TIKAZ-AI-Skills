@@ -217,6 +217,69 @@ class ContextEconomyProductTests(unittest.TestCase):
             self.assertTrue((output / "profile.json").is_file())
             self.assertTrue((output / "visual-evidence.json").is_file())
 
+    def test_prompt_compiler_removes_only_exact_repetition_and_preserves_facts(self) -> None:
+        ce = load_context_economy()
+        source = (
+            "Review release 2.4.1.\n"
+            "Keep https://example.com/release.\n"
+            "Review release 2.4.1.\n"
+            "Return risks and evidence.\n"
+            "Return risks and evidence.\n"
+        )
+
+        compiled, result = ce.compile_prompt(source)
+
+        self.assertEqual(result.duplicate_units_removed, 2)
+        self.assertLess(result.compiled_tokens, result.source_tokens)
+        self.assertEqual(result.protected_fact_recall, 1.0)
+        self.assertEqual(compiled.count("Review release 2.4.1."), 1)
+        self.assertIn("https://example.com/release", compiled)
+
+    def test_benchmark_scores_multimodal_expectations_and_writes_public_evidence(self) -> None:
+        ce = load_context_economy()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            visual = root / "visual.md"
+            visual.write_text(
+                "# Report\n![Logo](logo.png)\n![Revenue chart](revenue.png)\n"
+                "![Revenue duplicate](revenue.png)\n",
+                encoding="utf-8",
+            )
+            prompt = root / "prompt.txt"
+            prompt.write_text("Keep version 2.4.1.\nKeep version 2.4.1.\nReturn evidence.\n", encoding="utf-8")
+            manifest = root / "manifest.json"
+            manifest.write_text(json.dumps({
+                "schema_version": 1,
+                "dataset": "test-public-evidence",
+                "cases": [
+                    {
+                        "id": "visual-route", "inputs": ["visual.md"], "task": "revenue chart",
+                        "budget": 180, "expected_route": "hybrid", "expected_informative_visuals": 1,
+                        "expected_decorative_skips": 1, "expected_duplicate_skips": 1,
+                    },
+                    {
+                        "id": "prompt-repeat", "kind": "prompt", "inputs": ["prompt.txt"],
+                        "protected_facts": ["2.4.1"], "expected_duplicate_units_removed": 1,
+                    },
+                ],
+            }), encoding="utf-8")
+
+            result = ce.run_benchmark(manifest, root / "results")
+
+            self.assertEqual(result.failed_cases, 0)
+            cases = json.loads((root / "results" / "cases.json").read_text(encoding="utf-8"))
+            self.assertTrue(cases[0]["route_correct"])
+            self.assertTrue(cases[0]["visual_counts_correct"])
+            self.assertEqual(cases[1]["duplicate_units_removed"], 1)
+            metrics = json.loads((root / "results" / "metrics.json").read_text(encoding="utf-8"))
+            self.assertEqual(metrics["fidelity"]["route_accuracy"]["value"], 1.0)
+            self.assertEqual(metrics["fidelity"]["route_accuracy"]["denominator"], 1)
+            self.assertEqual(metrics["prompt_efficiency"]["cases"], 1)
+            report = (root / "results" / "README.md").read_text(encoding="utf-8")
+            self.assertIn("Protected-fact recall", report)
+            self.assertIn("Pending", report)
+            self.assertNotIn("overall fidelity |", report.lower())
+
 
 if __name__ == "__main__":
     unittest.main()

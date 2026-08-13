@@ -97,6 +97,14 @@ class BenchmarkResult(NamedTuple):
     declared_protected_facts: int
 
 
+class PromptCompileResult(NamedTuple):
+    source_tokens: int
+    compiled_tokens: int
+    duplicate_units_removed: int
+    protected_facts: int
+    protected_fact_recall: float
+
+
 def normalize_text(text: str) -> str:
     """Normalize line endings and trailing whitespace without rewriting content."""
 
@@ -316,6 +324,34 @@ def extract_protected_facts(text: str) -> tuple[str, ...]:
     for fence in re.findall(r"```[^\n]*\n.*?```", text, flags=re.S):
         facts.add(fence)
     return tuple(sorted(facts))
+
+
+def compile_prompt(text: str) -> tuple[str, PromptCompileResult]:
+    """Remove exact repeated non-empty prompt lines without semantic rewriting."""
+
+    normalized = normalize_text(text)
+    seen: set[str] = set()
+    kept: list[str] = []
+    removed = 0
+    for line in normalized.splitlines():
+        key = line.strip()
+        if key and key in seen:
+            removed += 1
+            continue
+        if key:
+            seen.add(key)
+        kept.append(line)
+    compiled = normalize_text("\n".join(kept))
+    facts = extract_protected_facts(normalized)
+    retained = sum(1 for fact in facts if fact in compiled)
+    result = PromptCompileResult(
+        source_tokens=estimate_tokens(normalized),
+        compiled_tokens=estimate_tokens(compiled),
+        duplicate_units_removed=removed,
+        protected_facts=len(facts),
+        protected_fact_recall=1.0 if not facts else round(retained / len(facts), 4),
+    )
+    return compiled, result
 
 
 def _make_chunk(source: str, anchor: str, heading: str, lines: list[str]) -> Chunk:
@@ -848,8 +884,71 @@ def run_benchmark(manifest_path: Path | str, output_dir: Path | str) -> Benchmar
         case_id = str(case["id"])
         inputs = [(manifest_file.parent / value).resolve() for value in case["inputs"]]
         case_output = output_root / "artifacts" / case_id
+        if case.get("kind") == "profile":
+            profiled = profile_inputs(inputs, str(case.get("task", "")), case_output, int(case.get("visual_budget", 4)))
+            documents = profiled["documents"]
+            actual_route = str(profiled["recommended_route"])
+            informative = sum(int(item.get("informative_visuals") or 0) for item in documents)
+            decorative = sum(int(item.get("decorative_visuals_skipped") or 0) for item in documents)
+            duplicates = sum(int(item.get("duplicate_visuals_skipped") or 0) for item in documents)
+            complex_tables = sum(int(item.get("complex_tables") or 0) for item in documents)
+            checks = {
+                "route_correct": actual_route == str(case["expected_route"]) if "expected_route" in case else None,
+                "informative_visual_count_correct": informative == int(case["expected_informative_visuals"]) if "expected_informative_visuals" in case else None,
+                "decorative_skip_count_correct": decorative == int(case["expected_decorative_skips"]) if "expected_decorative_skips" in case else None,
+                "duplicate_skip_count_correct": duplicates == int(case["expected_duplicate_skips"]) if "expected_duplicate_skips" in case else None,
+                "table_risk_count_correct": complex_tables == int(case["expected_complex_tables"]) if "expected_complex_tables" in case else None,
+            }
+            failures = [name.replace("_correct", "-mismatch") for name, value in checks.items() if value is False]
+            results.append({
+                "id": case_id, "kind": "profile", "profile": str(case.get("profile", "multimodal-routing")),
+                "source_tokens": 0, "packed_tokens": 0, "savings_ratio": 0, "budget_compliant": None,
+                "protected_fact_recall": None, "protected_facts_retained": 0, "protected_facts_declared": 0,
+                "anchor_correctness": None, "anchors_retained": 0, "anchors_declared": 0,
+                "route": actual_route, "visual_counts_correct": all(value for value in checks.values() if value is not None),
+                "informative_visuals": informative, "decorative_skips": decorative,
+                "duplicate_skips": duplicates, "complex_tables": complex_tables,
+                **checks, "failures": failures,
+            })
+            continue
+        if case.get("kind") == "prompt":
+            source = "\n".join(path.read_text(encoding="utf-8") for path in inputs)
+            compiled, prompt_result = compile_prompt(source)
+            expected_facts = [str(value) for value in case.get("protected_facts", [])]
+            retained_facts = sum(1 for value in expected_facts if value in compiled)
+            failures: list[str] = []
+            expected_removed = case.get("expected_duplicate_units_removed")
+            if expected_removed is not None and prompt_result.duplicate_units_removed != int(expected_removed):
+                failures.append("prompt-duplicate-count-mismatch")
+            if retained_facts < len(expected_facts):
+                failures.append("protected-fact-missing")
+            results.append({
+                "id": case_id,
+                "kind": "prompt",
+                "profile": str(case.get("profile", "prompt")),
+                "source_tokens": prompt_result.source_tokens,
+                "packed_tokens": prompt_result.compiled_tokens,
+                "savings_ratio": 0 if not prompt_result.source_tokens else round(1 - prompt_result.compiled_tokens / prompt_result.source_tokens, 4),
+                "budget_compliant": True,
+                "protected_fact_recall": 1 if not expected_facts else round(retained_facts / len(expected_facts), 4),
+                "protected_facts_retained": retained_facts,
+                "protected_facts_declared": len(expected_facts),
+                "anchor_correctness": None,
+                "anchors_retained": 0,
+                "anchors_declared": 0,
+                "duplicate_units_removed": prompt_result.duplicate_units_removed,
+                "failures": failures,
+            })
+            continue
         built = build_pack(inputs, str(case["task"]), int(case["budget"]), case_output)
         pack = (case_output / "packs" / "current-task.context.md").read_text(encoding="utf-8")
+        document_profile = json.loads((case_output / "profile.json").read_text(encoding="utf-8"))
+        documents = document_profile["documents"]
+        actual_route = str(document_profile["recommended_route"])
+        informative = sum(int(item.get("informative_visuals") or 0) for item in documents)
+        decorative = sum(int(item.get("decorative_visuals_skipped") or 0) for item in documents)
+        duplicates = sum(int(item.get("duplicate_visuals_skipped") or 0) for item in documents)
+        complex_tables = sum(int(item.get("complex_tables") or 0) for item in documents)
         expected_facts = [str(value) for value in case.get("protected_facts", [])]
         expected_anchors = [str(value) for value in case.get("expected_anchors", [])]
         retained_facts = sum(1 for value in expected_facts if value in pack)
@@ -861,15 +960,51 @@ def run_benchmark(manifest_path: Path | str, output_dir: Path | str) -> Benchmar
             failures.append("protected-fact-missing")
         if retained_anchors < len(expected_anchors):
             failures.append("expected-anchor-missing")
+        route_correct = None if "expected_route" not in case else actual_route == str(case["expected_route"])
+        visual_checks = []
+        detailed_checks: dict[str, bool | None] = {}
+        for expected_key, actual in (
+            ("expected_informative_visuals", informative),
+            ("expected_decorative_skips", decorative),
+            ("expected_duplicate_skips", duplicates),
+            ("expected_complex_tables", complex_tables),
+        ):
+            if expected_key in case:
+                is_correct = actual == int(case[expected_key])
+                visual_checks.append(is_correct)
+                detailed_checks[{
+                    "expected_informative_visuals": "informative_visual_count_correct",
+                    "expected_decorative_skips": "decorative_skip_count_correct",
+                    "expected_duplicate_skips": "duplicate_skip_count_correct",
+                    "expected_complex_tables": "table_risk_count_correct",
+                }[expected_key]] = is_correct
+        visual_counts_correct = None if not visual_checks else all(visual_checks)
+        if route_correct is False:
+            failures.append("route-mismatch")
+        if visual_counts_correct is False:
+            failures.append("visual-count-mismatch")
         results.append({
             "id": case_id,
+            "kind": str(case.get("kind", "context")),
             "profile": str(case.get("profile", "correctness")),
             "source_tokens": built.source_tokens,
             "packed_tokens": built.packed_tokens,
             "savings_ratio": 0 if not built.source_tokens else round(1 - built.packed_tokens / built.source_tokens, 4),
             "budget_compliant": built.packed_tokens <= int(case["budget"]),
             "protected_fact_recall": 1 if not expected_facts else round(retained_facts / len(expected_facts), 4),
+            "protected_facts_retained": retained_facts,
+            "protected_facts_declared": len(expected_facts),
             "anchor_correctness": 1 if not expected_anchors else round(retained_anchors / len(expected_anchors), 4),
+            "anchors_retained": retained_anchors,
+            "anchors_declared": len(expected_anchors),
+            "route": actual_route,
+            "route_correct": route_correct,
+            "visual_counts_correct": visual_counts_correct,
+            "informative_visuals": informative,
+            "decorative_skips": decorative,
+            "duplicate_skips": duplicates,
+            "complex_tables": complex_tables,
+            **detailed_checks,
             "failures": failures,
         })
     _write_json(output_root, Path("cases.json"), results)
@@ -901,7 +1036,156 @@ def run_benchmark(manifest_path: Path | str, output_dir: Path | str) -> Benchmar
         }
     summary_payload["profiles"] = profiles
     _write_json(output_root, Path("summary.json"), summary_payload)
+    _write_public_metrics(output_root, manifest, results, summary_payload)
     return summary
+
+
+def prune_benchmark_artifacts(output_dir: Path | str) -> bool:
+    """Remove reproducible per-case artifacts while retaining public result files."""
+
+    output_root = Path(output_dir).expanduser().resolve()
+    artifacts = (output_root / "artifacts").resolve()
+    try:
+        artifacts.relative_to(output_root)
+    except ValueError as error:
+        raise ValueError("benchmark artifact path escapes output directory") from error
+    if artifacts.is_dir():
+        shutil.rmtree(artifacts)
+        return True
+    return False
+
+
+def _rate(results: Sequence[dict[str, object]], field: str, predicate=None) -> dict[str, object]:
+    eligible = [item for item in results if item.get(field) is not None and (predicate is None or predicate(item))]
+    numerator = sum(1 for item in eligible if item.get(field) is True or item.get(field) == 1)
+    return {"value": None if not eligible else round(numerator / len(eligible), 4), "numerator": numerator, "denominator": len(eligible)}
+
+
+def _mean_score(results: Sequence[dict[str, object]], field: str) -> dict[str, object]:
+    eligible = [float(item[field]) for item in results if item.get(field) is not None]
+    return {"value": None if not eligible else round(sum(eligible) / len(eligible), 4), "denominator": len(eligible)}
+
+
+def _declared_recall(results: Sequence[dict[str, object]], retained_field: str, declared_field: str) -> dict[str, object]:
+    denominator = sum(int(item.get(declared_field, 0)) for item in results)
+    numerator = sum(int(item.get(retained_field, 0)) for item in results)
+    return {"value": None if not denominator else round(numerator / denominator, 4), "numerator": numerator, "denominator": denominator}
+
+
+def _percent(rate: dict[str, object]) -> str:
+    value = rate.get("value")
+    return "Pending" if value is None else f"{float(value) * 100:.1f}% ({rate.get('numerator', 'n/a')}/{rate['denominator']})"
+
+
+def _write_public_metrics(
+    output_root: Path, manifest: dict[str, object], results: Sequence[dict[str, object]], summary: dict[str, object],
+) -> None:
+    context_results = [item for item in results if item.get("kind") == "context"]
+    efficiency_results = [item for item in context_results if item.get("profile") in {"correctness", "efficiency"}]
+    routing_results = [item for item in results if item.get("kind") in {"context", "profile"}]
+    prompt_results = [item for item in results if item.get("kind") == "prompt"]
+    budget_rate = _rate(context_results, "budget_compliant")
+    route_rate = _rate(routing_results, "route_correct")
+    visual_rate = _rate(routing_results, "visual_counts_correct")
+    informative_rate = _rate(routing_results, "informative_visual_count_correct")
+    decorative_rate = _rate(routing_results, "decorative_skip_count_correct")
+    duplicate_rate = _rate(routing_results, "duplicate_skip_count_correct")
+    table_rate = _rate(routing_results, "table_risk_count_correct")
+    fact_rate = _declared_recall(results, "protected_facts_retained", "protected_facts_declared")
+    anchor_rate = _declared_recall(context_results, "anchors_retained", "anchors_declared")
+    prompt_source = sum(int(item["source_tokens"]) for item in prompt_results)
+    prompt_final = sum(int(item["packed_tokens"]) for item in prompt_results)
+    context_source = sum(int(item["source_tokens"]) for item in efficiency_results)
+    context_final = sum(int(item["packed_tokens"]) for item in efficiency_results)
+    metrics = {
+        "schema_version": 1,
+        "dataset": manifest.get("dataset", "unnamed"),
+        "generated_from_cases": len(results),
+        "measurement_labels": {"text_tokens": "estimated", "provider_tokens": "pending"},
+        "context_efficiency": {
+            "source_estimated_tokens": context_source,
+            "final_estimated_tokens": context_final,
+            "reduction_ratio": 0 if not context_source else round(1 - context_final / context_source, 4),
+            "profiles": {name: value for name, value in summary["profiles"].items() if name in {"correctness", "efficiency"}},
+        },
+        "prompt_efficiency": {
+            "cases": len(prompt_results),
+            "source_estimated_tokens": prompt_source,
+            "compiled_estimated_tokens": prompt_final,
+            "reduction_ratio": 0 if not prompt_source else round(1 - prompt_final / prompt_source, 4),
+            "duplicate_units_removed": sum(int(item.get("duplicate_units_removed", 0)) for item in prompt_results),
+        },
+        "fidelity": {
+            "protected_fact_recall": fact_rate,
+            "anchor_correctness": anchor_rate,
+            "route_accuracy": route_rate,
+            "visual_filtering_accuracy": visual_rate,
+            "informative_visual_count_accuracy": informative_rate,
+            "decorative_skip_accuracy": decorative_rate,
+            "duplicate_skip_accuracy": duplicate_rate,
+            "table_risk_gate_accuracy": table_rate,
+            "budget_compliance": budget_rate,
+        },
+        "pending": {
+            "real_pdf_conversion_fidelity": "pending-real-corpus",
+            "provider_input_token_telemetry": "pending-api-run",
+            "vision_description_accuracy": "pending-human-labels-and-model-run",
+            "downstream_blind_answer_quality": "pending-blind-evaluation",
+        },
+        "claim_boundary": "No overall fidelity score and no cross-project superiority claim.",
+    }
+    _write_json(output_root, Path("metrics.json"), metrics)
+    efficiency = metrics["context_efficiency"]
+    prompt = metrics["prompt_efficiency"]
+    lines = [
+        "# TIKAZ Context Economy — Reproducible Evidence",
+        "",
+        f"Dataset: `{metrics['dataset']}` · Cases: **{len(results)}** · Text counts: **estimated, not provider billing telemetry**.",
+        "",
+        "## Evidence card",
+        "",
+        "| Metric | Result | Evidence boundary |",
+        "|---|---:|---|",
+        f"| Context reduction | {float(efficiency['reduction_ratio']) * 100:.1f}% ({efficiency['source_estimated_tokens']} → {efficiency['final_estimated_tokens']} estimated tokens) | Aggregate; inspect profiles because short inputs may grow |",
+        f"| Prompt exact-repeat reduction | {float(prompt['reduction_ratio']) * 100:.1f}% ({prompt['source_estimated_tokens']} → {prompt['compiled_estimated_tokens']}) | {prompt['cases']} prompt cases; no semantic rewrite claim |",
+        f"| Protected-fact recall | {_percent(fact_rate)} | Literal declared facts only |",
+        f"| Anchor correctness | {_percent(anchor_rate)} | Declared expected anchors only |",
+        f"| Route accuracy | {_percent(route_rate)} | Text / Hybrid / Source labeled cases |",
+        f"| Visual filtering accuracy | {_percent(visual_rate)} | Informative, decorative, duplicate, and table-risk counts |",
+        f"| └ Informative-visual count | {_percent(informative_rate)} | Human-declared synthetic cases |",
+        f"| └ Decorative-image skips | {_percent(decorative_rate)} | Human-declared synthetic cases |",
+        f"| └ Duplicate-image skips | {_percent(duplicate_rate)} | Human-declared synthetic cases |",
+        f"| └ Complex-table risk gate | {_percent(table_rate)} | Human-declared synthetic cases |",
+        f"| Budget compliance | {_percent(budget_rate)} | Complete generated packs |",
+        "",
+        "## Profile results",
+        "",
+        "| Profile | Cases | Source | Final | Reduction | Passed |",
+        "|---|---:|---:|---:|---:|---:|",
+    ]
+    for name, profile in sorted(efficiency["profiles"].items()):
+        lines.append(f"| {name} | {profile['cases']} | {profile['source_tokens']} | {profile['packed_tokens']} | {float(profile['savings_ratio']) * 100:.1f}% | {profile['passed']}/{profile['cases']} |")
+    lines.extend([
+        "",
+        "## Pending — not yet claimed",
+        "",
+        "- Real PDF conversion fidelity: **Pending**",
+        "- Actual provider input-token savings: **Pending**",
+        "- Vision-description accuracy: **Pending**",
+        "- Downstream blind-answer quality: **Pending**",
+        "",
+        "## Reproduce",
+        "",
+        "```powershell",
+        "python scripts/tikaz_context.py benchmark --manifest benchmarks/manifest.json --output benchmarks/results --prune-artifacts",
+        "```",
+        "",
+        "Raw evidence: [`metrics.json`](metrics.json) · [`cases.json`](cases.json) · [`summary.json`](summary.json)",
+        "",
+        "> There is no overall fidelity score. Percentages describe separate, declared checks and include their sample counts.",
+        "",
+    ])
+    _write_text(output_root, Path("README.md"), "\n".join(lines))
 
 
 def doctor_report() -> dict[str, object]:
@@ -959,6 +1243,7 @@ def _build_parser() -> argparse.ArgumentParser:
     benchmark = subparsers.add_parser("benchmark", help="Run a versioned local benchmark manifest.")
     benchmark.add_argument("--manifest", required=True)
     benchmark.add_argument("--output", required=True)
+    benchmark.add_argument("--prune-artifacts", action="store_true")
     return parser
 
 
@@ -999,6 +1284,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.command == "benchmark":
         result = run_benchmark(args.manifest, args.output)
+        if args.prune_artifacts:
+            prune_benchmark_artifacts(args.output)
         print(json.dumps(result._asdict(), ensure_ascii=False, sort_keys=True))
         return 0 if result.failed_cases == 0 else 1
     raise AssertionError(f"unsupported command: {args.command}")

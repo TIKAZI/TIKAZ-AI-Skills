@@ -1,0 +1,39 @@
+{
+  "declared_protected_facts": 38,
+  "failed_cases": 0,
+  "overall_savings_ratio": 0.1785,
+  "passed_cases": 46,
+  "profiles": {
+    "correctness": {
+      "cases": 30,
+      "packed_tokens": 3354,
+      "passed": 30,
+      "savings_ratio": -1.4393,
+      "source_tokens": 1375
+    },
+    "efficiency": {
+      "cases": 6,
+      "packed_tokens": 1422,
+      "passed": 6,
+      "savings_ratio": 0.6973,
+      "source_tokens": 4698
+    },
+    "multimodal-routing": {
+      "cases": 8,
+      "packed_tokens": 339,
+      "passed": 8,
+      "savings_ratio": -1.4388,
+      "source_tokens": 139
+    },
+    "prompt": {
+      "cases": 2,
+      "packed_tokens": 39,
+      "passed": 2,
+      "savings_ratio": 0.371,
+      "source_tokens": 62
+    }
+  },
+  "total_cases": 46,
+  "total_packed_tokens": 5154,
+  "total_source_tokens": 6274
+}

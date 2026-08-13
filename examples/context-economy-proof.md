@@ -37,6 +37,8 @@ The public benchmark now separates two profiles. The 30 micro correctness cases 
 
 Version 0.6 additionally emits a multimodal route profile and complete cost ledger. Existing benchmark percentages remain text-only and must not be presented as PDF, image, prompt, or end-to-end API savings. Visual-routing performance requires a separately labeled multimodal corpus and provider telemetry.
 
+Version 0.7 adds a generated public evidence card. It reports prompt exact-repeat reduction, literal protected-fact recall, anchor correctness, labeled multimodal routing, visual filtering, and complete-pack budget compliance independently. The checked-in negative short-input result remains visible. See [`../suites/context-economy/benchmarks/results/README.md`](../suites/context-economy/benchmarks/results/README.md).
+
 ## Limits
 
 - Counts use the repository's documented deterministic heuristic, not provider billing telemetry.

@@ -20,6 +20,23 @@ The default CLI uses only the Python standard library and performs no network ca
 
 See the reproducible [Context Economy method demonstration](../../examples/context-economy-proof.md) and the [fixed-version comparison](../../docs/research/context-compression-comparison.md). The benchmark separates micro correctness from long-context efficiency so protocol overhead cannot hide behind one average.
 
+## Reproducible evidence
+
+Current public synthetic benchmark (`46` cases):
+
+| Evidence family | Observed result | Scope |
+|---|---:|---|
+| Long-context efficiency | **69.7% reduction** · 4,698 → 1,422 estimated tokens | 6 task variants over one TIKAZ-authored long fixture |
+| Short-input correctness | **143.9% growth** · 1,375 → 3,354 estimated tokens | 30 cases; proves the workflow should pass through small inputs |
+| Prompt exact-repeat reduction | **37.1% reduction** · 62 → 39 estimated tokens | 2 synthetic prompts; exact repetition only |
+| Protected-fact recall | **100% · 38/38** | Literal declared facts, not semantic equivalence |
+| Evidence-anchor correctness | **100% · 39/39** | Declared expected anchors |
+| Text / Hybrid / Source routing | **100% · 8/8** | Synthetic labeled routing cases |
+| Visual/table filtering checks | **100% · 8/8** | Informative, decorative, duplicate, and complex-table gates |
+| Complete-pack budget compliance | **100% · 39/39** | Generated context packs |
+
+Read the generated [evidence card](benchmarks/results/README.md), [machine-readable metrics](benchmarks/results/metrics.json), and [raw cases](benchmarks/results/cases.json). Real PDF conversion fidelity, actual provider input-token savings, vision-description accuracy, and downstream blind-answer quality remain explicitly **Pending**.
+
 ## Quick start
 
 ```powershell

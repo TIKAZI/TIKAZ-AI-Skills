@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.7.0] - 2026-08-13
+
+### Added
+
+- Reproducible GitHub evidence card plus machine-readable metrics, summaries, and raw cases.
+- Separate context, prompt, literal-fidelity, routing, visual-filtering, and budget-compliance measurements.
+- Eight labeled Text / Hybrid / Source fixtures and two exact-repeat prompt fixtures.
+
+### Changed
+
+- Kept short-input growth and pending real-PDF/provider/vision/downstream evidence visible instead of hiding them in a composite score.
+- Excluded multimodal routing checks from context-efficiency averages.
+
 ## [0.6.0] - 2026-08-13
 
 ### Added

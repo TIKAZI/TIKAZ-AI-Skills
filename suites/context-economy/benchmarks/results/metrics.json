@@ -1,0 +1,91 @@
+{
+  "claim_boundary": "No overall fidelity score and no cross-project superiority claim.",
+  "context_efficiency": {
+    "final_estimated_tokens": 4776,
+    "profiles": {
+      "correctness": {
+        "cases": 30,
+        "packed_tokens": 3354,
+        "passed": 30,
+        "savings_ratio": -1.4393,
+        "source_tokens": 1375
+      },
+      "efficiency": {
+        "cases": 6,
+        "packed_tokens": 1422,
+        "passed": 6,
+        "savings_ratio": 0.6973,
+        "source_tokens": 4698
+      }
+    },
+    "reduction_ratio": 0.2136,
+    "source_estimated_tokens": 6073
+  },
+  "dataset": "tikaz-context-economy-public-v1",
+  "fidelity": {
+    "anchor_correctness": {
+      "denominator": 39,
+      "numerator": 39,
+      "value": 1.0
+    },
+    "budget_compliance": {
+      "denominator": 39,
+      "numerator": 39,
+      "value": 1.0
+    },
+    "decorative_skip_accuracy": {
+      "denominator": 7,
+      "numerator": 7,
+      "value": 1.0
+    },
+    "duplicate_skip_accuracy": {
+      "denominator": 7,
+      "numerator": 7,
+      "value": 1.0
+    },
+    "informative_visual_count_accuracy": {
+      "denominator": 7,
+      "numerator": 7,
+      "value": 1.0
+    },
+    "protected_fact_recall": {
+      "denominator": 38,
+      "numerator": 38,
+      "value": 1.0
+    },
+    "route_accuracy": {
+      "denominator": 8,
+      "numerator": 8,
+      "value": 1.0
+    },
+    "table_risk_gate_accuracy": {
+      "denominator": 7,
+      "numerator": 7,
+      "value": 1.0
+    },
+    "visual_filtering_accuracy": {
+      "denominator": 8,
+      "numerator": 8,
+      "value": 1.0
+    }
+  },
+  "generated_from_cases": 46,
+  "measurement_labels": {
+    "provider_tokens": "pending",
+    "text_tokens": "estimated"
+  },
+  "pending": {
+    "downstream_blind_answer_quality": "pending-blind-evaluation",
+    "provider_input_token_telemetry": "pending-api-run",
+    "real_pdf_conversion_fidelity": "pending-real-corpus",
+    "vision_description_accuracy": "pending-human-labels-and-model-run"
+  },
+  "prompt_efficiency": {
+    "cases": 2,
+    "compiled_estimated_tokens": 39,
+    "duplicate_units_removed": 4,
+    "reduction_ratio": 0.371,
+    "source_estimated_tokens": 62
+  },
+  "schema_version": 1
+}
