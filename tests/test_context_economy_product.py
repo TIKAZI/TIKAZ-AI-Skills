@@ -73,6 +73,7 @@ class ContextEconomyProductTests(unittest.TestCase):
             self.assertIn("total_packed_tokens", aggregate)
             self.assertIn("overall_savings_ratio", aggregate)
             self.assertIn("declared_protected_facts", aggregate)
+            self.assertIn("profiles", aggregate)
 
     def test_cli_exposes_checkpoint_audit_doctor_and_benchmark(self) -> None:
         ce = load_context_economy()

@@ -33,7 +33,7 @@ python .\suites\context-economy\scripts\tikaz_context.py pack `
 
 The run selected `pass-through` mode, retained three unique anchored sections, and removed one exact duplicate. It preserved version `0.4.0`, the source URL, and the complete PowerShell validation block.
 
-The 30-case public correctness suite separately reports 100% budget compliance, declared protected-fact recall, and expected-anchor correctness on its synthetic fixtures. Across the suite, 1,375 estimated source tokens become 3,588 packed tokens, a 160.95% increase because protocol labels dominate. Only 14 cases declare protected facts, so this is neither an all-facts claim nor a savings claim. This longer fixture demonstrates the break-even case instead.
+The public benchmark now separates two profiles. The 30 micro correctness cases pass their declared budget, fact, and anchor checks but grow from 1,375 to 3,354 estimated tokens, a 143.93% increase caused by protocol overhead. The six long-context efficiency tasks reuse one synthetic source and shrink from 4,698 to 1,422, a 69.73% reduction, while retaining their declared facts and expected anchors. This is not a downstream semantic-equivalence test or a cross-project leaderboard. See the [fixed-version comparison](../docs/research/context-compression-comparison.md).
 
 ## Limits
 

@@ -58,6 +58,9 @@ class ContextEconomyStructureTests(unittest.TestCase):
         self.assertGreaterEqual(len(manifest["cases"]), 30)
         categories = {case["category"] for case in manifest["cases"]}
         self.assertTrue({"chinese", "english", "code", "log", "conversation", "long-form", "structured"} <= categories)
+        efficiency_cases = [case for case in manifest["cases"] if case.get("profile") == "efficiency"]
+        self.assertGreaterEqual(len(efficiency_cases), 6)
+        self.assertTrue(all(case["budget"] < 0.7 * case["expected_source_floor"] for case in efficiency_cases))
 
     def test_workflow_anchors_clear_the_fixed_header(self) -> None:
         styles = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")

@@ -8,7 +8,7 @@
       "title": "TIKAZ Context Economy for Codex",
       "tagline": "Lean, traceable context packs that spend tokens only where the task needs them.",
       "accent": "A78BFA",
-      "highlights": ["One orchestrator and four independently useful context specialists", "Hard-budget packs, exact deduplication, anchored selection, and recovery checkpoints", "Six-dimension audit and a 30-case public correctness benchmark keep claims inspectable"],
+      "highlights": ["One orchestrator and four independently useful context specialists", "Hard-budget packs, exact deduplication, anchored selection, and recovery checkpoints", "Separate 30-case correctness and 6-case long-context efficiency profiles keep claims inspectable"],
       "prompts": ["Prepare these files for this task. Enforce the complete-pack budget, remove exact duplicates, retain anchored evidence, and make every omission visible.", "Create a recoverable checkpoint from this long conversation. Preserve decisions, constraints, completed evidence, file paths, numbers, commands, and open questions.", "Audit this context across relevance, redundancy, traceability, safety, cacheability, and recoverability, then run the fixed benchmark before making an efficiency claim."]
     },
     "frontend-design": {

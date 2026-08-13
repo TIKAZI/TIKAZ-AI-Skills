@@ -651,6 +651,7 @@ def run_benchmark(manifest_path: Path | str, output_dir: Path | str) -> Benchmar
             failures.append("expected-anchor-missing")
         results.append({
             "id": case_id,
+            "profile": str(case.get("profile", "correctness")),
             "source_tokens": built.source_tokens,
             "packed_tokens": built.packed_tokens,
             "savings_ratio": 0 if not built.source_tokens else round(1 - built.packed_tokens / built.source_tokens, 4),
@@ -673,7 +674,21 @@ def run_benchmark(manifest_path: Path | str, output_dir: Path | str) -> Benchmar
         0 if not total_source else round(1 - total_packed / total_source, 4),
         declared_facts,
     )
-    _write_json(output_root, Path("summary.json"), summary._asdict())
+    summary_payload = summary._asdict()
+    profiles: dict[str, dict[str, object]] = {}
+    for profile in sorted({str(result["profile"]) for result in results}):
+        group = [result for result in results if result["profile"] == profile]
+        source_total = sum(int(result["source_tokens"]) for result in group)
+        packed_total = sum(int(result["packed_tokens"]) for result in group)
+        profiles[profile] = {
+            "cases": len(group),
+            "passed": sum(1 for result in group if not result["failures"]),
+            "source_tokens": source_total,
+            "packed_tokens": packed_total,
+            "savings_ratio": 0 if not source_total else round(1 - packed_total / source_total, 4),
+        }
+    summary_payload["profiles"] = profiles
+    _write_json(output_root, Path("summary.json"), summary_payload)
     return summary
 
 

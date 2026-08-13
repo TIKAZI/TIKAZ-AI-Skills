@@ -54,9 +54,13 @@ skills:
   context-benchmark:
     mode: original
     bundled_upstream: false
+    research_references:
+      - {url: https://github.com/rtk-ai/rtk/tree/v0.45.0, observed_license: Apache-2.0}
+      - {url: https://github.com/headroomlabs-ai/headroom/tree/v0.34.0, observed_license: Apache-2.0}
+      - {url: https://github.com/microsoft/LLMLingua/tree/v0.2.2, observed_license: MIT}
     license: MIT
     release_status: ready
-    tikaz_changes: [versioned public synthetic corpus, separate efficiency and fidelity measures, raw failure retention, deterministic aggregate output]
+    tikaz_changes: [versioned public synthetic corpus, separate correctness and efficiency profiles, separate efficiency and fidelity measures, raw failure retention, deterministic aggregate output]
 
   video-platform-reader:
     mode: clean-room

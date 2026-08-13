@@ -18,7 +18,7 @@ Context Economy turns files and long conversations into bounded, traceable conte
 
 The default CLI uses only the Python standard library and performs no network calls or model inference. Optional converters remain external and replaceable.
 
-See the reproducible [Context Economy method demonstration](../../examples/context-economy-proof.md), including the failed first result and the regression test that corrected it.
+See the reproducible [Context Economy method demonstration](../../examples/context-economy-proof.md) and the [fixed-version comparison](../../docs/research/context-compression-comparison.md). The benchmark separates micro correctness from long-context efficiency so protocol overhead cannot hide behind one average.
 
 ## Quick start
 
