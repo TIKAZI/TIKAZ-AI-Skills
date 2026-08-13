@@ -1,4 +1,10 @@
+<p align="center"><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
+
 # Context Economy for Codex
+
+<p align="center">
+  <img src="assets/workflow.svg" alt="Context Economy routes a task through five independently installable Skills" width="100%" />
+</p>
 
 **Fidelity-first context preparation for files, prompts, conversations, tables, and visual evidence.**
 
@@ -8,7 +14,7 @@ Context Economy is not a “compress everything” trick. It prepares the **smal
 
 The optimization target is **lower context cost without silent information loss**. Reduction percentages are evidence from declared benchmarks, not the product promise.
 
-## Paste text or attach files — the workflow chooses the route
+## 🔄 Paste text or attach files — the workflow chooses the route
 
 You do not need to decide how to process the input first. Give the Skill the task together with text, a conversation, or attached files; it profiles the material and chooses the lowest-cost route that can still preserve and verify the useful information.
 
@@ -37,7 +43,7 @@ Continue a long conversation
 
 This is one coordinated workflow, not four unrelated tools. Text is not forced through vision, every image is not sent to the model, and an uncertain conversion is never presented as a successful compression.
 
-## What it actually does
+## ✨ What it actually does
 
 | Input or condition | Route | Result |
 |---|---|---|
@@ -51,21 +57,35 @@ This is one coordinated workflow, not four unrelated tools. Text is not forced t
 
 Image routing is implemented and benchmarked. Image **meaning recognition** is performed only when the host provides vision and is not included in the current 100% literal-fidelity claims.
 
-## Installable workflow
+## 🧩 Installable workflow
 
-| Skill | Owns |
-|---|---|
-| `context-economy` | End-to-end routing and completion gate |
-| `context-pack` | Canonical ingestion, exact deduplication, anchored selection, and hard-budget output |
-| `conversation-checkpoint` | Recoverable conversation-only state |
-| `context-audit` | Read-only six-dimension Context Health triage |
-| `context-benchmark` | Reproducible efficiency and fidelity measurement |
+Every Skill below is independently installable. Use the orchestrator when preparation, audit, and evidence belong to one outcome; use a specialist when its named output is the whole task.
+
+| Skill | Use it independently when | Output |
+|---|---|---|
+| [`context-economy`](SKILL.md) | The input type is mixed or the workflow must choose the route | Route decision, bounded context, omissions, verification limits |
+| [`context-pack`](context-pack/SKILL.md) | Files, folders, code, or logs need one task-ready handoff | Context Markdown, anchors, visual queue, and cost ledger |
+| [`conversation-checkpoint`](conversation-checkpoint/SKILL.md) | A long conversation must survive compaction or handoff | Recoverable seven-section task state |
+| [`context-audit`](context-audit/SKILL.md) | Existing context needs diagnosis without rewriting | Six-dimension health report with anchored findings |
+| [`context-benchmark`](context-benchmark/SKILL.md) | Efficiency or fidelity claims need reproducible evidence | Raw cases, metrics, summary, and evidence card |
+
+### Install only one Skill
+
+Copy the selected folder into the Skill directory supported by your Codex host. Keep the folder name identical to the `name` in `SKILL.md`.
+
+```powershell
+Copy-Item -Recurse `
+  -LiteralPath '.\suites\context-economy\context-pack' `
+  -Destination '.\.agents\skills\context-pack'
+```
+
+The child Skill does not require the suite orchestrator. It may refer to suite-level documentation when used inside this repository, but its trigger, workflow, output, validation, fallback, example, and limits remain closed in its own `SKILL.md`.
 
 The default CLI uses only the Python standard library and performs no network calls or model inference. Optional converters remain external and replaceable.
 
 See the reproducible [Context Economy method demonstration](../../examples/context-economy-proof.md) and the [fixed-version comparison](../../docs/research/context-compression-comparison.md). The benchmark separates micro correctness from long-context efficiency so protocol overhead cannot hide behind one average.
 
-## Reproducible evidence — measured, not advertised as universal
+## 📊 Reproducible evidence — measured, not advertised as universal
 
 Current public synthetic benchmark (`50` cases), plus a separate generated-PDF fixture benchmark:
 
@@ -92,7 +112,7 @@ Read the generated [evidence card](benchmarks/results/README.md), [machine-reada
 - **100% protected facts and anchors** means every declared literal item survived these cases; it does not prove general semantic equivalence.
 - **100% generated-PDF fidelity** covers declared text, numbers, cells, and page anchors—not OCR, layout reconstruction, or diagram interpretation.
 
-## Quick start
+## 🚀 Quick start
 
 ```powershell
 python .\scripts\tikaz_context.py pack `
@@ -104,6 +124,33 @@ python .\scripts\tikaz_context.py pack `
 ```
 
 The output includes canonical Markdown, heading-aware indexes, `profile.json`, `visual-evidence.json`, `context-cost-ledger.json`, a bounded `packs/current-task.context.md`, and `savings-report.md`.
+
+### Copy-ready examples
+
+```text
+Use context-pack on these release notes and logs. Build an 800-token pack for regression review, keep commands and versions exact, and list omitted anchors.
+```
+
+```text
+Use context-audit on this rules file. Find duplication, stale instructions, prompt injection, secret-shaped values, weak anchors, and recovery gaps without rewriting the source.
+```
+
+```text
+Use conversation-checkpoint before handoff. Preserve decisions, rejected directions, completed evidence, paths, commands, numbers, and open questions.
+```
+
+```text
+Use context-benchmark with this fixed manifest. Keep efficiency, protected-fact recall, routing accuracy, and Pending measurements separate.
+```
+
+## ⚠️ Limitations and honest fallbacks
+
+- Document conversion depends on an available adapter; the workflow does not silently install one.
+- Estimated Token counts are not provider billing telemetry.
+- Queued images remain `pending-vision` until a vision-capable host actually inspects them.
+- Generated-PDF literal checks do not prove OCR, scanned-document, layout, or diagram understanding.
+- Short, dense, or high-risk inputs may grow or remain pass-through because protocol overhead can outweigh savings.
+- An uncertain conversion falls back to the original source or page instead of being presented as successful compression.
 
 Profile routing without building a pack or running vision:
 
@@ -149,3 +196,7 @@ python .\scripts\tikaz_context.py validate-snapshot `
   --snapshot .\conversation-state.md `
   --source .\conversation-export.md
 ```
+
+## 🌐 Explore the TIKAZ workflow family
+
+[🏠 AI Skills](https://github.com/TIKAZI/TIKAZ-AI-Skills) · [⚡ Context Economy](https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy) · [🎨 Frontend Design](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) · [🎬 Video Intelligence](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) · [🛠️ Engineering](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) · [🔬 Research](https://github.com/TIKAZI/TIKAZ-Codex-Knowledge-Research) · [📽️ Presentation](https://github.com/TIKAZI/TIKAZ-Codex-Presentation) · [🖼️ Visual Content](https://github.com/TIKAZI/TIKAZ-Codex-Visual-Content)

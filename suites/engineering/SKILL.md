@@ -7,6 +7,10 @@ description: Orchestrate production software delivery through specification, rep
 
 Designed, integrated, refactored, and continuously maintained by **TIKAZ**.
 
+## Inputs and routing
+
+Accept a repository, requested change, constraints, risk boundary, and expected evidence. Use the orchestrator for cross-file or release-bound work; use a child Skill directly when architecture mapping, delivery, security audit, Supabase operations, or media-pipeline engineering is the whole outcome.
+
 ## TIKAZ method
 
 1. Freeze scope, non-goals, acceptance criteria, and evidence required for completion.
@@ -23,5 +27,15 @@ Designed, integrated, refactored, and continuously maintained by **TIKAZ**.
 ## Completion gate
 
 Require repository-native validation, final diff review, no leaked secrets, an explicit release/rollback note when applicable, and objective evidence for every acceptance criterion.
+
+## Output, fallback, and limits
+
+Return the agreed scope, impact map, implementation record, verification evidence, rollback note, and remaining risks. If repository-native commands or required credentials are unavailable, stop at the last verified artifact and state the missing capability. Do not deploy, migrate production data, or perform destructive actions without explicit authority.
+
+## Example
+
+```text
+Use engineering to map this API change, implement it in small verified slices, review the final diff, and provide rollback evidence.
+```
 
 Read [references/routing.md](references/routing.md) and [references/output-contract.md](references/output-contract.md).

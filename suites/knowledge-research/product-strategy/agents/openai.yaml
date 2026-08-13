@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Product Strategy"
+  short_description: "Support product discovery, market research, positioning,…"
+  default_prompt: "Use $product-strategy to support product discovery, market research, positioning, prioritization, execution planning, go-to-market, and product analy…."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Supabase Operations"
+  short_description: "Design, deploy, and operate Supabase projects with explic…"
+  default_prompt: "Use $supabase-operations to design, deploy, and operate Supabase projects with explicit schema, migration, security, backup, and observability checks."

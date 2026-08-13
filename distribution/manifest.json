@@ -7,7 +7,7 @@
       "repository": "TIKAZ-Codex-Context-Economy",
       "title": "TIKAZ Context Economy for Codex",
       "tagline": "A fidelity-first multimodal context compiler for the smallest useful context that remains checkable.",
-      "accent": "A78BFA",
+      "accent": "60A5FA",
       "highlights": ["Paste text or attach files and let the workflow choose Text / Hybrid / Source automatically", "Document-to-Markdown preparation compacts text while retaining page anchors, protected facts, table checks, and unresolved visual evidence", "Documents with images split into compact text, visual relevance filtering, bounded vision work, and source fallback instead of sending every page blindly"],
       "prompts": ["Process my pasted text or attached files for this task. Automatically choose Text, Hybrid, or Source, prepare reusable Markdown where safe, retain protected facts and anchors, and make every omission visible.", "This document contains images or tables. Compact the text separately, skip decorative and duplicate visuals, queue only task-relevant visual evidence, and preserve uncertain source pages.", "Create a recoverable checkpoint from this long conversation. Preserve decisions, constraints, completed evidence, file paths, numbers, commands, and open questions."]
     },
@@ -31,7 +31,7 @@
       "repository": "TIKAZ-Codex-Engineering",
       "title": "TIKAZ Engineering Workflows for Codex",
       "tagline": "Production delivery from specification and impact mapping to tests, review, and release evidence.",
-      "accent": "60A5FA",
+      "accent": "A78BFA",
       "highlights": ["One lifecycle owner from acceptance criteria to handoff", "Unified clean-room code intelligence for architecture and impact", "Security, Supabase, and video-workbench adapters route without expanding scope"],
       "prompts": ["Map the impact of this API change, implement it in small slices, and provide test and rollback evidence.", "Review this unfamiliar repository and produce an architecture map before proposing a cross-file refactor.", "Audit this third-party Skill for credential, permission, dependency, and prompt-injection risks before installation."]
     },

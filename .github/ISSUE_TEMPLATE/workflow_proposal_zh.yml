@@ -1,0 +1,23 @@
+name: 工作流建议（中文）
+description: 提议行为改进或新的、可单独使用的工作流。
+title: "[Proposal][中文]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 用户问题
+      description: 描述反复出现的任务，以及现有路由为什么不足。
+    validations: {required: true}
+  - type: textarea
+    id: examples
+    attributes:
+      label: 现实调用与输出
+      description: 至少提供三个调用示例，以及判断成功所需的证据。
+    validations: {required: true}
+  - type: textarea
+    id: sources
+    attributes:
+      label: 来源和许可证状态
+      description: 列出研究参考、复制或派生文件及其许可证。
+    validations: {required: true}

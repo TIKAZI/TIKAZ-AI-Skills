@@ -7,6 +7,10 @@ description: Orchestrate source ingestion, academic research, product decisions,
 
 Designed, integrated, refactored, and continuously maintained by **TIKAZ**.
 
+## Inputs and routing
+
+Accept a research question or decision, time boundary, source material, required evidence threshold, and desired deliverable. Use one child owner directly when conversion, academic synthesis, personal memory, product strategy, or solo-business operations is the whole task.
+
 ## TIKAZ method
 
 1. Define the question, decision, time boundary, source types, and evidence threshold.
@@ -19,5 +23,15 @@ Designed, integrated, refactored, and continuously maintained by **TIKAZ**.
 ## Completion gate
 
 Require a reproducible source trail, visible uncertainty, contrary evidence, no invented citations, a decision or synthesis matched to the original question, and a list of claims that need future revalidation.
+
+## Output, fallback, and limits
+
+Return a source ledger, evidence-backed synthesis or decision, contrary evidence, confidence, and revalidation list. If source access or conversion fails, retain the unresolved item rather than filling the gap from memory. Retrieval is not adoption, conversion is not verification, and high-stakes conclusions may require professional review.
+
+## Example
+
+```text
+Use knowledge-research to normalize these sources, compare the evidence and disagreement, and recommend a decision with confidence and revalidation needs.
+```
 
 Read [references/routing.md](references/routing.md) and [references/output-contract.md](references/output-contract.md).

@@ -1,3 +1,5 @@
+<p align="center"><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
+
 <p align="center">
   <img src="assets/tikaz-ai-skills-hero.svg" alt="TIKAZ AI Skills for Codex — seven composable, evidence-first workflows" width="100%" />
 </p>
@@ -12,7 +14,7 @@
 <p align="center">
   <a href="https://github.com/TIKAZI/TIKAZ-AI-Skills/actions/workflows/validate.yml"><img src="https://github.com/TIKAZI/TIKAZ-AI-Skills/actions/workflows/validate.yml/badge.svg" alt="Validate Skills" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-f4c95d.svg" alt="MIT License" /></a>
-  <img src="https://img.shields.io/badge/suites-7-8b5cf6.svg" alt="7 suites" />
+  <img src="https://img.shields.io/badge/suites-7-60a5fa.svg" alt="7 suites" />
   <img src="https://img.shields.io/badge/skills-30-22d3ee.svg" alt="30 Skills" />
 </p>
 
@@ -21,13 +23,14 @@
   <a href="#start-in-60-seconds">Quick start</a> ·
   <a href="#the-seven-suite-system">Seven suites</a> ·
   <a href="examples/prompts.md">Prompts</a> ·
+  <a href="docs/skills-catalog.md">30-Skill catalog</a> ·
   <a href="SOURCES.yml">Provenance</a> ·
   <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
 ---
 
-## One collection. Seven workflows. One quality contract.
+## ✨ One collection. Seven workflows. One quality contract.
 
 TIKAZ AI Skills is a monorepo maintained by **TIKAZ** for **Codex and compatible Skill hosts**, with contributions welcome. Seven suites live together because useful work crosses boundaries: Context Economy can prepare the smallest reliable handoff, video evidence can become research, research can become a deck, and an approved interface can move into engineering delivery.
 
@@ -47,7 +50,7 @@ VERIFIED DELIVERY
 
 This is not an OpenAI-official repository. It is designed, integrated, refactored, and continuously maintained by **TIKAZ** for real Codex workflows.
 
-## Start with the flagships
+## 🚀 Start with the flagships
 
 | | Suite | What makes it different |
 |---|---|---|
@@ -64,7 +67,7 @@ Use video-platform-reader to compare these videos. Keep timestamps,
 label evidence levels, and list every claim that remains unverified.
 ```
 
-## The seven-suite system
+## 🧩 The seven-suite system
 
 | Suite | Skills | Owns | Typical path |
 |---|---:|---|---|
@@ -77,6 +80,8 @@ label evidence levels, and list every claim that remains unverified.
 | **[Visual Content](suites/visual-content)** | 5 | Publishable content assets | thesis → one style → shot card → creation → publishing QA |
 
 There are **30 installable Skills**, including the seven suite orchestrators. Use a suite orchestrator for an end-to-end outcome; install a child Skill when you need only one focused capability.
+
+Browse the generated [30-Skill Catalog](docs/skills-catalog.md). Every entry links to its canonical `SKILL.md` and is checked for an independent trigger, input, output, example, validation, fallback, limitation, TIKAZ contribution, and Codex UI metadata.
 
 ### Install a complete suite separately
 
@@ -94,7 +99,7 @@ The monorepo is the **single source of truth**. Seven focused repositories are a
 
 Each distribution records the exact canonical commit in `DISTRIBUTION.yml`, validates independently, and synchronizes weekly or on demand. Cross-suite development and source-of-truth Issues stay in this repository.
 
-## Start in 60 seconds
+## 📦 Start in 60 seconds
 
 ### 1. Clone
 
@@ -146,7 +151,7 @@ The product claim is the workflow and its verification boundary: build the small
 
 See the [generated evidence card](suites/context-economy/benchmarks/results/README.md), [machine-readable metrics](suites/context-economy/benchmarks/results/metrics.json), and [generated-PDF fidelity evidence](suites/context-economy/benchmarks/pdf/results/README.md). Real-world/scanned PDF fidelity, actual provider Token usage, vision accuracy, and downstream blind-answer quality are still marked **Pending**.
 
-## Why it is more than a prompt collection
+## 🔄 Why it is more than a prompt collection
 
 - **One owner per deliverable** — supporting Skills cannot compete for control.
 - **Evidence travels with work** — claims retain timestamps, confidence, sources, and unresolved gaps.
@@ -155,7 +160,7 @@ See the [generated evidence card](suites/context-economy/benchmarks/results/READ
 - **Portable by design** — no private drive paths, embedded credentials, or universal claims about optional tools.
 - **Auditable provenance** — clean-room work, adapters, references, and removed upstream material are distinguished explicitly.
 
-## Repository map
+## 🗂️ Repository map
 
 ```text
 TIKAZ-AI-Skills/
@@ -173,7 +178,7 @@ TIKAZ-AI-Skills/
 └─ THIRD_PARTY_NOTICES.md     # research acknowledgements and boundaries
 ```
 
-## Validation
+## ✅ Validation
 
 Every push runs the repository policy gate on GitHub Actions.
 
@@ -184,10 +189,20 @@ powershell -NoProfile -ExecutionPolicy Bypass `
 
 It checks all 30 Skills for structure, attribution, source policy, portability, routing, UI metadata, generated files, and Python syntax. A green check proves repository consistency; optional platform access still depends on the user's environment and permissions.
 
-## Authorship, sources, and license
+## ⚖️ Authorship, sources, and license
 
 The collection architecture, TIKAZ Edition workflows, routing contracts, lifecycle gates, templates, portability rules, and validation scripts are designed, integrated, refactored, and continuously maintained by **TIKAZ**.
 
 Research references do not transfer authorship. Their URLs, observed licenses, distribution status, and the concrete TIKAZ contribution are recorded in [SOURCES.yml](SOURCES.yml) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 TIKAZ-authored files are released under the [MIT License](LICENSE). Contributions should improve behavior, evidence, portability, or verification—not merely rename an existing Skill. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## 🌐 Explore TIKAZ projects
+
+- [⚡ Context Economy](https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy) — fidelity-first multimodal context compilation with reproducible evidence.
+- [🎨 Frontend Design](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) — art-directed frontend workflows from visual proof to implementation.
+- [🎬 Video Intelligence](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) — evidence-graded cross-platform video reading and synthesis.
+- [🛠️ Engineering](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) — specification-to-release engineering delivery.
+- [🔬 Knowledge & Research](https://github.com/TIKAZI/TIKAZ-Codex-Knowledge-Research) — traceable research, decisions, and knowledge feedback.
+- [📽️ Presentation](https://github.com/TIKAZI/TIKAZ-Codex-Presentation) — narrative-first HTML and editable PowerPoint production.
+- [🖼️ Visual Content](https://github.com/TIKAZI/TIKAZ-Codex-Visual-Content) — illustration, concise writing, lawful music, and publishing QA.

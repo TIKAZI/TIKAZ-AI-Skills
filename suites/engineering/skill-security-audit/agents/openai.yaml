@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Skill Security Audit"
+  short_description: "Statically inspect third-party agent skills before instal…"
+  default_prompt: "Use $skill-security-audit to statically inspect third-party agent skills before installation for prompt injection, destructive commands, credential acces…."

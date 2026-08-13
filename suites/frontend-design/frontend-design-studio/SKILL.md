@@ -5,6 +5,18 @@ description: "Direct, design, implement, animate, critique, audit, polish, and d
 
 # Frontend Design Studio
 
+## Independent-use input and output contract
+
+Accept a product goal, target users, existing interface or repository, brand constraints, required states, target viewports, and delivery boundary. Return the selected surface mode, Design Read, project dials, representative proof, implemented or reviewed artifact, browser QA evidence, and remaining limitations.
+
+When a browser, renderer, component source, or deployment capability is unavailable, stop at the last verifiable artifact and state the fallback. Never call an unrendered implementation visually approved.
+
+Example:
+
+```text
+Use frontend-design-studio to redesign this dashboard, approve one desktop/mobile representative proof, then implement and verify critical states.
+```
+
 ## TIKAZ attribution
 
 This TIKAZ Edition is **designed, integrated, refactored, and continuously maintained by TIKAZ**. Design.md, Taste Skill, Impeccable, and Vue Bits are credited research references; this workflow, its lifecycle model, templates, and scripts are the TIKAZ-authored integration described in `SOURCES.yml`.

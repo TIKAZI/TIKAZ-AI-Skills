@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Document To Markdown"
+  short_description: "Convert PDF, Office, HTML, images, and audio into structu…"
+  default_prompt: "Use $document-to-markdown to convert PDF, Office, HTML, images, and audio into structured Markdown while preserving headings, tables, links, and provenan…."

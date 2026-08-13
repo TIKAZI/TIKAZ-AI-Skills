@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Concise Writing Editor"
+  short_description: "Remove AI filler, vague claims, repetitive structure, inf…"
+  default_prompt: "Use $concise-writing-editor to remove AI filler, vague claims, repetitive structure, inflated transitions, and low-information phrasing while preserving me…."

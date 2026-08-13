@@ -1,4 +1,4 @@
-param([string]$Root = (Split-Path $PSScriptRoot -Parent))
+﻿param([string]$Root = (Split-Path $PSScriptRoot -Parent))
 
 $ErrorActionPreference = 'Stop'
 $errors = [System.Collections.Generic.List[string]]::new()
@@ -29,6 +29,19 @@ foreach ($skill in $skills) {
     if ($skill.Directory.Name -ne $name) { Add-CheckError "Folder/name mismatch in ${relative}: $name" }
     if ($skillNames.ContainsKey($name)) { Add-CheckError "Duplicate skill name '$name': $relative and $($skillNames[$name])" } else { $skillNames[$name] = $relative }
     if ($content -notmatch '(?is)designed.{0,100}integrated.{0,100}(independently\s+)?refactored.{0,100}(continuously\s+)?maintained.{0,60}TIKAZ') { Add-CheckError "Missing full TIKAZ contribution statement: $relative" }
+    $contractSignals = [ordered]@{
+        input = '(?i)input|输入|接受'
+        output = '(?i)output|deliverable|输出|交付'
+        example = '(?i)example|示例'
+        fallback = '(?i)fallback|unavailable|降级|不可用|无法'
+        validation = '(?i)validat|verify|verification|QA|验证|验收|检查|核对'
+        limits = '(?i)limit|boundary|do not|never|限制|边界|不得|不要|禁止'
+    }
+    foreach ($signal in $contractSignals.Keys) {
+        if ($content -notmatch $contractSignals[$signal]) { Add-CheckError "Missing independent-use $signal contract: $relative" }
+    }
+    $metadataPath = Join-Path $skill.Directory.FullName 'agents\openai.yaml'
+    if (-not (Test-Path -LiteralPath $metadataPath -PathType Leaf)) { Add-CheckError "Missing UI metadata for independently installable Skill: $relative" }
     if ($content -match '(?i)(?:[A-Z]:\\Users\\|[A-Z]:\\CodexTools|F:\\KnowledgeBase|market-team-knowledge)') { Add-CheckError "Private or machine-specific path: $relative" }
     if ($content -match '(?i)(api[_ -]?key|token|secret|password)\s*[:=]\s*["''][^$<{\s]+["'']') { Add-CheckError "Possible embedded secret: $relative" }
     if ($content -match '(?i)gpt-image-2|Zuco') { Add-CheckError "Excluded image provider dependency found: $relative" }
@@ -46,6 +59,20 @@ else {
     if ($sources -match '(?m)^\s+release_status:\s*(blocked|unknown)\s*$') { Add-CheckError 'SOURCES.yml contains a blocked or unknown release item.' }
     if ($sources -match '(?ms)^\s+bundled_upstream:\s*true\s*$.*?^\s+observed_license:\s*(unknown|PolyForm|CC-BY-NC)') { Add-CheckError 'Incompatible or unknown-license upstream content is marked as bundled.' }
 }
+
+$readmePairs = @(@{ English = (Join-Path $root 'README.md'); Chinese = (Join-Path $root 'README.zh-CN.md') })
+foreach ($suite in @(Get-ChildItem -LiteralPath $suitesRoot -Directory)) {
+    $readmePairs += @{ English = (Join-Path $suite.FullName 'README.md'); Chinese = (Join-Path $suite.FullName 'README.zh-CN.md') }
+}
+foreach ($pair in $readmePairs) {
+    if (-not (Test-Path -LiteralPath $pair.English -PathType Leaf)) { Add-CheckError "Missing English README: $($pair.English)"; continue }
+    if (-not (Test-Path -LiteralPath $pair.Chinese -PathType Leaf)) { Add-CheckError "Missing Chinese README mirror: $($pair.Chinese)"; continue }
+    $englishReadme = Get-Content -Raw -Encoding UTF8 -LiteralPath $pair.English
+    $chineseReadme = Get-Content -Raw -Encoding UTF8 -LiteralPath $pair.Chinese
+    if ($englishReadme -notmatch 'README\.zh-CN\.md' -or $englishReadme -notmatch '简体中文') { Add-CheckError "English README lacks Chinese language switch: $($pair.English)" }
+    if ($chineseReadme -notmatch 'README\.md' -or $chineseReadme -notmatch 'English') { Add-CheckError "Chinese README lacks English language switch: $($pair.Chinese)" }
+}
+if (@(Get-ChildItem -LiteralPath $suitesRoot -Recurse -Filter 'SKILL.zh-CN.md' -File).Count) { Add-CheckError 'Localized SKILL.md copies are forbidden; keep one execution source.' }
 
 foreach ($suite in @(Get-ChildItem -LiteralPath $suitesRoot -Directory)) {
     $routing = Join-Path $suite.FullName 'references\routing.md'
@@ -82,4 +109,4 @@ if ($pythonFiles.Count) {
 if ($warnings.Count) { $warnings | ForEach-Object { Write-Warning $_ } }
 if ($errors.Count) { $errors | ForEach-Object { Write-Error $_ }; exit 1 }
 Write-Output "PASS: validated $($skills.Count) Skills across $(@(Get-ChildItem -LiteralPath $suitesRoot -Directory).Count) suites."
-Write-Output 'PASS: structure, attribution, source policy, portability, routing, metadata, and script syntax.'
+Write-Output 'PASS: structure, independent-use contracts, attribution, source policy, portability, routing, metadata, and script syntax.'

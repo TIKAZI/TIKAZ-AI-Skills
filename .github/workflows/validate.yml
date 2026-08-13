@@ -13,6 +13,11 @@ jobs:
       - name: Validate repository policy
         shell: powershell
         run: .\scripts\validate_skills.ps1
+      - name: Run documentation and product tests
+        shell: powershell
+        run: |
+          $env:PYTHONDONTWRITEBYTECODE = '1'
+          python -m unittest discover -s tests
       - name: Validate Skill frontmatter
         shell: pwsh
         run: |

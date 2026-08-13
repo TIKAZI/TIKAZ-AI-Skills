@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Legal Free Music"
+  short_description: "查找和下载合法免费的音乐。用户说‘音乐-免费合法’、‘免费下歌’、‘找免费无损音乐’、‘找可下载的高品质歌曲’、‘…"
+  default_prompt: "Use $legal-free-music to 查找和下载合法免费的音乐。用户说‘音乐-免费合法’、‘免费下歌’、‘找免费无损音乐’、‘找可下载的高品质歌曲’、‘找公版/CC 授权音乐’、‘找 Bandcamp 免费下载’、‘找 Internet Archive 现场录音’等任务时使用；只使用公…."

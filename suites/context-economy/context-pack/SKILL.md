@@ -7,6 +7,12 @@ description: Prepare files, folders, code, logs, and structured data as a bounde
 
 Designed, integrated, independently refactored, and continuously maintained by **TIKAZ**.
 
+## Inputs and routing
+
+Accept one or more files, folders, code trees, logs, structured data, or converter-produced Markdown plus a concrete task. Use `text` for confident text-first material, `hybrid` for bounded task-relevant visuals or complex tables, and `source` when extraction cannot preserve important evidence.
+
+## Workflow
+
 Own canonical ingestion, fidelity profiling, exact deduplication, evidence selection, and final pack size. First run `profile` or let `pack` profile automatically:
 
 - `text`: canonical Markdown is sufficient;
@@ -15,7 +21,7 @@ Own canonical ingestion, fidelity profiling, exact deduplication, evidence selec
 
 Do not trigger vision for a logo, repeated icon, background, or every image merely because it exists. When the queue contains `pending-vision` items and the host can inspect images, resolve the referenced item, record an anchored observation plus uncertainty, and keep the original reference. When the capability is unavailable, leave it pending or recommend the source file; never invent a description.
 
-Assemble one task-ready artifact in this order:
+Profile first, protect literal facts and anchors, deduplicate only exact or formatting-only repetition, select task-relevant evidence, and assemble one task-ready artifact in this order:
 
 1. task and expected output;
 2. selected mode and estimated budget;
@@ -27,4 +33,18 @@ Assemble one task-ready artifact in this order:
 
 The pack must distinguish exact source text, structured state, and inference. It must remain useful without the surrounding chat. Count the complete artifact against the budget. If essential protected evidence cannot fit, return a visible budget conflict instead of silently exceeding the limit.
 
-Run `python scripts/tikaz_context.py pack --input <path> --query <task> --budget <tokens> --visual-budget <items> --output <directory>`. Read the final artifact at `<directory>/packs/current-task.context.md`; `profile.json`, `visual-evidence.json`, `context-cost-ledger.json`, canonical files, indexes, the ledger, and the savings report remain beside it.
+## Output contract
+
+Return `<directory>/packs/current-task.context.md` with `profile.json`, `visual-evidence.json`, `context-cost-ledger.json`, canonical files, indexes, and `savings-report.md`. Distinguish exact excerpts, structured state, inference, omissions, and pending visual evidence.
+
+## Validation and fallback
+
+Count the complete artifact against the budget and verify protected facts plus selected anchors. If a converter or vision host is unavailable, leave evidence pending or preserve the source reference. Never invent a visual description. If essential evidence cannot fit, report a visible budget conflict.
+
+## Example
+
+```text
+Use context-pack on these release notes and logs. Build an 800-token pack for regression review, keep commands and versions exact, and list omitted anchors.
+```
+
+Run `python scripts/tikaz_context.py pack --input <path> --query <task> --budget <tokens> --visual-budget <items> --output <directory>`.

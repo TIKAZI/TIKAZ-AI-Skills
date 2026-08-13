@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Academic Research"
+  short_description: "Plan literature reviews, search and evaluate sources, syn…"
+  default_prompt: "Use $academic-research to plan literature reviews, search and evaluate sources, synthesize evidence, draft research writing, and perform peer-review-s…."

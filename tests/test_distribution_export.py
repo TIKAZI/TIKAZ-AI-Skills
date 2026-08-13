@@ -30,12 +30,17 @@ class ContextEconomyDistributionTests(unittest.TestCase):
             exporter.build(ROOT, "context-economy", output)
 
             readme = (output / "README.md").read_text(encoding="utf-8")
+            chinese_readme = (output / "README.zh-CN.md").read_text(encoding="utf-8")
             hero = (output / "assets" / "hero.svg").read_text(encoding="utf-8")
             skills = list(output.rglob("SKILL.md"))
 
             self.assertEqual(len(skills), 5)
             self.assertIn("all seven TIKAZ AI Skills for Codex suites", readme)
             self.assertIn("v0.8.0", hero)
+            self.assertIn("简体中文", readme)
+            self.assertIn("English", chinese_readme)
+            self.assertIn("](SOURCES.yml)", chinese_readme)
+            self.assertNotIn("../../SOURCES.yml", chinese_readme)
             self.assertEqual((output / "VERSION").read_text(encoding="utf-8"), "0.8.0\n")
             self.assertIn("*.pdf binary", (output / ".gitattributes").read_text(encoding="utf-8"))
 

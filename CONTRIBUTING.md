@@ -1,3 +1,5 @@
+<p align="center"><strong>English</strong> · <a href="CONTRIBUTING.zh-CN.md">简体中文</a></p>
+
 # Contributing
 
 Contributions are welcome when they improve behavior, evidence, portability, or maintainability—not merely rename an existing Skill.

@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 MANAGED = {
-    ".github", ".gitignore", ".gitattributes", "README.md", "LICENSE", "CONTRIBUTING.md", "CHANGELOG.md", "SECURITY.md",
+    ".github", ".gitignore", ".gitattributes", "README.md", "README.zh-CN.md", "LICENSE", "CONTRIBUTING.md", "CONTRIBUTING.zh-CN.md", "CHANGELOG.md", "SECURITY.md",
     "SOURCES.yml", "THIRD_PARTY_NOTICES.md", "DISTRIBUTION.yml", "VERSION",
     "SKILL.md", "agents", "assets", "references", "scripts",
 }
@@ -39,14 +39,14 @@ def clean_output(output: Path) -> None:
 def copy_suite(root: Path, suite: str, output: Path) -> None:
     source = root / "suites" / suite
     for item in source.iterdir():
-        if item.name == "README.md":
+        if item.name in {"README.md", "README.zh-CN.md"}:
             continue
         destination = output / item.name
         if item.is_dir():
             shutil.copytree(item, destination)
         else:
             shutil.copy2(item, destination)
-    for name in ("LICENSE", "CONTRIBUTING.md", "CHANGELOG.md", "SECURITY.md", "SOURCES.yml", "THIRD_PARTY_NOTICES.md", ".gitignore", ".gitattributes"):
+    for name in ("LICENSE", "CONTRIBUTING.md", "CONTRIBUTING.zh-CN.md", "CHANGELOG.md", "SECURITY.md", "SOURCES.yml", "THIRD_PARTY_NOTICES.md", ".gitignore", ".gitattributes"):
         shutil.copy2(root / name, output / name)
 
 
@@ -119,6 +119,10 @@ foreach ($skill in $skills) {
   $content = Get-Content -Raw -Encoding UTF8 $skill.FullName
   if ($content -notmatch '(?s)\A---\r?\n.*?name:\s*[a-z0-9-]+.*?description:\s*.+?\r?\n---') { $errors += "Invalid Skill: $($skill.FullName)" }
   if ($content -notmatch '(?is)designed.{0,100}integrated.{0,100}(independently\s+)?refactored.{0,100}(continuously\s+)?maintained.{0,60}TIKAZ') { $errors += "Missing TIKAZ contribution: $($skill.FullName)" }
+  foreach ($signal in @('(?i)input|输入|接受', '(?i)output|deliverable|输出|交付', '(?i)example|示例', '(?i)fallback|unavailable|降级|不可用|无法', '(?i)validat|verify|QA|验证|检查|核对', '(?i)limit|boundary|do not|never|限制|边界|不得|不要|禁止')) {
+    if ($content -notmatch $signal) { $errors += "Incomplete independent-use contract: $($skill.FullName)"; break }
+  }
+  if (-not (Test-Path (Join-Path $skill.Directory.FullName 'agents\openai.yaml'))) { $errors += "Missing Skill UI metadata: $($skill.FullName)" }
   if ($content -match '(?i)[A-Z]:\\Users\\|[A-Z]:\\CodexTools') { $errors += "Machine-specific path: $($skill.FullName)" }
 }
 if (-not (Test-Path (Join-Path (Split-Path $PSScriptRoot -Parent) 'DISTRIBUTION.yml'))) { $errors += 'Missing distribution metadata' }
@@ -131,7 +135,9 @@ def readme(info: dict, suite: str, version: str, owner: str, collection: str) ->
     repo = info["repository"]
     highlights = "\n".join(f"- **{item}**" for item in info["highlights"])
     prompts = "\n\n".join(f"```text\n{prompt}\n```" for prompt in info["prompts"])
-    return f'''<p align="center"><img src="assets/hero.svg" alt="{info['title']}" width="100%" /></p>
+    return f'''<p align="center"><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
+
+<p align="center"><img src="assets/hero.svg" alt="{info['title']}" width="100%" /></p>
 
 <h1 align="center">{info['title']}</h1>
 <p align="center"><strong>{info['tagline']}</strong></p>
@@ -140,7 +146,7 @@ def readme(info: dict, suite: str, version: str, owner: str, collection: str) ->
 
 ---
 
-## One suite, ready to install
+## ✨ One suite, ready to install
 
 This repository is the independently installable **{suite}** distribution from [TIKAZ AI Skills for Codex](https://github.com/{owner}/{collection}). The monorepo is the canonical development source; this repository is automatically synchronized and optimized for people who need only this workflow.
 
@@ -148,11 +154,11 @@ Designed, integrated, refactored, and continuously maintained by **TIKAZ**; comm
 
 This repository is an automatically synchronized distribution of the canonical [TIKAZ-AI-Skills](https://github.com/{owner}/{collection}) monorepo. Cross-suite issues and source changes belong in the canonical repository.
 
-## What makes it different
+## 🧩 What makes it different
 
 {highlights}
 
-## Install
+## 📦 Install
 
 Clone or download this repository, then copy the repository folder into the Skill directory supported by your Codex environment. The root `SKILL.md` is the suite orchestrator; child folders are focused Skills that can also be installed separately.
 
@@ -160,15 +166,15 @@ Clone or download this repository, then copy the repository folder into the Skil
 git clone https://github.com/{owner}/{repo}.git
 ```
 
-## Try it
+## 🚀 Try it
 
 {prompts}
 
-## How the suite works
+## 🔄 How the suite works
 
 Read [SKILL.md](SKILL.md) for the owning workflow, [references/routing.md](references/routing.md) for specialist routing, and [references/output-contract.md](references/output-contract.md) for the verified handoff. Optional tools are detected at runtime; local login state or machine-specific software is never promised as universally available.
 
-## Repository structure
+## 🗂️ Repository structure
 
 ```text
 ./
@@ -180,12 +186,26 @@ Read [SKILL.md](SKILL.md) for the owning workflow, [references/routing.md](refer
 └─ scripts/                 # deterministic validation
 ```
 
-## Canonical source and contributions
+## ⚖️ Canonical source and contributions
 
 Development, source review, and cross-suite architecture live in [TIKAZ-AI-Skills](https://github.com/{owner}/{collection}). This distribution synchronizes from `suites/{suite}` every week and can also be refreshed manually through GitHub Actions.
 
 Source modes, observed licenses, and concrete TIKAZ contributions are recorded in [SOURCES.yml](SOURCES.yml) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). TIKAZ-authored files are released under the [MIT License](LICENSE).
+
+## 🌐 Explore the TIKAZ workflow family
+
+[🏠 AI Skills](https://github.com/{owner}/{collection}) · [⚡ Context Economy](https://github.com/{owner}/TIKAZ-Codex-Context-Economy) · [🎨 Frontend Design](https://github.com/{owner}/TIKAZ-Codex-Frontend-Design) · [🎬 Video Intelligence](https://github.com/{owner}/TIKAZ-Codex-Video-Intelligence) · [🛠️ Engineering](https://github.com/{owner}/TIKAZ-Codex-Engineering) · [🔬 Research](https://github.com/{owner}/TIKAZ-Codex-Knowledge-Research) · [📽️ Presentation](https://github.com/{owner}/TIKAZ-Codex-Presentation) · [🖼️ Visual Content](https://github.com/{owner}/TIKAZ-Codex-Visual-Content)
 '''
+
+
+def localized_readme(root: Path, suite: str) -> str:
+    content = (root / "suites" / suite / "README.zh-CN.md").read_text(encoding="utf-8")
+    return (
+        content
+        .replace("../../SOURCES.yml", "SOURCES.yml")
+        .replace("../../THIRD_PARTY_NOTICES.md", "THIRD_PARTY_NOTICES.md")
+        .replace("../../docs/visual-system.md", "https://github.com/TIKAZI/TIKAZ-AI-Skills/blob/main/docs/visual-system.md")
+    )
 
 
 def build(root: Path, suite: str, output: Path) -> None:
@@ -198,6 +218,7 @@ def build(root: Path, suite: str, output: Path) -> None:
     (output / "assets").mkdir(exist_ok=True)
     (output / "assets" / "hero.svg").write_text(hero_svg(info["title"], info["tagline"], info["accent"], manifest["version"]), encoding="utf-8")
     (output / "README.md").write_text(readme(info, suite, manifest["version"], manifest["owner"], manifest["collection"]), encoding="utf-8")
+    (output / "README.zh-CN.md").write_text(localized_readme(root, suite), encoding="utf-8")
     (output / "VERSION").write_text(manifest["version"] + "\n", encoding="utf-8")
     try:
         commit = subprocess.check_output(["git", "-C", str(root), "rev-parse", "HEAD"], text=True).strip()

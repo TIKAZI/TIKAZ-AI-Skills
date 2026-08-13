@@ -7,6 +7,10 @@ description: Orchestrate article illustration, logistics explainers, writing cle
 
 Designed, integrated, refactored, and continuously maintained by **TIKAZ**.
 
+## Inputs and routing
+
+Accept the content or thesis, audience, publishing surface, required asset, factual sources, accessibility needs, and license boundary. Use one child Skill directly when writing cleanup, one illustration identity, or lawful music discovery is the whole task.
+
 ## TIKAZ method
 
 1. Extract the content thesis, audience, publishing surface, visual jobs, claims, and accessibility needs.
@@ -19,5 +23,15 @@ Designed, integrated, refactored, and continuously maintained by **TIKAZ**.
 ## Boundary
 
 This suite intentionally excludes `生图-Image2`. It defines content and QA workflows without requiring a specific image-generation provider.
+
+## Output, fallback, and limits
+
+Return the selected route, shot or editing contract, source and license ledger, accessible text, publishing-size QA, and final asset or explicit creation handoff. If no drawing or generation tool is available, deliver an editable SVG/HTML specification or shot card rather than pretending an image was produced. Never turn uncertain labels or claims into definitive visuals.
+
+## Example
+
+```text
+Use visual-content to clean this article, choose one illustration route, create a sourced shot card, and verify labels, licenses, alt text, and publishing-size clarity.
+```
 
 Read [references/routing.md](references/routing.md) and [references/output-contract.md](references/output-contract.md).

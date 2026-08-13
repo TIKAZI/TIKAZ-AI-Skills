@@ -12,6 +12,10 @@ Designed, integrated, independently refactored, and continuously maintained by *
 - Type: original tool-agnostic workflow; no third-party templates, fonts, images, or scripts are bundled.
 - TIKAZ contribution: narrative-to-page contract, editability gate, template fidelity rules, render/overflow QA, and delivery evidence.
 
+## Inputs
+
+Accept a brief or source files, audience, duration, aspect ratio, required template, editability, notes, charts, language, and delivery constraints.
+
 ## Workflow
 
 1. Determine audience, talk length, aspect ratio, required template, editability, notes, charts, and delivery constraints.
@@ -22,3 +26,17 @@ Designed, integrated, independently refactored, and continuously maintained by *
 6. Reopen or inspect the final `.pptx`, confirm slide count and notes, and report the exact artifact plus verification evidence.
 
 Do not treat successful file generation as visual approval, and do not claim editable output when important content was flattened without disclosure.
+
+## Output contract
+
+Return the editable `.pptx`, narrative and page contracts, template or font substitutions, source and license ledger, speaker notes when requested, rendered slide evidence, and final file inspection results.
+
+## Validation and fallback
+
+Render every slide, inspect dense and representative slides, verify overflow and collisions, reopen the final deck, and confirm slide count, notes, and editability. If the required template, font, or renderer is unavailable, disclose the substitution or stop before claiming fidelity.
+
+## Example
+
+```text
+Use powerpoint-deck-builder to create an editable 16:9 deck from this brief, preserve the supplied template, render every slide, and report substitutions.
+```

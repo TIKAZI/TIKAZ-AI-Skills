@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Code Intelligence"
+  short_description: "Understand repositories as systems: map code structure an…"
+  default_prompt: "Use $code-intelligence to understand repositories as systems: map code structure and semantic relationships, analyze change impact, review pull reques…."

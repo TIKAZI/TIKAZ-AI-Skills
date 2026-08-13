@@ -12,6 +12,10 @@ Designed, integrated, independently refactored, and continuously maintained by *
 - Type: original workflow; no upstream deck engine or assets are bundled.
 - TIKAZ contribution: page contracts, early representative rendering, offline dependency policy, interaction/accessibility checks, and export evidence.
 
+## Inputs
+
+Accept a brief or source material, audience, duration, browser target, aspect ratio, editability needs, offline boundary, and requested exports.
+
 ## Workflow
 
 1. Freeze audience, duration, narrative goal, delivery browser, editability, offline needs, and export formats.
@@ -22,3 +26,17 @@ Designed, integrated, independently refactored, and continuously maintained by *
 6. Verify overflow, contrast, legibility, source labels, media licenses, navigation, browser console, and requested export files.
 
 Do not invent citations, download unlicensed media, or claim PowerPoint editability for an HTML-only output.
+
+## Output contract
+
+Return a self-contained or explicitly packaged HTML deck, page contracts, asset and license ledger, navigation behavior, rendered preview evidence, requested exports, and known browser limitations.
+
+## Validation and fallback
+
+Open the final HTML in the target browser, test keyboard navigation, focus, reduced motion, target viewports, console, overflow, and offline behavior. If export tooling is unavailable, deliver the verified HTML and mark the missing export rather than fabricating it.
+
+## Example
+
+```text
+Use html-deck-builder to create an offline browser-editable product deck, render the opening and densest slide early, and verify keyboard navigation.
+```

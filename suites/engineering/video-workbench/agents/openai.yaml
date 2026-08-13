@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Video Workbench"
+  short_description: "Manage a repository-backed video processing application t…"
+  default_prompt: "Use $video-workbench to manage a repository-backed video processing application through its brief, design contract, QA evidence, and deployment docu…."

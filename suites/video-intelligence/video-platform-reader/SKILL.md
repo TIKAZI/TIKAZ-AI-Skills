@@ -13,6 +13,10 @@ Designed, integrated, independently refactored, and continuously maintained by *
 - TIKAZ contribution: cross-platform source ledger, five evidence levels, claim-type separation, keyframe escalation, partial-failure handling, and cross-video synthesis contract.
 - Boundary: do not claim platform access, download support, or visual inspection until the current environment proves it.
 
+## Inputs
+
+Accept one or more supported public URLs, stable IDs, podcast pages, or local media files plus the user's question. Record requested sources before attempting acquisition.
+
 ## Workflow
 
 1. Inventory every requested source with platform, stable ID or file hash, author, publication date, duration, access result, and available evidence.
@@ -26,3 +30,15 @@ Designed, integrated, independently refactored, and continuously maintained by *
 ## Output contract
 
 Return the source ledger, evidence level, timestamped findings, visual checks, unresolved gaps, and synthesis. Never describe metadata or a search snippet as watched content. Never bypass DRM, authentication, paywalls, or platform access controls.
+
+## Validation and fallback
+
+Account for every requested source and verify important claims against the highest evidence actually available. Prefer native transcripts, then legal subtitle tooling, timestamped ASR, and selective keyframes. When access or a capability fails, keep the source with an explicit status instead of dropping it.
+
+## Example and limits
+
+```text
+Use video-platform-reader on this Bilibili link and local lecture. Produce one evidence card per source, inspect only necessary keyframes, and mark inaccessible or unverified claims.
+```
+
+Platform support varies with region, login state, source permissions, media format, and current tools. The Skill does not guarantee downloading or visual inspection on every host.

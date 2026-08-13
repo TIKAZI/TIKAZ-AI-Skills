@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Personal Knowledge Memory"
+  short_description: "Retrieve relevant personal project decisions, playbooks,…"
+  default_prompt: "Use $personal-knowledge-memory to retrieve relevant personal project decisions, playbooks, knowledge, skills, and verified outcomes before important work, the…."

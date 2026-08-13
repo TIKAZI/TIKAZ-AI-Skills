@@ -16,9 +16,23 @@ This public entry combines the local `代码-CodeGraph` and `代码-GitNexus` ro
 5. For a refactor, define invariants, migration steps, compatibility risks, and a rollback path.
 6. Validate with repository-native tests, type checks, lint, build, and focused impact checks.
 
-## Output
+## Inputs and output contract
 
-Return an evidence-backed architecture map, impact list, prioritized findings, implementation plan, and verification results. Separate observed facts, inferences, and recommendations.
+Accept a repository path or PR, the question or proposed change, and any known constraints. Return an evidence-backed architecture map, direct and indirect consumers, prioritized findings, an implementation or refactor plan, and verification results. Cite files and lines where possible; separate observed facts, inferences, and recommendations.
+
+## Validation and fallback
+
+Cross-check the map against repository search, build metadata, tests, and call sites. If graph tooling is unavailable, fall back to repository-native search and explicit uncertainty rather than inventing relationships. Do not edit code unless the user also requests implementation.
+
+## Example
+
+```text
+Use code-intelligence to map the authentication flow, find consumers of this API, and identify refactor risks before any edits.
+```
+
+## Limits
+
+Static analysis can miss runtime reflection, generated code, environment-specific wiring, and external consumers. Mark these gaps.
 
 ## Source note
 

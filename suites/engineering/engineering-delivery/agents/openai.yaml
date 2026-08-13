@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Engineering Delivery"
+  short_description: "Run production software work from specification through p…"
+  default_prompt: "Use $engineering-delivery to run production software work from specification through planning, implementation, testing, review, and release."

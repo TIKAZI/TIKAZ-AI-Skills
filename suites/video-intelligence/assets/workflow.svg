@@ -1,0 +1,15 @@
+<svg width="1440" height="692" viewBox="0 0 1440 692" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+<title id="title">Video Intelligence workflow</title>
+<desc id="desc">The suite orchestrator routes work through 1 independently installable specialist Skills.</desc>
+<rect width="1440" height="692" rx="24" fill="#080D18"/>
+<g font-family="Segoe UI, Arial, sans-serif">
+<text x="92" y="84" fill="#22D3EE" font-size="14" font-weight="700" letter-spacing="3">TIKAZ AI SKILLS FOR CODEX</text>
+<text x="92" y="138" fill="#F8FAFC" font-size="40" font-weight="720">Video Intelligence workflow</text>
+<text x="92" y="176" fill="#CBD5E1" font-size="18">Install the suite for orchestration, or use any specialist on its own.</text>
+<path d="M126 287 V413" stroke="#22D3EE" stroke-width="2" fill="none" stroke-linecap="round"/>
+<circle cx="126" cy="287" r="11" fill="#22D3EE"/>
+<path d="M126 287 H260" stroke="#22D3EE" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M126 413 H260" stroke="#22D3EE" stroke-width="2" fill="none" stroke-linecap="round"/>
+<g transform="translate(260 244)"><rect width="1040" height="86" rx="16" fill="#101827" stroke="#334155"/><rect width="6" height="86" rx="3" fill="#22D3EE"/><text x="34" y="34" fill="#22D3EE" font-size="13" font-weight="700" letter-spacing="2">01</text><text x="102" y="37" fill="#F8FAFC" font-size="23" font-weight="700">video-intelligence</text><text x="102" y="58" fill="#94A3B8" font-size="14"><tspan x="102" dy="0">Orchestrate evidence-based video research across platforms, transcripts, Whisper fallback,</tspan><tspan x="102" dy="18">keyframes, source verification, and cross-video synthesis.</tspan></text></g><g transform="translate(260 370)"><rect width="1040" height="86" rx="16" fill="#101827" stroke="#334155"/><rect width="6" height="86" rx="3" fill="#22D3EE"/><text x="34" y="34" fill="#22D3EE" font-size="13" font-weight="700" letter-spacing="2">02</text><text x="102" y="37" fill="#F8FAFC" font-size="23" font-weight="700">video-platform-reader</text><text x="102" y="58" fill="#94A3B8" font-size="14"><tspan x="102" dy="0">Read one or many public-platform or local videos through a portable evidence workflow using</tspan><tspan x="102" dy="18">available metadata, subtitles, timestamped speech recognition, keyframes, and official-source…</tspan></text></g>
+<text x="92" y="634" fill="#94A3B8" font-size="13">Editable SVG · neutral structure · one suite accent · no raster generation</text>
+</g>
+</svg>

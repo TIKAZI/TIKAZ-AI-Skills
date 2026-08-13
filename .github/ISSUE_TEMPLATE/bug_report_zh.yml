@@ -1,0 +1,29 @@
+name: 错误报告（中文）
+description: 报告路由错误、脚本故障、可迁移问题或校验失败。
+title: "[Bug][中文]: "
+labels: [bug]
+body:
+  - type: dropdown
+    id: suite
+    attributes:
+      label: 所属套件
+      options: [context-economy, frontend-design, video-intelligence, engineering, knowledge-research, presentation, visual-content, collection]
+    validations: {required: true}
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 发生了什么？
+      description: 请包含调用内容、预期行为、实际行为和相关文件。
+    validations: {required: true}
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 验证证据
+      description: 添加命令输出、截图或产物链接，并移除凭据与私人数据。
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 安全检查
+      options:
+        - label: 我已经移除凭据、Cookie 和私人来源材料。
+          required: true

@@ -1,0 +1,4 @@
+interface:
+  display_name: "TIKAZ Solo Business Operations"
+  short_description: "Plan and operate a one-person business across product, co…"
+  default_prompt: "Use $solo-business-operations to plan and operate a one-person business across product, content, finance, operations, legal coordination, customer support, a…."
