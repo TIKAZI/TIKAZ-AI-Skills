@@ -72,6 +72,13 @@ class BilingualDocumentationTests(unittest.TestCase):
             for repository in PROJECT_REPOSITORIES:
                 self.assertIn(f"https://github.com/TIKAZI/{repository}", content, f"{document}: {repository}")
 
+    def test_chinese_project_titles_use_explicit_sans_serif_font_stack(self) -> None:
+        styles = (ROOT / "docs" / "styles.css").read_text(encoding="utf-8")
+        self.assertRegex(
+            styles,
+            r'html\[lang="zh-CN"\] \.project-hero h1\{[^}]*font-family:"Microsoft YaHei UI","PingFang SC","Noto Sans CJK SC","Segoe UI",sans-serif',
+        )
+
     def test_chinese_contributing_and_issue_templates_exist(self) -> None:
         self.assertTrue((ROOT / "CONTRIBUTING.zh-CN.md").is_file())
         templates = ROOT / ".github" / "ISSUE_TEMPLATE"
