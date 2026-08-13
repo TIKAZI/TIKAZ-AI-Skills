@@ -13,6 +13,7 @@
 - Expanded the public suite to 50 cases and exposed Exact (14.6%) versus Structural (49.5%) prompt results instead of one favorable aggregate.
 - Kept semantic compression, real-world/scanned PDF fidelity, vision meaning, provider Token telemetry, and downstream blind evaluation pending.
 - Reframed the release around fidelity-first Text / Hybrid / Source preparation; benchmark reductions are supporting evidence rather than universal marketing promises.
+- Documented the zero-configuration input experience for pasted text, attached files, image/table routing, and long-conversation checkpoints without overstating host-dependent vision.
 
 ## [0.7.0] - 2026-08-13
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "TIKAZ Context Economy"
   short_description: "Fidelity-first multimodal context for Codex"
-  default_prompt: "Use $context-economy to route these files, prompts, or conversations through the smallest checkable Text, Hybrid, or Source context while preserving facts, anchors, visual evidence, and recovery state."
+  default_prompt: "Use $context-economy on my pasted text, attached files, or conversation. Automatically choose Text, Hybrid, or Source; prepare reusable Markdown where safe; reduce repetition; preserve facts and anchors; and queue only necessary images or complex tables for visual review."

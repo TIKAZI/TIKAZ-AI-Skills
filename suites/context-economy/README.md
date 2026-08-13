@@ -8,6 +8,35 @@ Context Economy is not a “compress everything” trick. It prepares the **smal
 
 The optimization target is **lower context cost without silent information loss**. Reduction percentages are evidence from declared benchmarks, not the product promise.
 
+## Paste text or attach files — the workflow chooses the route
+
+You do not need to decide how to process the input first. Give the Skill the task together with text, a conversation, or attached files; it profiles the material and chooses the lowest-cost route that can still preserve and verify the useful information.
+
+```text
+Paste text
+  -> remove exact or formatting-only repetition
+  -> protect numbers, URLs, commands, versions, and constraints
+  -> return a smaller, task-ready prompt or context pack
+
+Attach a document
+  -> convert supported content to reusable Markdown
+  -> retain page/section anchors and check declared facts and table cells
+  -> select only the evidence needed for the current task
+
+Document contains images or complex tables
+  -> extract and compact the text separately
+  -> classify visuals as informative, decorative, duplicate, or table-risk
+  -> route relevant visuals to a bounded vision queue when vision is available
+  -> skip decoration and duplicates with recorded reasons
+  -> preserve the original page or source when extraction is uncertain
+
+Continue a long conversation
+  -> distill decisions, constraints, completed work, files, facts, and open questions
+  -> create a recoverable checkpoint instead of carrying the whole conversation forward
+```
+
+This is one coordinated workflow, not four unrelated tools. Text is not forced through vision, every image is not sent to the model, and an uncertain conversion is never presented as a successful compression.
+
 ## What it actually does
 
 | Input or condition | Route | Result |

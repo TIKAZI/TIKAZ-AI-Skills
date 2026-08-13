@@ -131,6 +131,8 @@ Method demonstrations: [Context Economy fixture](examples/context-economy-proof.
 
 Context Economy is positioned as a **fidelity-first multimodal context compiler**, not a universal “Token compressor.” It converts supported documents into reusable Markdown, preserves facts and source anchors, routes informative visuals and complex tables separately, and exposes uncertain inputs instead of silently flattening them. The checked-in public benchmark separates efficiency from fidelity instead of publishing one composite score:
 
+In practical use, users can paste text or attach files without choosing a pipeline first. Plain text is compacted conservatively; supported documents are converted to Markdown and checked; documents containing images or complex tables split into compact text, visual filtering, bounded vision work, and source fallback; long conversations become recoverable checkpoints.
+
 - long-context profile: **69.7% estimated reduction** (`4,698 → 1,422`, 6 task variants over one synthetic source);
 - prompt exact-repeat profile: **14.6% estimated reduction** (`157 → 134`, 4 cases including no-exact-duplicate controls);
 - prompt structural-repeat profile: **49.5% estimated reduction** (`95 → 48`, 2 synthetic variants; first wording retained);
