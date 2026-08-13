@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "documents": [
+    {
+      "id": "text-report",
+      "pdf": "fixtures/text-report.pdf",
+      "required_text": ["Quarterly Operations Report", "All checks passed", "Rollback window remains 30 minutes"],
+      "numeric_facts": ["8.2.1", "42", "24.6%", "30"],
+      "table_cells": [],
+      "pages": 2
+    },
+    {
+      "id": "table-report",
+      "pdf": "fixtures/table-report.pdf",
+      "required_text": ["Regional Capacity Table", "Capacity is measured in pallets per hour"],
+      "numeric_facts": ["120", "95", "88.5%"],
+      "table_cells": ["Region", "Capacity", "Utilization", "East", "120", "88.5%", "West", "95", "76.0%"],
+      "pages": 1
+    },
+    {
+      "id": "illustrated-report",
+      "pdf": "fixtures/illustrated-report.pdf",
+      "required_text": ["Warehouse Flow Diagram", "Inbound", "Inspection", "Storage"],
+      "numeric_facts": ["3", "12"],
+      "table_cells": [],
+      "pages": 1,
+      "visual_claim": "Three connected process boxes lead from Inbound to Inspection to Storage."
+    }
+  ]
+}
+

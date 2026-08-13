@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.0] - 2026-08-13
+
+### Added
+
+- Separate exact and structural prompt preparation modes with protected-fact checks and no-duplicate controls.
+- Three generated PDF fixtures, page-by-page conversion, and separate text, number, table-cell, and page-anchor fidelity evidence.
+- Explicit converter capability boundaries: executable discovery no longer implies PDF support.
+
+### Changed
+
+- Expanded the public suite to 50 cases and exposed Exact (14.6%) versus Structural (49.5%) prompt results instead of one favorable aggregate.
+- Kept semantic compression, real-world/scanned PDF fidelity, vision meaning, provider Token telemetry, and downstream blind evaluation pending.
+
 ## [0.7.0] - 2026-08-13
 
 ### Added

@@ -98,6 +98,8 @@ class BenchmarkResult(NamedTuple):
 
 
 class PromptCompileResult(NamedTuple):
+    mode: str
+    method: str
     source_tokens: int
     compiled_tokens: int
     duplicate_units_removed: int
@@ -326,15 +328,29 @@ def extract_protected_facts(text: str) -> tuple[str, ...]:
     return tuple(sorted(facts))
 
 
-def compile_prompt(text: str) -> tuple[str, PromptCompileResult]:
-    """Remove exact repeated non-empty prompt lines without semantic rewriting."""
+def _prompt_unit_key(line: str, mode: str) -> str:
+    key = line.strip()
+    if mode == "exact":
+        return key
+    key = re.sub(r"^#{1,6}\s+", "", key)
+    key = re.sub(r"^(?:[-*+]|•)\s+", "", key)
+    key = re.sub(r"\s+", " ", key)
+    key = re.sub(r"[.!?。！？]+$", "", key)
+    return key.casefold()
+
+
+def compile_prompt(text: str, mode: str = "exact") -> tuple[str, PromptCompileResult]:
+    """Remove exact or structural duplicate lines without semantic rewriting."""
+
+    if mode not in {"exact", "structural"}:
+        raise ValueError("prompt mode must be exact or structural; semantic mode requires an external evaluator")
 
     normalized = normalize_text(text)
     seen: set[str] = set()
     kept: list[str] = []
     removed = 0
     for line in normalized.splitlines():
-        key = line.strip()
+        key = _prompt_unit_key(line, mode)
         if key and key in seen:
             removed += 1
             continue
@@ -345,6 +361,8 @@ def compile_prompt(text: str) -> tuple[str, PromptCompileResult]:
     facts = extract_protected_facts(normalized)
     retained = sum(1 for fact in facts if fact in compiled)
     result = PromptCompileResult(
+        mode=mode,
+        method="exact-line-deduplication" if mode == "exact" else "format-normalized-line-deduplication",
         source_tokens=estimate_tokens(normalized),
         compiled_tokens=estimate_tokens(compiled),
         duplicate_units_removed=removed,
@@ -352,6 +370,35 @@ def compile_prompt(text: str) -> tuple[str, PromptCompileResult]:
         protected_fact_recall=1.0 if not facts else round(retained / len(facts), 4),
     )
     return compiled, result
+
+
+def score_pdf_fidelity(expected: dict[str, object], markdown: str) -> dict[str, object]:
+    """Score literal PDF-to-Markdown fidelity against declared ground truth."""
+
+    categories = {
+        "required_text": [str(value) for value in expected.get("required_text", [])],
+        "numeric_facts": [str(value) for value in expected.get("numeric_facts", [])],
+        "table_cells": [str(value) for value in expected.get("table_cells", [])],
+    }
+    missing = {name: [value for value in values if value not in markdown] for name, values in categories.items()}
+    pages = int(expected.get("pages", 0))
+    anchors = {int(value) for value in re.findall(r"<!--\s*page:\s*(\d+)\s*-->", markdown, re.I)}
+    missing_pages = [str(page) for page in range(1, pages + 1) if page not in anchors]
+    missing["page_anchors"] = missing_pages
+
+    def recall(name: str) -> float:
+        total = len(categories[name])
+        return 1.0 if not total else round((total - len(missing[name])) / total, 4)
+
+    return {
+        "required_text_recall": recall("required_text"),
+        "numeric_fact_recall": recall("numeric_facts"),
+        "table_cell_recall": recall("table_cells"),
+        "page_anchor_coverage": 1.0 if not pages else round((pages - len(missing_pages)) / pages, 4),
+        "declared": {name: len(values) for name, values in categories.items()} | {"pages": pages},
+        "missing": missing,
+        "claim_boundary": "Literal declared-item recall; not visual or semantic equivalence.",
+    }
 
 
 def _make_chunk(source: str, anchor: str, heading: str, lines: list[str]) -> Chunk:
@@ -913,7 +960,8 @@ def run_benchmark(manifest_path: Path | str, output_dir: Path | str) -> Benchmar
             continue
         if case.get("kind") == "prompt":
             source = "\n".join(path.read_text(encoding="utf-8") for path in inputs)
-            compiled, prompt_result = compile_prompt(source)
+            prompt_mode = str(case.get("prompt_mode", "exact"))
+            compiled, prompt_result = compile_prompt(source, prompt_mode)
             expected_facts = [str(value) for value in case.get("protected_facts", [])]
             retained_facts = sum(1 for value in expected_facts if value in compiled)
             failures: list[str] = []
@@ -937,6 +985,8 @@ def run_benchmark(manifest_path: Path | str, output_dir: Path | str) -> Benchmar
                 "anchors_retained": 0,
                 "anchors_declared": 0,
                 "duplicate_units_removed": prompt_result.duplicate_units_removed,
+                "prompt_mode": prompt_result.mode,
+                "prompt_method": prompt_result.method,
                 "failures": failures,
             })
             continue
@@ -1095,8 +1145,22 @@ def _write_public_metrics(
     anchor_rate = _declared_recall(context_results, "anchors_retained", "anchors_declared")
     prompt_source = sum(int(item["source_tokens"]) for item in prompt_results)
     prompt_final = sum(int(item["packed_tokens"]) for item in prompt_results)
+    prompt_modes = {}
+    for mode in ("exact", "structural"):
+        mode_results = [item for item in prompt_results if item.get("prompt_mode", "exact") == mode]
+        mode_source = sum(int(item["source_tokens"]) for item in mode_results)
+        mode_final = sum(int(item["packed_tokens"]) for item in mode_results)
+        prompt_modes[mode] = {
+            "cases": len(mode_results),
+            "source_estimated_tokens": mode_source,
+            "compiled_estimated_tokens": mode_final,
+            "reduction_ratio": 0 if not mode_source else round(1 - mode_final / mode_source, 4),
+            "duplicate_units_removed": sum(int(item.get("duplicate_units_removed", 0)) for item in mode_results),
+        }
     context_source = sum(int(item["source_tokens"]) for item in efficiency_results)
     context_final = sum(int(item["packed_tokens"]) for item in efficiency_results)
+    pdf_metrics_path = output_root.parent / "pdf" / "results" / "metrics.json"
+    pdf_metrics = json.loads(pdf_metrics_path.read_text(encoding="utf-8")) if pdf_metrics_path.is_file() else None
     metrics = {
         "schema_version": 1,
         "dataset": manifest.get("dataset", "unnamed"),
@@ -1114,7 +1178,10 @@ def _write_public_metrics(
             "compiled_estimated_tokens": prompt_final,
             "reduction_ratio": 0 if not prompt_source else round(1 - prompt_final / prompt_source, 4),
             "duplicate_units_removed": sum(int(item.get("duplicate_units_removed", 0)) for item in prompt_results),
+            **prompt_modes,
+            "semantic": "disabled-pending-equivalence-evaluation",
         },
+        "generated_pdf_fidelity": pdf_metrics,
         "fidelity": {
             "protected_fact_recall": fact_rate,
             "anchor_correctness": anchor_rate,
@@ -1127,7 +1194,7 @@ def _write_public_metrics(
             "budget_compliance": budget_rate,
         },
         "pending": {
-            "real_pdf_conversion_fidelity": "pending-real-corpus",
+            "real_world_pdf_corpus_fidelity": "pending-real-corpus",
             "provider_input_token_telemetry": "pending-api-run",
             "vision_description_accuracy": "pending-human-labels-and-model-run",
             "downstream_blind_answer_quality": "pending-blind-evaluation",
@@ -1147,7 +1214,8 @@ def _write_public_metrics(
         "| Metric | Result | Evidence boundary |",
         "|---|---:|---|",
         f"| Context reduction | {float(efficiency['reduction_ratio']) * 100:.1f}% ({efficiency['source_estimated_tokens']} → {efficiency['final_estimated_tokens']} estimated tokens) | Aggregate; inspect profiles because short inputs may grow |",
-        f"| Prompt exact-repeat reduction | {float(prompt['reduction_ratio']) * 100:.1f}% ({prompt['source_estimated_tokens']} → {prompt['compiled_estimated_tokens']}) | {prompt['cases']} prompt cases; no semantic rewrite claim |",
+        f"| Prompt exact-repeat reduction | {float(prompt['exact']['reduction_ratio']) * 100:.1f}% ({prompt['exact']['source_estimated_tokens']} → {prompt['exact']['compiled_estimated_tokens']}) | {prompt['exact']['cases']} prompt cases; literal duplicate lines only |",
+        f"| Prompt structural-repeat reduction | {float(prompt['structural']['reduction_ratio']) * 100:.1f}% ({prompt['structural']['source_estimated_tokens']} → {prompt['structural']['compiled_estimated_tokens']}) | {prompt['structural']['cases']} cases; formatting-normalized detection, first wording retained |",
         f"| Protected-fact recall | {_percent(fact_rate)} | Literal declared facts only |",
         f"| Anchor correctness | {_percent(anchor_rate)} | Declared expected anchors only |",
         f"| Route accuracy | {_percent(route_rate)} | Text / Hybrid / Source labeled cases |",
@@ -1169,7 +1237,8 @@ def _write_public_metrics(
         "",
         "## Pending — not yet claimed",
         "",
-        "- Real PDF conversion fidelity: **Pending**",
+        f"- Generated PDF literal fidelity: **{'available in `../pdf/results/metrics.json`' if pdf_metrics else 'Pending'}**",
+        "- Real-world PDF corpus fidelity: **Pending**",
         "- Actual provider input-token savings: **Pending**",
         "- Vision-description accuracy: **Pending**",
         "- Downstream blind-answer quality: **Pending**",
@@ -1188,11 +1257,14 @@ def _write_public_metrics(
     _write_text(output_root, Path("README.md"), "\n".join(lines))
 
 
-def doctor_report() -> dict[str, object]:
+def doctor_report(document_converter: Path | str | None = None) -> dict[str, object]:
     """Report core and optional local capabilities without changing the environment."""
 
     tokenizer = next((name for name in ("tiktoken", "tokenizers") if __import__("importlib").util.find_spec(name)), None)
-    converter = shutil.which("markitdown") or shutil.which("pandoc")
+    explicit_converter = Path(document_converter).expanduser().resolve() if document_converter else None
+    if explicit_converter and not explicit_converter.is_file():
+        raise FileNotFoundError(explicit_converter)
+    converter = str(explicit_converter) if explicit_converter else (shutil.which("markitdown") or shutil.which("pandoc"))
     return {
         "python": {
             "available": True,
@@ -1208,8 +1280,9 @@ def doctor_report() -> dict[str, object]:
         "document_converter": {
             "available": converter is not None,
             "command": converter,
+            "pdf_support": "unverified" if converter else "unavailable",
             "required": False,
-            "note": "Core text formats work without a converter; complex binaries need an external adapter.",
+            "note": "Command discovery does not prove PDF capability; run a fixture conversion before claiming support.",
         },
         "installed_anything": False,
     }
@@ -1239,7 +1312,16 @@ def _build_parser() -> argparse.ArgumentParser:
     audit = subparsers.add_parser("audit", help="Run a read-only heuristic Context Health audit.")
     audit.add_argument("--input", required=True)
     audit.add_argument("--task", default="")
-    subparsers.add_parser("doctor", help="Report core and optional local capabilities without installation.")
+    doctor = subparsers.add_parser("doctor", help="Report core and optional local capabilities without installation.")
+    doctor.add_argument("--document-converter")
+    prompt = subparsers.add_parser("prompt", help="Remove exact or structural prompt repetition without semantic rewriting.")
+    prompt.add_argument("--input", required=True)
+    prompt.add_argument("--mode", choices=("exact", "structural"), default="exact")
+    prompt.add_argument("--output", required=True)
+    pdf_fidelity = subparsers.add_parser("pdf-fidelity", help="Score converted Markdown against declared PDF ground truth.")
+    pdf_fidelity.add_argument("--expected", required=True)
+    pdf_fidelity.add_argument("--markdown", required=True)
+    pdf_fidelity.add_argument("--output", required=True)
     benchmark = subparsers.add_parser("benchmark", help="Run a versioned local benchmark manifest.")
     benchmark.add_argument("--manifest", required=True)
     benchmark.add_argument("--output", required=True)
@@ -1280,7 +1362,24 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(json.dumps(report._asdict(), ensure_ascii=False, sort_keys=True))
         return 0
     if args.command == "doctor":
-        print(json.dumps(doctor_report(), ensure_ascii=False, sort_keys=True))
+        print(json.dumps(doctor_report(args.document_converter), ensure_ascii=False, sort_keys=True))
+        return 0
+    if args.command == "prompt":
+        source = Path(args.input).read_text(encoding="utf-8")
+        compiled, result = compile_prompt(source, args.mode)
+        output = Path(args.output).expanduser().resolve()
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(compiled, encoding="utf-8", newline="\n")
+        print(json.dumps(result._asdict(), ensure_ascii=False, sort_keys=True))
+        return 0
+    if args.command == "pdf-fidelity":
+        expected = json.loads(Path(args.expected).read_text(encoding="utf-8"))
+        markdown = Path(args.markdown).read_text(encoding="utf-8")
+        report = score_pdf_fidelity(expected, markdown)
+        output = Path(args.output).expanduser().resolve()
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+        print(json.dumps(report, ensure_ascii=False, sort_keys=True))
         return 0
     if args.command == "benchmark":
         result = run_benchmark(args.manifest, args.output)

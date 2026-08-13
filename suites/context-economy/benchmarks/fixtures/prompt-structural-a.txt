@@ -1,0 +1,8 @@
+# Release requirements
+- Keep release 9.3.2.
+- Keep https://example.org/releases/9.3.2.
+## Release requirements
+*   Keep   release 9.3.2
+* Keep https://example.org/releases/9.3.2
+- Return risks and evidence.
+• Return risks and evidence

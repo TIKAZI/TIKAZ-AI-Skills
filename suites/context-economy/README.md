@@ -22,20 +22,22 @@ See the reproducible [Context Economy method demonstration](../../examples/conte
 
 ## Reproducible evidence
 
-Current public synthetic benchmark (`46` cases):
+Current public synthetic benchmark (`50` cases), plus a separate generated-PDF fixture benchmark:
 
 | Evidence family | Observed result | Scope |
 |---|---:|---|
 | Long-context efficiency | **69.7% reduction** · 4,698 → 1,422 estimated tokens | 6 task variants over one TIKAZ-authored long fixture |
 | Short-input correctness | **143.9% growth** · 1,375 → 3,354 estimated tokens | 30 cases; proves the workflow should pass through small inputs |
-| Prompt exact-repeat reduction | **37.1% reduction** · 62 → 39 estimated tokens | 2 synthetic prompts; exact repetition only |
-| Protected-fact recall | **100% · 38/38** | Literal declared facts, not semantic equivalence |
+| Prompt exact-repeat reduction | **14.6% reduction** · 157 → 134 estimated tokens | 4 cases including 2 structural-format controls with no exact duplicates |
+| Prompt structural-repeat reduction | **49.5% reduction** · 95 → 48 estimated tokens | 2 structural variants; first wording retained, no semantic rewrite |
+| Protected-fact recall | **100% · 46/46** | Literal declared facts, not semantic equivalence |
 | Evidence-anchor correctness | **100% · 39/39** | Declared expected anchors |
 | Text / Hybrid / Source routing | **100% · 8/8** | Synthetic labeled routing cases |
 | Visual/table filtering checks | **100% · 8/8** | Informative, decorative, duplicate, and complex-table gates |
 | Complete-pack budget compliance | **100% · 39/39** | Generated context packs |
+| Generated-PDF literal fidelity | **100% text / numbers / table cells / page anchors** | 3 TIKAZ-authored PDFs; installed pdfplumber adapter; visual meaning excluded |
 
-Read the generated [evidence card](benchmarks/results/README.md), [machine-readable metrics](benchmarks/results/metrics.json), and [raw cases](benchmarks/results/cases.json). Real PDF conversion fidelity, actual provider input-token savings, vision-description accuracy, and downstream blind-answer quality remain explicitly **Pending**.
+Read the generated [evidence card](benchmarks/results/README.md), [machine-readable metrics](benchmarks/results/metrics.json), [raw cases](benchmarks/results/cases.json), and [PDF fidelity evidence](benchmarks/pdf/results/README.md). Real-world/scanned PDF fidelity, actual provider input-token savings, vision-description accuracy, and downstream blind-answer quality remain explicitly **Pending**.
 
 ## Quick start
 
@@ -75,6 +77,17 @@ Inspect availability without installing anything:
 ```powershell
 python .\scripts\tikaz_context.py doctor
 ```
+
+Prepare repeated prompts conservatively:
+
+```powershell
+python .\scripts\tikaz_context.py prompt `
+  --input .\prompt.txt `
+  --mode structural `
+  --output .\prompt.compiled.txt
+```
+
+`exact` removes identical non-empty lines. `structural` additionally normalizes heading and bullet markers, whitespace, and terminal punctuation for duplicate detection while preserving the first original wording. Semantic rewriting is deliberately disabled until downstream equivalence is independently evaluated.
 
 Validate an existing snapshot:
 

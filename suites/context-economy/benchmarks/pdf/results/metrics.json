@@ -1,0 +1,56 @@
+{
+  "adapter": "pdfplumber",
+  "claim_boundary": "Generated text/table PDFs; literal recall only. Visual description remains pending.",
+  "converter": "installed pdfplumber",
+  "documents": 3,
+  "numeric_fact_recall": 1.0,
+  "page_anchor_coverage": 1.0,
+  "required_text_recall": 1.0,
+  "results": [
+    {
+      "id": "text-report",
+      "missing": {
+        "numeric_facts": [],
+        "page_anchors": [],
+        "required_text": [],
+        "table_cells": []
+      },
+      "numeric_fact_recall": 1.0,
+      "page_anchor_coverage": 1.0,
+      "required_text_recall": 1.0,
+      "table_cell_recall": 1.0,
+      "visual_claim_scored": false
+    },
+    {
+      "id": "table-report",
+      "missing": {
+        "numeric_facts": [],
+        "page_anchors": [],
+        "required_text": [],
+        "table_cells": []
+      },
+      "numeric_fact_recall": 1.0,
+      "page_anchor_coverage": 1.0,
+      "required_text_recall": 1.0,
+      "table_cell_recall": 1.0,
+      "visual_claim_scored": false
+    },
+    {
+      "id": "illustrated-report",
+      "missing": {
+        "numeric_facts": [],
+        "page_anchors": [],
+        "required_text": [],
+        "table_cells": []
+      },
+      "numeric_fact_recall": 1.0,
+      "page_anchor_coverage": 1.0,
+      "required_text_recall": 1.0,
+      "table_cell_recall": 1.0,
+      "visual_claim_scored": false
+    }
+  ],
+  "schema_version": 1,
+  "table_cell_recall": 1.0,
+  "visual_description_accuracy": null
+}

@@ -49,8 +49,8 @@
       "value": 1.0
     },
     "protected_fact_recall": {
-      "denominator": 38,
-      "numerator": 38,
+      "denominator": 46,
+      "numerator": 46,
       "value": 1.0
     },
     "route_accuracy": {
@@ -69,7 +69,63 @@
       "value": 1.0
     }
   },
-  "generated_from_cases": 46,
+  "generated_from_cases": 50,
+  "generated_pdf_fidelity": {
+    "adapter": "pdfplumber",
+    "claim_boundary": "Generated text/table PDFs; literal recall only. Visual description remains pending.",
+    "converter": "installed pdfplumber",
+    "documents": 3,
+    "numeric_fact_recall": 1.0,
+    "page_anchor_coverage": 1.0,
+    "required_text_recall": 1.0,
+    "results": [
+      {
+        "id": "text-report",
+        "missing": {
+          "numeric_facts": [],
+          "page_anchors": [],
+          "required_text": [],
+          "table_cells": []
+        },
+        "numeric_fact_recall": 1.0,
+        "page_anchor_coverage": 1.0,
+        "required_text_recall": 1.0,
+        "table_cell_recall": 1.0,
+        "visual_claim_scored": false
+      },
+      {
+        "id": "table-report",
+        "missing": {
+          "numeric_facts": [],
+          "page_anchors": [],
+          "required_text": [],
+          "table_cells": []
+        },
+        "numeric_fact_recall": 1.0,
+        "page_anchor_coverage": 1.0,
+        "required_text_recall": 1.0,
+        "table_cell_recall": 1.0,
+        "visual_claim_scored": false
+      },
+      {
+        "id": "illustrated-report",
+        "missing": {
+          "numeric_facts": [],
+          "page_anchors": [],
+          "required_text": [],
+          "table_cells": []
+        },
+        "numeric_fact_recall": 1.0,
+        "page_anchor_coverage": 1.0,
+        "required_text_recall": 1.0,
+        "table_cell_recall": 1.0,
+        "visual_claim_scored": false
+      }
+    ],
+    "schema_version": 1,
+    "table_cell_recall": 1.0,
+    "visual_description_accuracy": null
+  },
   "measurement_labels": {
     "provider_tokens": "pending",
     "text_tokens": "estimated"
@@ -77,15 +133,30 @@
   "pending": {
     "downstream_blind_answer_quality": "pending-blind-evaluation",
     "provider_input_token_telemetry": "pending-api-run",
-    "real_pdf_conversion_fidelity": "pending-real-corpus",
+    "real_world_pdf_corpus_fidelity": "pending-real-corpus",
     "vision_description_accuracy": "pending-human-labels-and-model-run"
   },
   "prompt_efficiency": {
-    "cases": 2,
-    "compiled_estimated_tokens": 39,
-    "duplicate_units_removed": 4,
-    "reduction_ratio": 0.371,
-    "source_estimated_tokens": 62
+    "cases": 6,
+    "compiled_estimated_tokens": 182,
+    "duplicate_units_removed": 12,
+    "exact": {
+      "cases": 4,
+      "compiled_estimated_tokens": 134,
+      "duplicate_units_removed": 4,
+      "reduction_ratio": 0.1465,
+      "source_estimated_tokens": 157
+    },
+    "reduction_ratio": 0.2778,
+    "semantic": "disabled-pending-equivalence-evaluation",
+    "source_estimated_tokens": 252,
+    "structural": {
+      "cases": 2,
+      "compiled_estimated_tokens": 48,
+      "duplicate_units_removed": 8,
+      "reduction_ratio": 0.4947,
+      "source_estimated_tokens": 95
+    }
   },
   "schema_version": 1
 }

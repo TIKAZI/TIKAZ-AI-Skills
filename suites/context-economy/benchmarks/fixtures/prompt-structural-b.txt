@@ -1,0 +1,8 @@
+# Safety checks
+- Do not publish before 17 checks pass.
+- Preserve error code 503.
+## Safety checks
+* Do not publish before 17 checks pass
+*   Preserve   error code 503
+- List evidence anchors.
+• List evidence anchors

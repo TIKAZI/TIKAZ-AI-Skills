@@ -24,7 +24,7 @@ skills:
       - {url: https://developers.openai.com/api/docs/guides/images-vision, observed_license: terms-governed-documentation}
     license: MIT
     release_status: ready
-    tikaz_changes: [five-skill product architecture, adaptive text-hybrid-source routing, full context cost ledger, reproducible public evidence card, hard-budget completion gate, evidence and efficiency separation]
+    tikaz_changes: [five-skill product architecture, adaptive text-hybrid-source routing, full context cost ledger, exact-and-structural prompt preparation, generated-PDF fidelity benchmark, reproducible public evidence card, hard-budget completion gate, evidence and efficiency separation]
 
   context-pack:
     mode: clean-room

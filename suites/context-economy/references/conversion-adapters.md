@@ -4,6 +4,8 @@ The standard-library core directly reads Markdown, text, JSON/JSONL, CSV/TSV, YA
 
 For PDF or Office input, use an available external converter such as a local document-to-Markdown workflow, inspect representative pages or sections for fidelity, and pass the resulting Markdown to `tikaz-context pack`. Keep the original file unchanged and report losses. Run `doctor` to inspect availability; it never installs software.
 
+Executable discovery is only a probe, not a capability guarantee. A converter can exist while its PDF/OCR extras are missing. Run a known fixture before declaring a format supported, record the adapter used, and retain conversion failures as evidence. The public generated-PDF benchmark supports explicit `markitdown` and `pdfplumber` adapters without bundling either one.
+
 Use the profiler before conversion decisions:
 
 - pure text and structurally safe tables -> `text`;

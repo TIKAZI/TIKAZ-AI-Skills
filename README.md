@@ -132,14 +132,15 @@ Method demonstrations: [Context Economy fixture](examples/context-economy-proof.
 The checked-in public benchmark separates efficiency from fidelity instead of publishing one composite score:
 
 - long-context profile: **69.7% estimated reduction** (`4,698 → 1,422`, 6 task variants over one synthetic source);
-- prompt exact-repeat profile: **37.1% estimated reduction** (`62 → 39`, 2 synthetic prompts);
+- prompt exact-repeat profile: **14.6% estimated reduction** (`157 → 134`, 4 cases including no-exact-duplicate controls);
+- prompt structural-repeat profile: **49.5% estimated reduction** (`95 → 48`, 2 synthetic variants; first wording retained);
 - protected facts: **38/38 retained**;
 - expected anchors: **39/39 retained**;
 - Text / Hybrid / Source routing: **8/8 labeled cases**;
 - visual/table filtering: **8/8 labeled cases**;
 - short-input profile: **143.9% growth**, retained publicly to show when the protocol is not economical.
 
-See the [generated evidence card](suites/context-economy/benchmarks/results/README.md) and [machine-readable metrics](suites/context-economy/benchmarks/results/metrics.json). Real PDF fidelity, actual provider Token usage, vision accuracy, and downstream blind-answer quality are still marked **Pending**.
+See the [generated evidence card](suites/context-economy/benchmarks/results/README.md), [machine-readable metrics](suites/context-economy/benchmarks/results/metrics.json), and [generated-PDF fidelity evidence](suites/context-economy/benchmarks/pdf/results/README.md). Real-world/scanned PDF fidelity, actual provider Token usage, vision accuracy, and downstream blind-answer quality are still marked **Pending**.
 
 ## Why it is more than a prompt collection
 

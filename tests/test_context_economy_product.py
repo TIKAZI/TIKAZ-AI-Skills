@@ -235,6 +235,90 @@ class ContextEconomyProductTests(unittest.TestCase):
         self.assertEqual(compiled.count("Review release 2.4.1."), 1)
         self.assertIn("https://example.com/release", compiled)
 
+    def test_structural_prompt_compiler_normalizes_formatting_without_rewriting_meaning(self) -> None:
+        ce = load_context_economy()
+        source = (
+            "# Requirements\n"
+            "- Keep release 2.4.1.\n"
+            "## Requirements\n"
+            "*   Keep   release 2.4.1\n"
+            "- Return evidence.\n"
+            "• Return evidence\n"
+            "- Do not publish before 17 checks.\n"
+        )
+
+        compiled, result = ce.compile_prompt(source, mode="structural")
+
+        self.assertEqual(result.mode, "structural")
+        self.assertEqual(result.duplicate_units_removed, 3)
+        self.assertLess(result.compiled_tokens, result.source_tokens)
+        self.assertEqual(result.protected_fact_recall, 1.0)
+        self.assertIn("2.4.1", compiled)
+        self.assertIn("17", compiled)
+        self.assertNotIn("semantic", result.method)
+
+    def test_pdf_fidelity_scores_declared_text_numbers_tables_and_page_anchors(self) -> None:
+        ce = load_context_economy()
+        expected = {
+            "required_text": ["Quarterly Operations Report", "All checks passed"],
+            "numeric_facts": ["8.2.1", "42", "24.6%"],
+            "table_cells": ["East", "120", "West", "95"],
+            "pages": 2,
+        }
+        markdown = (
+            "<!-- page: 1 -->\n# Quarterly Operations Report\n"
+            "Version 8.2.1 passed 42 checks. Margin was 24.6%.\n"
+            "| Region | Capacity |\n|---|---:|\n| East | 120 |\n| West | 95 |\n"
+            "<!-- page: 2 -->\nAll checks passed.\n"
+        )
+
+        report = ce.score_pdf_fidelity(expected, markdown)
+
+        self.assertEqual(report["required_text_recall"], 1.0)
+        self.assertEqual(report["numeric_fact_recall"], 1.0)
+        self.assertEqual(report["table_cell_recall"], 1.0)
+        self.assertEqual(report["page_anchor_coverage"], 1.0)
+        self.assertEqual(report["missing"], {"required_text": [], "numeric_facts": [], "table_cells": [], "page_anchors": []})
+
+    def test_doctor_accepts_explicit_document_converter_without_installing(self) -> None:
+        ce = load_context_economy()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            converter = Path(temp_dir) / "markitdown.cmd"
+            converter.write_text("@echo off\n", encoding="utf-8")
+
+            report = ce.doctor_report(str(converter))
+
+            self.assertTrue(report["document_converter"]["available"])
+            self.assertEqual(Path(report["document_converter"]["command"]), converter.resolve())
+            self.assertEqual(report["document_converter"]["pdf_support"], "unverified")
+            self.assertFalse(report["installed_anything"])
+
+    def test_benchmark_reports_exact_and_structural_prompt_modes_separately(self) -> None:
+        ce = load_context_economy()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            prompt = root / "prompt.txt"
+            prompt.write_text("# Rules\n- Keep 2.4.1.\n## Rules\n* Keep 2.4.1\n", encoding="utf-8")
+            manifest = root / "manifest.json"
+            manifest.write_text(json.dumps({
+                "schema_version": 1,
+                "cases": [
+                    {"id": "exact", "kind": "prompt", "prompt_mode": "exact", "inputs": ["prompt.txt"]},
+                    {"id": "structural", "kind": "prompt", "prompt_mode": "structural", "inputs": ["prompt.txt"]},
+                ],
+            }), encoding="utf-8")
+
+            ce.run_benchmark(manifest, root / "results")
+
+            metrics = json.loads((root / "results" / "metrics.json").read_text(encoding="utf-8"))
+            self.assertEqual(metrics["prompt_efficiency"]["exact"]["cases"], 1)
+            self.assertEqual(metrics["prompt_efficiency"]["structural"]["cases"], 1)
+            self.assertGreater(
+                metrics["prompt_efficiency"]["structural"]["reduction_ratio"],
+                metrics["prompt_efficiency"]["exact"]["reduction_ratio"],
+            )
+            self.assertEqual(metrics["prompt_efficiency"]["semantic"], "disabled-pending-equivalence-evaluation")
+
     def test_benchmark_scores_multimodal_expectations_and_writes_public_evidence(self) -> None:
         ce = load_context_economy()
         with tempfile.TemporaryDirectory() as temp_dir:
