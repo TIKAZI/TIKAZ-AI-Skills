@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import re
 import shutil
@@ -132,6 +133,21 @@ Write-Output "PASS: validated $($skills.Count) Skills in this distribution."
 '''
 
 
+def proof_strip(info: dict, language: str) -> str:
+    label_key = "label_zh" if language == "zh-CN" else "label_en"
+    note_key = "note_zh" if language == "zh-CN" else "note_en"
+    cells = []
+    for proof in info["proofs"]:
+        value = html.escape(proof["value"])
+        label = html.escape(proof[label_key])
+        note = html.escape(proof[note_key], quote=True)
+        cells.append(
+            f'<td data-proof-cell="true" align="center" width="25%" title="{note}">'
+            f'<h3>{value}</h3><sub>{label}</sub></td>'
+        )
+    return '<table data-proof-strip="true" width="100%">\n<tr>\n' + "\n".join(cells) + "\n</tr>\n</table>"
+
+
 def readme(info: dict, suite: str, version: str, owner: str, collection: str, skill_names: list[str]) -> str:
     repo = info["repository"]
     highlights = "\n".join(f"- **{item}**" for item in info["highlights"])
@@ -140,6 +156,7 @@ def readme(info: dict, suite: str, version: str, owner: str, collection: str, sk
         f"- [`{name}`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/{name}/index.html)"
         for name in skill_names
     )
+    proofs = proof_strip(info, "en")
     return f'''<p align="center"><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
 
 <p align="center"><img src="assets/hero.svg" alt="{info['title']}" width="100%" /></p>
@@ -148,6 +165,8 @@ def readme(info: dict, suite: str, version: str, owner: str, collection: str, sk
 <p align="center"><strong>{info['tagline']}</strong></p>
 <p align="center"><a href="https://github.com/{owner}/{repo}/actions/workflows/validate.yml"><img src="https://github.com/{owner}/{repo}/actions/workflows/validate.yml/badge.svg" alt="Validate" /></a> <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-f4c95d.svg" alt="MIT" /></a> <img src="https://img.shields.io/badge/version-{version}-{info['accent']}.svg" alt="{version}" /></p>
 <p align="center"><a href="https://github.com/{owner}/{collection}">← Explore all seven TIKAZ AI Skills for Codex suites</a></p>
+
+{proofs}
 
 ---
 
@@ -209,15 +228,19 @@ Source modes, observed licenses, and concrete TIKAZ contributions are recorded i
 '''
 
 
-def localized_readme(root: Path, suite: str) -> str:
+def localized_readme(root: Path, suite: str, info: dict) -> str:
     content = (root / "suites" / suite / "README.zh-CN.md").read_text(encoding="utf-8")
-    return (
+    content = (
         content
         .replace("../../SOURCES.yml", "SOURCES.yml")
         .replace("../../THIRD_PARTY_NOTICES.md", "THIRD_PARTY_NOTICES.md")
         .replace("../../docs/visual-system.md", "https://github.com/TIKAZI/TIKAZ-AI-Skills/blob/main/docs/visual-system.md")
         .replace("../../docs/zh/skills/", "https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/")
     )
+    first_heading = content.find("\n## ")
+    if first_heading == -1:
+        raise ValueError(f"Chinese README has no section heading: {suite}")
+    return content[:first_heading] + "\n\n" + proof_strip(info, "zh-CN") + "\n" + content[first_heading:]
 
 
 def build(root: Path, suite: str, output: Path) -> None:
@@ -236,7 +259,7 @@ def build(root: Path, suite: str, output: Path) -> None:
     (output / "assets").mkdir(exist_ok=True)
     (output / "assets" / "hero.svg").write_text(hero_svg(info["title"], info["tagline"], info["accent"], manifest["version"]), encoding="utf-8")
     (output / "README.md").write_text(readme(info, suite, manifest["version"], manifest["owner"], manifest["collection"], skill_names), encoding="utf-8")
-    (output / "README.zh-CN.md").write_text(localized_readme(root, suite), encoding="utf-8")
+    (output / "README.zh-CN.md").write_text(localized_readme(root, suite, info), encoding="utf-8")
     (output / "VERSION").write_text(manifest["version"] + "\n", encoding="utf-8")
     try:
         commit = subprocess.check_output(["git", "-C", str(root), "rev-parse", "HEAD"], text=True).strip()

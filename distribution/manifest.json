@@ -8,6 +8,12 @@
       "title": "TIKAZ Context Economy for Codex",
       "tagline": "A fidelity-first multimodal context compiler for the smallest useful context that remains checkable.",
       "accent": "60A5FA",
+      "proofs": [
+        {"value": "69.73%", "label_en": "Fixed long-context reduction", "label_zh": "固定长上下文估算减少", "note_en": "Six fixed tasks: 4,698 to 1,422 estimated tokens", "note_zh": "6 个固定任务：估算 Token 从 4,698 降至 1,422"},
+        {"value": "27.78%", "label_en": "Fixed prompt reduction", "label_zh": "固定提示词估算减少", "note_en": "Six fixed prompt cases: 252 to 182 estimated tokens", "note_zh": "6 个固定提示词样例：估算 Token 从 252 降至 182"},
+        {"value": "46/46", "label_en": "Protected facts retained", "label_zh": "保护事实字面保留", "note_en": "Literal recall on declared protected facts", "note_zh": "声明保护事实的字面召回，不等同语义准确率"},
+        {"value": "3/3", "label_en": "Generated PDF checks", "label_zh": "生成 PDF 字面检查", "note_en": "Text, numbers, tables, and page anchors; visual accuracy pending", "note_zh": "文字、数字、表格和页锚点；视觉准确率待测"}
+      ],
       "highlights": ["Paste text or attach files and let the workflow choose Text / Hybrid / Source automatically", "Document-to-Markdown preparation compacts text while retaining page anchors, protected facts, table checks, and unresolved visual evidence", "Documents with images split into compact text, visual relevance filtering, bounded vision work, and source fallback instead of sending every page blindly"],
       "prompts": ["Process my pasted text or attached files for this task. Automatically choose Text, Hybrid, or Source, prepare reusable Markdown where safe, retain protected facts and anchors, and make every omission visible.", "This document contains images or tables. Compact the text separately, skip decorative and duplicate visuals, queue only task-relevant visual evidence, and preserve uncertain source pages.", "Create a recoverable checkpoint from this long conversation. Preserve decisions, constraints, completed evidence, file paths, numbers, commands, and open questions."]
     },
@@ -16,6 +22,12 @@
       "title": "TIKAZ Frontend Design for Codex",
       "tagline": "Art-directed frontend workflows that prove the visual direction before scaling implementation.",
       "accent": "8B5CF6",
+      "proofs": [
+        {"value": "4", "label_en": "Product-surface modes", "label_zh": "产品界面模式", "note_en": "Marketing, product, editorial, and dense utility surfaces", "note_zh": "营销、产品、编辑与高密度工具界面"},
+        {"value": "2", "label_en": "Viewport proofs", "label_zh": "代表性视口证明", "note_en": "Desktop and mobile direction before full expansion", "note_zh": "完整扩展前先验证桌面端与移动端方向"},
+        {"value": "1", "label_en": "Design-to-code owner", "label_zh": "设计到代码单一责任人", "note_en": "One workflow owns direction, implementation, and handoff", "note_zh": "同一工作流负责方向、实现与交付"},
+        {"value": "4", "label_en": "Rendered QA checks", "label_zh": "真实渲染 QA 检查", "note_en": "Responsive, overflow, contrast, and reduced-motion checks", "note_zh": "响应式、溢出、对比度与减少动态效果检查"}
+      ],
       "highlights": ["Four product-surface modes instead of one landing-page aesthetic", "Design Read and three project dials before implementation", "Revision-bound desktop/mobile proof and engineering QA"],
       "prompts": ["Redesign this dashboard. Classify the surface and approve a desktop/mobile art-direction proof before expanding the full product.", "Audit this interface for generic visual patterns, then distill it without turning it into a marketing page.", "Create a DESIGN.md for this app, implement the representative viewport, and verify responsive and reduced-motion states."]
     },
@@ -24,6 +36,12 @@
       "title": "TIKAZ Video Intelligence for Codex",
       "tagline": "Evidence-graded video reading with timestamps, keyframes, source cards, and cross-video synthesis.",
       "accent": "22D3EE",
+      "proofs": [
+        {"value": "5", "label_en": "Evidence levels", "label_zh": "证据等级", "note_en": "From metadata-only reading to primary-source verification", "note_zh": "从仅元数据阅读到第一手来源核验"},
+        {"value": "4", "label_en": "Separated claim lanes", "label_zh": "分离的主张通道", "note_en": "Transcript, visual observation, external verification, and inference", "note_zh": "字幕、视觉观察、外部核验与推断相互分离"},
+        {"value": "3", "label_en": "Media evidence channels", "label_zh": "媒体证据通道", "note_en": "Transcript, ASR, and task-relevant keyframes", "note_zh": "字幕、语音识别与任务相关关键帧"},
+        {"value": "1", "label_en": "Timestamped source ledger", "label_zh": "带时间戳来源账本", "note_en": "Claims retain time anchors, evidence level, confidence, and fallback state", "note_zh": "主张保留时间锚点、证据等级、置信度与降级状态"}
+      ],
       "highlights": ["Five evidence levels from metadata to primary-source verification", "Transcript, visual observation, external verification, and inference stay separate", "Partial failures remain visible in the source ledger"],
       "prompts": ["Compare these videos with timestamps and label the evidence level behind every important claim.", "Read this local lecture, inspect keyframes where the transcript is insufficient, and produce an auditable source card.", "Synthesize these tutorials, show disagreements and missing dependencies, then recommend a workflow with confidence levels."]
     },
@@ -32,6 +50,12 @@
       "title": "TIKAZ Engineering Workflows for Codex",
       "tagline": "Production delivery from specification and impact mapping to tests, review, and release evidence.",
       "accent": "A78BFA",
+      "proofs": [
+        {"value": "6", "label_en": "Delivery stages", "label_zh": "交付阶段", "note_en": "Specification, impact, implementation, tests, review, and release", "note_zh": "规格、影响、实现、测试、审查与发布"},
+        {"value": "1", "label_en": "Lifecycle owner", "label_zh": "全生命周期责任人", "note_en": "One workflow owns acceptance criteria through handoff", "note_zh": "同一工作流从验收条件负责到最终交付"},
+        {"value": "2", "label_en": "Native quality gates", "label_zh": "原生质量门禁", "note_en": "Repository-native tests and static checks remain authoritative", "note_zh": "以仓库原生测试和静态检查为准"},
+        {"value": "4", "label_en": "Release evidence fields", "label_zh": "发布证据字段", "note_en": "Commands, outcomes, risks, and rollback stay visible", "note_zh": "命令、结果、风险与回滚信息保持可见"}
+      ],
       "highlights": ["One lifecycle owner from acceptance criteria to handoff", "Unified clean-room code intelligence for architecture and impact", "Security, Supabase, and video-workbench adapters route without expanding scope"],
       "prompts": ["Map the impact of this API change, implement it in small slices, and provide test and rollback evidence.", "Review this unfamiliar repository and produce an architecture map before proposing a cross-file refactor.", "Audit this third-party Skill for credential, permission, dependency, and prompt-injection risks before installation."]
     },
@@ -40,6 +64,12 @@
       "title": "TIKAZ Knowledge & Research for Codex",
       "tagline": "Traceable research and decisions with evidence ledgers, disagreement, confidence, and knowledge feedback.",
       "accent": "34D399",
+      "proofs": [
+        {"value": "6", "label_en": "Installable Skills", "label_zh": "可安装 Skill", "note_en": "One orchestrator and five focused research specialists", "note_zh": "1 个编排器与 5 个专项研究 Skill"},
+        {"value": "1", "label_en": "Source-to-decision trace", "label_zh": "来源到决策链路", "note_en": "Claims, evidence, confidence, and recommendation stay linked", "note_zh": "主张、证据、置信度与建议保持关联"},
+        {"value": "≠", "label_en": "Retrieval is not adoption", "label_zh": "检索不等于采纳", "note_en": "Personal knowledge changes execution only after explicit review", "note_zh": "个人知识仅在明确审查后才影响执行"},
+        {"value": "QA", "label_en": "Disagreement stays visible", "label_zh": "分歧保持可见", "note_en": "Contrary evidence and unresolved claims are not flattened", "note_zh": "相反证据与未决主张不会被抹平"}
+      ],
       "highlights": ["Question and evidence threshold are fixed before synthesis", "Conversion, retrieval, evidence, inference, and recommendation remain distinct", "Personal knowledge is adopted only when it changes execution"],
       "prompts": ["Compare these papers with inclusion criteria, contrary evidence, confidence, and claims that need revalidation.", "Convert this document to Markdown, inspect fidelity, then extract decision-ready claims without inventing citations.", "Retrieve relevant personal project decisions and record only knowledge that materially changes the plan."]
     },
@@ -48,6 +78,12 @@
       "title": "TIKAZ Presentation Workflows for Codex",
       "tagline": "Narrative-first HTML, PPTX, and editorial web decks with page contracts and rendered QA.",
       "accent": "F59E0B",
+      "proofs": [
+        {"value": "3", "label_en": "Output builders", "label_zh": "输出构建器", "note_en": "HTML deck, editable PPTX, and editorial web presentation", "note_zh": "HTML 演示、可编辑 PPTX 与编辑式网页演示"},
+        {"value": "1", "label_en": "Owner per deck", "label_zh": "每份演示单一构建器", "note_en": "Exactly one builder owns the final artifact", "note_zh": "最终成品只由一个构建器负责"},
+        {"value": "4", "label_en": "Page-contract fields", "label_zh": "页面合同字段", "note_en": "Each page defines claim, evidence, visual job, and speaker intent", "note_zh": "每页定义主张、证据、视觉任务与讲述意图"},
+        {"value": "4", "label_en": "Rendered QA gates", "label_zh": "渲染 QA 门禁", "note_en": "Overflow, collisions, media licensing, and artifact integrity", "note_zh": "溢出、碰撞、媒体授权与成品完整性"}
+      ],
       "highlights": ["Choose exactly one output builder for each final deck", "Every slide receives a claim, evidence, visual job, and speaker intent", "Rendered overflow, media licensing, and final artifact integrity are completion gates"],
       "prompts": ["Choose HTML or PPTX for this talk, write page contracts, and render representative pages before completing the deck.", "Create an editable PowerPoint from this brief and inspect every dense slide for overflow and collisions.", "Turn this essay into a single-file editorial web deck with restrained motion and offline verification."]
     },
@@ -56,6 +92,12 @@
       "title": "TIKAZ Visual Content for Codex",
       "tagline": "Provider-neutral illustration, concise writing, and lawful music workflows with publishing QA.",
       "accent": "F472B6",
+      "proofs": [
+        {"value": "5", "label_en": "Installable Skills", "label_zh": "可安装 Skill", "note_en": "One orchestrator and four focused content specialists", "note_zh": "1 个编排器与 4 个内容专项 Skill"},
+        {"value": "2", "label_en": "Visual identities", "label_zh": "独立视觉身份", "note_en": "Article metaphor and logistics explainer systems", "note_zh": "文章隐喻与物流科普信息图体系"},
+        {"value": "1", "label_en": "Owner per asset", "label_zh": "每项资产单一责任人", "note_en": "One visual identity and one shot card own each asset", "note_zh": "每项资产由一种视觉身份和一张 Shot Card 负责"},
+        {"value": "6", "label_en": "Publishing evidence fields", "label_zh": "发布证据字段", "note_en": "Labels, claims, alt text, legibility, license, and attribution", "note_zh": "标签、事实、替代文本、可读性、授权与署名"}
+      ],
       "highlights": ["One visual identity and one shot card own each asset", "Chinese labels, factual claims, alt text, and publishing-size legibility are verified", "Music discovery retains license and attribution evidence"],
       "prompts": ["Turn this essay into one original hand-drawn metaphor with a shot card, verified Chinese labels, and alt text.", "Explain this warehouse process as a sourced 16:9 logistics diagram with aligned nodes and explicit exceptions.", "Remove filler from this caption, then find lawful music and retain the download and attribution evidence."]
     }

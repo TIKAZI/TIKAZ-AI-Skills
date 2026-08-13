@@ -18,6 +18,42 @@ def load_exporter():
 
 
 class ContextEconomyDistributionTests(unittest.TestCase):
+    def test_every_suite_declares_four_bilingual_proof_items(self) -> None:
+        exporter = load_exporter()
+        manifest = exporter.read_manifest(ROOT)
+
+        for suite, info in manifest["suites"].items():
+            with self.subTest(suite=suite):
+                self.assertEqual(len(info["proofs"]), 4)
+                for proof in info["proofs"]:
+                    self.assertTrue(proof["value"].strip())
+                    self.assertTrue(proof["label_en"].strip())
+                    self.assertTrue(proof["label_zh"].strip())
+                    self.assertTrue(proof["note_en"].strip())
+                    self.assertTrue(proof["note_zh"].strip())
+
+    def test_proof_strip_renders_before_suite_introduction_in_both_languages(self) -> None:
+        exporter = load_exporter()
+        manifest = exporter.read_manifest(ROOT)
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            for suite, info in manifest["suites"].items():
+                output = Path(temp_dir) / suite
+                exporter.build(ROOT, suite, output)
+                readme = (output / "README.md").read_text(encoding="utf-8")
+                chinese_readme = (output / "README.zh-CN.md").read_text(encoding="utf-8")
+
+                with self.subTest(suite=suite):
+                    self.assertEqual(readme.count('data-proof-cell="true"'), 4)
+                    self.assertEqual(chinese_readme.count('data-proof-cell="true"'), 4)
+                    self.assertIn("</table>\n\n## ", chinese_readme)
+                    self.assertLess(readme.index('data-proof-strip="true"'), readme.index("## ✨ One suite"))
+                    for proof in info["proofs"]:
+                        self.assertIn(proof["value"], readme)
+                        self.assertIn(proof["value"], chinese_readme)
+                        self.assertIn(proof["label_en"], readme)
+                        self.assertIn(proof["label_zh"], chinese_readme)
+
     def test_distribution_hero_keeps_button_and_version_text_inside_centered_containers(self) -> None:
         exporter = load_exporter()
         svg = exporter.hero_svg("TIKAZ Visual Content for Codex", "Provider-neutral publishing workflow.", "F472B6", "0.8.0")
