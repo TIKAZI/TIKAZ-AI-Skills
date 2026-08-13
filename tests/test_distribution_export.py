@@ -50,10 +50,13 @@ class ContextEconomyDistributionTests(unittest.TestCase):
                     self.assertIn('src="assets/proof-strip.zh-CN.svg"', chinese_readme)
                     self.assertNotIn("<table", readme)
                     self.assertNotIn("<table", chinese_readme)
+                    self.assertNotIn("\n---\n\n## ✨ One suite", readme)
                     self.assertEqual(proof_svg.count('class="proof"'), 4)
                     self.assertEqual(proof_svg_zh.count('class="proof"'), 4)
                     self.assertNotIn("<rect", proof_svg)
                     self.assertNotIn("<line", proof_svg)
+                    self.assertIn("font: 750 54px", proof_svg)
+                    self.assertIn("font: 600 24px", proof_svg)
                     self.assertLess(readme.index('assets/proof-strip.svg'), readme.index("## ✨ One suite"))
                     for proof in info["proofs"]:
                         self.assertIn(proof["value"], proof_svg)

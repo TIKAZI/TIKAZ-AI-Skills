@@ -156,8 +156,8 @@ def proof_strip_svg(info: dict, language: str) -> str:
     return f'''<svg width="1200" height="170" viewBox="0 0 1200 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="proof-title">
 <title id="proof-title">{title}</title>
 <style>
-.value {{ fill: #{accent}; font: 750 46px "Segoe UI", Arial, sans-serif; }}
-.label {{ color: #334155; font: 600 20px/1.35 "Segoe UI", "Microsoft YaHei", Arial, sans-serif; text-align: center; }}
+.value {{ fill: #{accent}; font: 750 54px "Segoe UI", Arial, sans-serif; }}
+.label {{ color: #334155; font: 600 24px/1.3 "Segoe UI", "Microsoft YaHei", Arial, sans-serif; text-align: center; }}
 @media (prefers-color-scheme: dark) {{ .label {{ color: #CBD5E1; }} }}
 </style>
 {''.join(groups)}
@@ -189,8 +189,6 @@ def readme(info: dict, suite: str, version: str, owner: str, collection: str, sk
 <p align="center"><a href="https://github.com/{owner}/{collection}">← Explore all seven TIKAZ AI Skills for Codex suites</a></p>
 
 {proofs}
-
----
 
 ## ✨ One suite, ready to install
 
