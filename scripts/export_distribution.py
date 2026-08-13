@@ -133,19 +133,41 @@ Write-Output "PASS: validated $($skills.Count) Skills in this distribution."
 '''
 
 
-def proof_strip(info: dict, language: str) -> str:
+def proof_strip_svg(info: dict, language: str) -> str:
     label_key = "label_zh" if language == "zh-CN" else "label_en"
     note_key = "note_zh" if language == "zh-CN" else "note_en"
-    cells = []
-    for proof in info["proofs"]:
+    groups = []
+    notes = []
+    for index, proof in enumerate(info["proofs"]):
         value = html.escape(proof["value"])
         label = html.escape(proof[label_key])
         note = html.escape(proof[note_key], quote=True)
-        cells.append(
-            f'<td data-proof-cell="true" align="center" width="200" title="{note}">'
-            f'<h3>{value}</h3><sub>{label}</sub></td>'
+        x = index * 300
+        notes.append(f"{value}: {note}")
+        groups.append(
+            f'<g class="proof" aria-label="{note}">'
+            f'<text class="value" x="{x + 150}" y="70" text-anchor="middle">{value}</text>'
+            f'<foreignObject x="{x + 15}" y="91" width="270" height="64">'
+            f'<div xmlns="http://www.w3.org/1999/xhtml" class="label">{label}</div>'
+            f'</foreignObject></g>'
         )
-    return '<table data-proof-strip="true" width="100%">\n<tr>\n' + "\n".join(cells) + "\n</tr>\n</table>"
+    title = html.escape(". ".join(notes))
+    accent = html.escape(info["accent"])
+    return f'''<svg width="1200" height="170" viewBox="0 0 1200 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="proof-title">
+<title id="proof-title">{title}</title>
+<style>
+.value {{ fill: #{accent}; font: 750 46px "Segoe UI", Arial, sans-serif; }}
+.label {{ color: #334155; font: 600 20px/1.35 "Segoe UI", "Microsoft YaHei", Arial, sans-serif; text-align: center; }}
+@media (prefers-color-scheme: dark) {{ .label {{ color: #CBD5E1; }} }}
+</style>
+{''.join(groups)}
+</svg>'''
+
+
+def proof_strip_markup(info: dict, language: str) -> str:
+    suffix = ".zh-CN" if language == "zh-CN" else ""
+    alt = "四项经过核对的核心优势" if language == "zh-CN" else "Four verified core advantages"
+    return f'<p align="center"><img src="assets/proof-strip{suffix}.svg" alt="{alt}" width="100%" /></p>'
 
 
 def readme(info: dict, suite: str, version: str, owner: str, collection: str, skill_names: list[str]) -> str:
@@ -156,7 +178,7 @@ def readme(info: dict, suite: str, version: str, owner: str, collection: str, sk
         f"- [`{name}`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/{name}/index.html)"
         for name in skill_names
     )
-    proofs = proof_strip(info, "en")
+    proofs = proof_strip_markup(info, "en")
     return f'''<p align="center"><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
 
 <p align="center"><img src="assets/hero.svg" alt="{info['title']}" width="100%" /></p>
@@ -240,7 +262,7 @@ def localized_readme(root: Path, suite: str, info: dict) -> str:
     first_heading = content.find("\n## ")
     if first_heading == -1:
         raise ValueError(f"Chinese README has no section heading: {suite}")
-    return content[:first_heading] + "\n\n" + proof_strip(info, "zh-CN") + "\n" + content[first_heading:]
+    return content[:first_heading] + "\n\n" + proof_strip_markup(info, "zh-CN") + "\n" + content[first_heading:]
 
 
 def build(root: Path, suite: str, output: Path) -> None:
@@ -258,6 +280,8 @@ def build(root: Path, suite: str, output: Path) -> None:
         skill_names.append(match.group(1))
     (output / "assets").mkdir(exist_ok=True)
     (output / "assets" / "hero.svg").write_text(hero_svg(info["title"], info["tagline"], info["accent"], manifest["version"]), encoding="utf-8")
+    (output / "assets" / "proof-strip.svg").write_text(proof_strip_svg(info, "en"), encoding="utf-8")
+    (output / "assets" / "proof-strip.zh-CN.svg").write_text(proof_strip_svg(info, "zh-CN"), encoding="utf-8")
     (output / "README.md").write_text(readme(info, suite, manifest["version"], manifest["owner"], manifest["collection"], skill_names), encoding="utf-8")
     (output / "README.zh-CN.md").write_text(localized_readme(root, suite, info), encoding="utf-8")
     (output / "VERSION").write_text(manifest["version"] + "\n", encoding="utf-8")

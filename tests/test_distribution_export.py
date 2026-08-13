@@ -32,7 +32,7 @@ class ContextEconomyDistributionTests(unittest.TestCase):
                     self.assertTrue(proof["note_en"].strip())
                     self.assertTrue(proof["note_zh"].strip())
 
-    def test_proof_strip_renders_before_suite_introduction_in_both_languages(self) -> None:
+    def test_borderless_proof_strip_renders_before_suite_introduction_in_both_languages(self) -> None:
         exporter = load_exporter()
         manifest = exporter.read_manifest(ROOT)
 
@@ -42,19 +42,24 @@ class ContextEconomyDistributionTests(unittest.TestCase):
                 exporter.build(ROOT, suite, output)
                 readme = (output / "README.md").read_text(encoding="utf-8")
                 chinese_readme = (output / "README.zh-CN.md").read_text(encoding="utf-8")
+                proof_svg = (output / "assets" / "proof-strip.svg").read_text(encoding="utf-8")
+                proof_svg_zh = (output / "assets" / "proof-strip.zh-CN.svg").read_text(encoding="utf-8")
 
                 with self.subTest(suite=suite):
-                    self.assertEqual(readme.count('data-proof-cell="true"'), 4)
-                    self.assertEqual(chinese_readme.count('data-proof-cell="true"'), 4)
-                    self.assertEqual(readme.count('align="center" width="200"'), 4)
-                    self.assertEqual(chinese_readme.count('align="center" width="200"'), 4)
-                    self.assertIn("</table>\n\n## ", chinese_readme)
-                    self.assertLess(readme.index('data-proof-strip="true"'), readme.index("## ✨ One suite"))
+                    self.assertIn('src="assets/proof-strip.svg"', readme)
+                    self.assertIn('src="assets/proof-strip.zh-CN.svg"', chinese_readme)
+                    self.assertNotIn("<table", readme)
+                    self.assertNotIn("<table", chinese_readme)
+                    self.assertEqual(proof_svg.count('class="proof"'), 4)
+                    self.assertEqual(proof_svg_zh.count('class="proof"'), 4)
+                    self.assertNotIn("<rect", proof_svg)
+                    self.assertNotIn("<line", proof_svg)
+                    self.assertLess(readme.index('assets/proof-strip.svg'), readme.index("## ✨ One suite"))
                     for proof in info["proofs"]:
-                        self.assertIn(proof["value"], readme)
-                        self.assertIn(proof["value"], chinese_readme)
-                        self.assertIn(proof["label_en"], readme)
-                        self.assertIn(proof["label_zh"], chinese_readme)
+                        self.assertIn(proof["value"], proof_svg)
+                        self.assertIn(proof["value"], proof_svg_zh)
+                        self.assertIn(proof["label_en"], proof_svg)
+                        self.assertIn(proof["label_zh"], proof_svg_zh)
 
     def test_distribution_hero_keeps_button_and_version_text_inside_centered_containers(self) -> None:
         exporter = load_exporter()

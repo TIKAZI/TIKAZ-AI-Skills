@@ -14,13 +14,13 @@ GitHub-native developer documentation for open-source adopters. The visual langu
 
 ## Layout
 
-The strip sits after the repository badges and collection link, before the first explanatory heading. It uses one native HTML table with four equal 200px cells. This fills a typical GitHub repository README column while GitHub's own table wrapper provides bounded horizontal scrolling on narrower screens. Each cell contains:
+The strip sits after the repository badges and collection link, before the first explanatory heading. It uses a transparent, editable SVG with four equal content zones and no container or divider strokes. The responsive image fills the GitHub README column and scales down without creating page overflow. Each zone contains:
 
 1. one short, prominent value;
 2. one concise label;
 3. an accessible title containing the full evidence note.
 
-No custom CSS, images, fake charts, or decorative cards are required. The table must remain readable in GitHub light and dark themes and degrade to horizontal scrolling on very narrow screens without clipping text.
+The SVG uses large accent-colored values, enlarged labels, and theme-aware label colors. It must remain readable in GitHub light and dark themes without clipping text.
 
 ## Evidence policy
 
