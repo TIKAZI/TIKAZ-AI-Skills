@@ -1,4 +1,5 @@
 import importlib.util
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -17,6 +18,24 @@ def load_exporter():
 
 
 class ContextEconomyDistributionTests(unittest.TestCase):
+    def test_distribution_hero_keeps_button_and_version_text_inside_centered_containers(self) -> None:
+        exporter = load_exporter()
+        svg = exporter.hero_svg("TIKAZ Visual Content for Codex", "Provider-neutral publishing workflow.", "F472B6", "0.8.0")
+
+        button = re.search(r'<rect id="install-button" x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', svg)
+        button_text = re.search(r'<text id="install-label" x="(\d+)" y="(\d+)"[^>]*text-anchor="middle"', svg)
+        version = re.search(r'<rect id="version-badge" x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', svg)
+        version_text = re.search(r'<text id="version-label" x="(\d+)" y="(\d+)"[^>]*text-anchor="middle"', svg)
+
+        self.assertIsNotNone(button)
+        self.assertIsNotNone(button_text)
+        self.assertIsNotNone(version)
+        self.assertIsNotNone(version_text)
+        self.assertEqual(int(button_text.group(1)), int(button.group(1)) + int(button.group(3)) // 2)
+        self.assertEqual(int(version_text.group(1)), int(version.group(1)) + int(version.group(3)) // 2)
+        self.assertGreaterEqual(int(button.group(3)), 300)
+        self.assertLessEqual(int(version.group(1)) + int(version.group(3)), 1354)
+
     def test_manifest_and_export_publish_seventh_suite(self) -> None:
         exporter = load_exporter()
         manifest = exporter.read_manifest(ROOT)
