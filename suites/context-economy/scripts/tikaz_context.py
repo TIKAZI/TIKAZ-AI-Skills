@@ -38,6 +38,16 @@ CORE_SUFFIXES = {
     ".swift", ".kt", ".scala", ".sh", ".ps1", ".sql", ".css", ".xml",
     ".toml", ".ini", ".cfg", ".log",
 }
+MARKDOWN_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)\s]+)(?:\s+[\"'][^\"']*[\"'])?\)")
+HTML_IMAGE_RE = re.compile(r"<img\b[^>]*?src=[\"']([^\"']+)[\"'][^>]*?(?:alt=[\"']([^\"']*)[\"'])?[^>]*>", re.I)
+DECORATIVE_VISUAL_RE = re.compile(
+    r"(?i)\b(?:logo|icon|avatar|badge|watermark|divider|spacer|decoration|decorative|background|bullet)\b|徽标|图标|头像|水印|装饰|背景"
+)
+INFORMATIVE_VISUAL_RE = re.compile(
+    r"(?i)\b(?:chart|graph|diagram|architecture|flow|matrix|screenshot|map|plot|figure|table|schema|timeline)\b|图表|流程|架构|截图|地图|示意|曲线|矩阵|表格|数据"
+)
+COMPLEX_TABLE_RE = re.compile(r"(?i)merged|merge|rowspan|colspan|multi[- ]?level|color[- ]?coded|跨页|合并单元格|多级表头|颜色编码")
+SOURCE_VISUAL_RE = re.compile(r"<!--\s*source-visual:\s*([^>]+?)\s*-->", re.I)
 
 
 class Chunk(NamedTuple):
@@ -142,6 +152,156 @@ def estimate_tokens(text: str) -> int:
     without_cjk = CJK_RE.sub("", text)
     ascii_units = sum(len(unit) for unit in ASCII_TOKEN_RE.findall(without_cjk))
     return cjk_count + math.ceil(ascii_units / 4)
+
+
+def _table_profiles(text: str) -> list[dict[str, object]]:
+    """Describe Markdown tables conservatively without claiming visual fidelity."""
+
+    lines = text.splitlines()
+    tables: list[dict[str, object]] = []
+    index = 0
+    while index < len(lines) - 1:
+        if "|" not in lines[index] or not re.match(r"^\s*\|?\s*:?-{3,}", lines[index + 1]):
+            index += 1
+            continue
+        start = index
+        block = [lines[index], lines[index + 1]]
+        index += 2
+        while index < len(lines) and "|" in lines[index] and lines[index].strip():
+            block.append(lines[index])
+            index += 1
+        column_count = max(0, len([cell for cell in block[0].strip().strip("|").split("|")]))
+        nearby = "\n".join(lines[max(0, start - 2):min(len(lines), index + 1)])
+        complex_table = column_count >= 6 or len(block) >= 18 or bool(COMPLEX_TABLE_RE.search(nearby))
+        source_visual = SOURCE_VISUAL_RE.search(nearby)
+        tables.append({
+            "anchor": f"table-{len(tables) + 1}",
+            "columns": column_count,
+            "rows": max(0, len(block) - 2),
+            "complex": complex_table,
+            "source_visual": source_visual.group(1).strip() if source_visual else None,
+        })
+    return tables
+
+
+def _visual_relevance(alt: str, target: str, query: str) -> int:
+    haystack = f"{alt} {target}".lower()
+    return sum(3 for term in set(_query_terms(query)) if term in haystack) + (2 if INFORMATIVE_VISUAL_RE.search(haystack) else 0)
+
+
+def profile_document_text(text: str, source: str, query: str = "") -> dict[str, object]:
+    """Profile text, tables, and visual references without executing vision."""
+
+    visuals: list[tuple[str, str]] = [(match.group(1).strip(), match.group(2).strip()) for match in MARKDOWN_IMAGE_RE.finditer(text)]
+    visuals.extend((match.group(2) or "", match.group(1)) for match in HTML_IMAGE_RE.finditer(text))
+    seen_targets: set[str] = set()
+    evidence: list[dict[str, object]] = []
+    decorative = 0
+    duplicates = 0
+    for position, (alt, target) in enumerate(visuals, 1):
+        normalized_target = target.strip().casefold()
+        label = f"{alt} {target}"
+        if normalized_target in seen_targets:
+            duplicates += 1
+            continue
+        seen_targets.add(normalized_target)
+        if DECORATIVE_VISUAL_RE.search(label) and not INFORMATIVE_VISUAL_RE.search(label):
+            decorative += 1
+            continue
+        evidence.append({
+            "anchor": f"{source}#image-{position}",
+            "source": source,
+            "target": target,
+            "alt": alt,
+            "reason": "informative-label" if INFORMATIVE_VISUAL_RE.search(label) else "unclassified-visual",
+            "relevance_score": _visual_relevance(alt, target, query),
+            "status": "pending-vision",
+        })
+    tables = _table_profiles(text)
+    complex_tables = sum(1 for table in tables if table["complex"])
+    warnings: list[str] = []
+    if complex_tables:
+        warnings.append("visual-verification-required" if any(table["source_visual"] for table in tables if table["complex"]) else "complex-table-source-visual-unavailable")
+    route = "hybrid" if evidence or complex_tables else "text"
+    return {
+        "source": source,
+        "route": route,
+        "vision_executed": False,
+        "visuals_detected": len(visuals),
+        "informative_visuals": len(evidence),
+        "decorative_visuals_skipped": decorative,
+        "duplicate_visuals_skipped": duplicates,
+        "tables_detected": len(tables),
+        "complex_tables": complex_tables,
+        "tables": tables,
+        "visual_evidence": evidence,
+        "warnings": warnings,
+    }
+
+
+def profile_inputs(
+    inputs: Sequence[Path | str], query: str, output_dir: Path | str, visual_budget: int = 4,
+) -> dict[str, object]:
+    """Write a deterministic routing profile and a bounded pending-vision queue."""
+
+    if visual_budget < 0:
+        raise ValueError("visual_budget must be non-negative")
+    output_root = Path(output_dir).expanduser().resolve()
+    output_root.mkdir(parents=True, exist_ok=True)
+    documents: list[dict[str, object]] = []
+    original_assets: list[dict[str, object]] = []
+    for value in inputs:
+        path = Path(value).expanduser().resolve()
+        if not path.is_file():
+            raise FileNotFoundError(path)
+        raw = path.read_bytes()
+        original_assets.append({"name": path.name, "bytes": len(raw), "sha256": hashlib.sha256(raw).hexdigest()})
+        if path.suffix.lower() == ".pdf":
+            page_markers = len(re.findall(rb"/Type\s*/Page\b", raw))
+            documents.append({
+                "source": path.name, "route": "source", "vision_executed": False,
+                "visuals_detected": None, "informative_visuals": None,
+                "decorative_visuals_skipped": 0, "duplicate_visuals_skipped": 0,
+                "tables_detected": None, "complex_tables": None, "visual_evidence": [],
+                "warnings": ["binary-pdf-needs-conversion-adapter", "page-images-and-layout-not-profiled"],
+                "pages_estimated": page_markers or None,
+            })
+        elif path.suffix.lower() in CORE_SUFFIXES:
+            documents.append(profile_document_text(_canonicalize(path), path.name, query))
+        else:
+            documents.append({
+                "source": path.name, "route": "source", "vision_executed": False,
+                "visuals_detected": None, "informative_visuals": None,
+                "decorative_visuals_skipped": 0, "duplicate_visuals_skipped": 0,
+                "tables_detected": None, "complex_tables": None, "visual_evidence": [],
+                "warnings": ["unsupported-binary-needs-conversion-adapter"],
+            })
+    route_order = {"text": 0, "hybrid": 1, "source": 2}
+    recommended = max((str(document["route"]) for document in documents), key=route_order.get, default="text")
+    candidates = [item for document in documents for item in document.get("visual_evidence", [])]
+    candidates.sort(key=lambda item: (-int(item["relevance_score"]), str(item["anchor"])))
+    selected = candidates[:visual_budget]
+    deferred = candidates[visual_budget:]
+    queue = {
+        "vision_executed": False,
+        "visual_budget": visual_budget,
+        "selected_count": len(selected),
+        "deferred_count": len(deferred),
+        "items": selected,
+        "deferred": deferred,
+        "instruction": "Inspect selected items with an available image-capable host and append anchored observations; otherwise leave pending.",
+    }
+    payload = {
+        "schema_version": 1,
+        "recommended_route": recommended,
+        "vision_executed": False,
+        "documents": documents,
+        "original_assets": original_assets,
+        "visual_queue": {"selected": len(selected), "deferred": len(deferred)},
+    }
+    _write_json(output_root, Path("profile.json"), payload)
+    _write_json(output_root, Path("visual-evidence.json"), queue)
+    return payload
 
 
 def _slugify(value: str) -> str:
@@ -375,6 +535,8 @@ def build_pack(
     query: str,
     budget_tokens: int,
     output_dir: Path | str,
+    visual_budget: int = 4,
+    prompt_text: str = "",
 ) -> BuildResult:
     """Build deterministic canonical, index, ledger, pack, and report artifacts."""
 
@@ -396,6 +558,8 @@ def build_pack(
     canonical_names = [_canonical_name(path) for path in resolved_inputs]
     if len(canonical_names) != len(set(canonical_names)):
         raise ValueError("input files must have unique canonical names")
+
+    profile = profile_inputs(resolved_inputs, query, output_root, visual_budget)
 
     all_chunks: list[Chunk] = []
     source_records: list[dict[str, object]] = []
@@ -493,6 +657,50 @@ def build_pack(
     }
     _write_json(output_root, Path("ledger.json"), ledger)
 
+    visual_queue = json.loads((output_root / "visual-evidence.json").read_text(encoding="utf-8"))
+    canonical_bytes = sum((output_root / "canon" / name).stat().st_size for name in canonical_names)
+    original_bytes = sum(int(asset["bytes"]) for asset in profile["original_assets"])
+    protocol_tokens = estimate_tokens(_context_pack_markdown(query, mode, budget_tokens, [], []))
+    prompt_tokens = estimate_tokens(prompt_text or query)
+    cost_ledger = {
+        "schema_version": 1,
+        "measurement_status": "estimated-not-provider-telemetry",
+        "original_assets": {
+            "count": len(profile["original_assets"]),
+            "bytes": original_bytes,
+            "items": profile["original_assets"],
+        },
+        "canonical_text": {
+            "bytes": canonical_bytes,
+            "estimated_tokens": source_tokens,
+            "byte_reduction_ratio": 0 if not original_bytes else round(1 - canonical_bytes / original_bytes, 4),
+            "warning": "Byte reduction is not token reduction.",
+        },
+        "prompt_and_protocol": {
+            "task_prompt_estimated_tokens": prompt_tokens,
+            "protocol_floor_estimated_tokens": protocol_tokens,
+            "warning": "Prompt estimates are not provider billing telemetry.",
+        },
+        "selected_text_evidence": {
+            "chunks": len(selected),
+            "estimated_tokens": sum(chunk.token_estimate for chunk in selected),
+        },
+        "visual_routing": {
+            "route": profile["recommended_route"],
+            "selected_items": visual_queue["selected_count"],
+            "deferred_items": visual_queue["deferred_count"],
+            "vision_executed": False,
+            "image_tokens": None,
+            "warning": "Image-token cost requires the selected model, detail level, dimensions, and provider telemetry or a documented calculator.",
+        },
+        "final_context": {
+            "budget_estimated_tokens": budget_tokens,
+            "packed_estimated_tokens": packed_tokens,
+            "canonical_to_pack_reduction_ratio": 0 if not source_tokens else round(1 - packed_tokens / source_tokens, 4),
+        },
+    }
+    _write_json(output_root, Path("context-cost-ledger.json"), cost_ledger)
+
     report_lines = [
         "# Context Economy Savings Report",
         "",
@@ -504,6 +712,10 @@ def build_pack(
         f"- Preparation overhead used for break-even decision (estimated): {preparation_cost}",
         f"- Selected chunks: {len(selected)}",
         f"- Omitted chunks: {len(omitted)}",
+        f"- Document route: `{profile['recommended_route']}`",
+        f"- Visual evidence selected/deferred: {visual_queue['selected_count']}/{visual_queue['deferred_count']}",
+        f"- Original/canonical bytes: {original_bytes}/{canonical_bytes} (not a token comparison)",
+        f"- Task prompt tokens (estimated): {prompt_tokens}",
         "- Budget conflict: essential protected material exceeds the requested budget; minimum viable size must be reviewed."
         if mode == "budget-conflict" else "- Budget conflict: none.",
         "- Method: CJK characters plus ceil(non-CJK lexical characters / 4).",
@@ -727,6 +939,13 @@ def _build_parser() -> argparse.ArgumentParser:
     pack.add_argument("--query", required=True)
     pack.add_argument("--budget", required=True, type=int, dest="budget_tokens")
     pack.add_argument("--output", required=True, dest="output_dir")
+    pack.add_argument("--visual-budget", type=int, default=4)
+    pack.add_argument("--prompt-text", default="")
+    profile = subparsers.add_parser("profile", help="Profile document fidelity and build a pending visual-evidence queue.")
+    profile.add_argument("--input", action="append", required=True, dest="inputs")
+    profile.add_argument("--query", default="")
+    profile.add_argument("--visual-budget", type=int, default=4)
+    profile.add_argument("--output", required=True, dest="output_dir")
     snapshot = subparsers.add_parser("validate-snapshot", help="Validate a conversation state snapshot.")
     snapshot.add_argument("--snapshot", required=True)
     snapshot.add_argument("--source", required=True)
@@ -746,8 +965,15 @@ def _build_parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     args = _build_parser().parse_args(argv)
     if args.command == "pack":
-        result = build_pack(args.inputs, args.query, args.budget_tokens, args.output_dir)
+        result = build_pack(
+            args.inputs, args.query, args.budget_tokens, args.output_dir,
+            visual_budget=args.visual_budget, prompt_text=args.prompt_text,
+        )
         print(json.dumps(result._asdict(), ensure_ascii=False, sort_keys=True))
+        return 0
+    if args.command == "profile":
+        result = profile_inputs(args.inputs, args.query, args.output_dir, args.visual_budget)
+        print(json.dumps(result, ensure_ascii=False, sort_keys=True))
         return 0
     if args.command == "validate-snapshot":
         snapshot_text = Path(args.snapshot).read_text(encoding="utf-8")

@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.0] - 2026-08-13
+
+### Added
+
+- Adaptive `text`, `hybrid`, and `source` document routing based on informative visuals, table complexity, and safe conversion availability.
+- Bounded `visual-evidence.json` queues with decorative and duplicate-image filtering plus explicit `pending-vision` fallback.
+- `context-cost-ledger.json` separating original bytes, canonical text, prompt/protocol, selected evidence, visual routing, and final context.
+- `profile` CLI command and multimodal routing tests.
+
+### Changed
+
+- Reframed Context Economy as a traceable multimodal context compiler rather than a text-only compressor.
+- Prohibited byte-to-token equivalence and cross-project superiority claims without matched A/B and blind downstream evaluation.
+
 ## [0.4.0] - 2026-08-13
 
 ### Added

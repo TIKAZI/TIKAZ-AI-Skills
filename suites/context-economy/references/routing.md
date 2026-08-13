@@ -9,3 +9,5 @@ Choose `context-economy` when the user wants the full workflow. Choose one child
 - Example: “Prepare, inspect, and prove the result.” → `context-economy` orchestrates pack → audit → benchmark.
 
 Supporting Skills cannot silently change the selected primary workflow or rewrite source data.
+
+Within `context-pack`, use the text route for text-first sources, the hybrid route for bounded task-relevant visuals or complex tables, and the source route when extraction confidence is insufficient. The existence of an image alone is not a routing signal.

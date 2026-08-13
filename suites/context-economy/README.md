@@ -4,7 +4,7 @@
 
 Designed, integrated, independently refactored, and continuously maintained by **TIKAZ**.
 
-Context Economy turns files and long conversations into bounded, traceable context for Codex. It preserves source anchors, makes omissions visible, audits context health, and tests efficiency claims against fixed public cases.
+Context Economy turns files and long conversations into bounded, traceable context for Codex. Its multimodal compiler keeps text in reusable Markdown, routes only informative figures or complex tables to a visual-evidence queue, preserves source anchors, and measures the full input cost chain without confusing bytes with tokens.
 
 ## Installable workflow
 
@@ -27,10 +27,23 @@ python .\scripts\tikaz_context.py pack `
   --input .\notes.md `
   --query 'prepare the release validation context' `
   --budget 800 `
+  --visual-budget 4 `
   --output .\.context-economy
 ```
 
-The output includes canonical Markdown, heading-aware indexes, `ledger.json`, a bounded `packs/current-task.context.md`, and `savings-report.md`.
+The output includes canonical Markdown, heading-aware indexes, `profile.json`, `visual-evidence.json`, `context-cost-ledger.json`, a bounded `packs/current-task.context.md`, and `savings-report.md`.
+
+Profile routing without building a pack or running vision:
+
+```powershell
+python .\scripts\tikaz_context.py profile `
+  --input .\notes.md `
+  --query 'prepare the release validation context' `
+  --visual-budget 4 `
+  --output .\.context-economy-profile
+```
+
+`text` means Markdown is sufficient, `hybrid` means selected visuals remain as anchored `pending-vision` work, and `source` means safe conversion is unavailable or insufficient. Image presence alone never triggers vision.
 
 Validate a conversation checkpoint against its source transcript:
 

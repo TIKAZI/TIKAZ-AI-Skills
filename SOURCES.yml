@@ -20,9 +20,11 @@ skills:
       - {url: https://github.com/microsoft/LLMLingua, observed_license: MIT}
       - {url: https://developers.openai.com/api/docs/guides/prompt-caching, observed_license: terms-governed-documentation}
       - {url: https://developers.openai.com/api/docs/guides/compaction, observed_license: terms-governed-documentation}
+      - {url: https://developers.openai.com/api/docs/guides/file-inputs, observed_license: terms-governed-documentation}
+      - {url: https://developers.openai.com/api/docs/guides/images-vision, observed_license: terms-governed-documentation}
     license: MIT
     release_status: ready
-    tikaz_changes: [five-skill product architecture, outcome routing, hard-budget completion gate, evidence and efficiency separation]
+    tikaz_changes: [five-skill product architecture, adaptive text-hybrid-source routing, full context cost ledger, hard-budget completion gate, evidence and efficiency separation]
 
   context-pack:
     mode: clean-room
@@ -31,9 +33,11 @@ skills:
       - {url: https://github.com/microsoft/markitdown, observed_license: MIT}
       - {url: https://arxiv.org/abs/2310.06839, observed_license: research-reference-only}
       - {url: https://arxiv.org/abs/2307.03172, observed_license: research-reference-only}
+      - {url: https://developers.openai.com/api/docs/guides/file-inputs, observed_license: terms-governed-documentation}
+      - {url: https://developers.openai.com/api/docs/guides/images-vision, observed_license: terms-governed-documentation}
     license: MIT
     release_status: ready
-    tikaz_changes: [standard-library canonicalization, stable heading anchors, SHA-256 ledger, exact deduplication, transparent lexical ranking, complete-pack budget enforcement]
+    tikaz_changes: [standard-library canonicalization, informative-visual routing, complex-table fidelity gates, bounded pending-vision queue, stable heading anchors, SHA-256 ledger, exact deduplication, transparent lexical ranking, complete-pack budget enforcement]
 
   conversation-checkpoint:
     mode: original-integration

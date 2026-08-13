@@ -35,6 +35,8 @@ The run selected `pass-through` mode, retained three unique anchored sections, a
 
 The public benchmark now separates two profiles. The 30 micro correctness cases pass their declared budget, fact, and anchor checks but grow from 1,375 to 3,354 estimated tokens, a 143.93% increase caused by protocol overhead. The six long-context efficiency tasks reuse one synthetic source and shrink from 4,698 to 1,422, a 69.73% reduction, while retaining their declared facts and expected anchors. This is not a downstream semantic-equivalence test or a cross-project leaderboard. See the [fixed-version comparison](../docs/research/context-compression-comparison.md).
 
+Version 0.6 additionally emits a multimodal route profile and complete cost ledger. Existing benchmark percentages remain text-only and must not be presented as PDF, image, prompt, or end-to-end API savings. Visual-routing performance requires a separately labeled multimodal corpus and provider telemetry.
+
 ## Limits
 
 - Counts use the repository's documented deterministic heuristic, not provider billing telemetry.

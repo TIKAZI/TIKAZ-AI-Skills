@@ -124,6 +124,99 @@ class ContextEconomyProductTests(unittest.TestCase):
             self.assertIn("overall_savings_ratio", benchmark)
             self.assertTrue((benchmark_output / "cases.json").is_file())
 
+    def test_document_profile_routes_informative_visuals_without_counting_decoration(self) -> None:
+        ce = load_context_economy()
+        text = (
+            "# Quarterly review\n"
+            "Revenue increased 18%.\n"
+            "![Company logo](logo.png)\n"
+            "![Revenue by quarter chart](revenue-chart.png)\n"
+            "![Revenue by quarter chart duplicate](revenue-chart.png)\n"
+        )
+
+        profile = ce.profile_document_text(text, "review.md", "compare revenue")
+
+        self.assertEqual(profile["route"], "hybrid")
+        self.assertEqual(profile["visuals_detected"], 3)
+        self.assertEqual(profile["informative_visuals"], 1)
+        self.assertEqual(profile["decorative_visuals_skipped"], 1)
+        self.assertEqual(profile["duplicate_visuals_skipped"], 1)
+        self.assertEqual(profile["visual_evidence"][0]["status"], "pending-vision")
+        self.assertIn("review.md#image-2", profile["visual_evidence"][0]["anchor"])
+
+    def test_complex_table_requires_visual_verification_and_simple_table_does_not(self) -> None:
+        ce = load_context_economy()
+        simple = "# Data\n| Region | Revenue |\n|---|---:|\n| East | 1280 |\n"
+        complex_table = (
+            "# Data\n"
+            "<!-- source-visual: table-page-18.png -->\n"
+            "| Region | Q1 | Q2 | Q3 | Q4 | Notes |\n"
+            "|---|---:|---:|---:|---:|---|\n"
+            "| East | 10 | 12 | 14 | 16 | merged header in source |\n"
+            "| West | 8 | 9 | 11 | 13 | color-coded status |\n"
+        )
+
+        simple_profile = ce.profile_document_text(simple, "simple.md", "revenue")
+        complex_profile = ce.profile_document_text(complex_table, "complex.md", "revenue")
+
+        self.assertEqual(simple_profile["route"], "text")
+        self.assertEqual(simple_profile["complex_tables"], 0)
+        self.assertEqual(complex_profile["route"], "hybrid")
+        self.assertEqual(complex_profile["complex_tables"], 1)
+        self.assertIn("visual-verification-required", complex_profile["warnings"])
+
+    def test_pack_emits_multimodal_cost_ledger_and_bounded_visual_queue(self) -> None:
+        ce = load_context_economy()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "report.md"
+            source.write_text(
+                "# Revenue\nRevenue increased 18%.\n"
+                "![Revenue chart](chart.png)\n"
+                "![Architecture diagram](architecture.png)\n",
+                encoding="utf-8",
+            )
+            output = root / "output"
+
+            result = ce.build_pack(
+                [source], "compare revenue", 180, output,
+                visual_budget=1, prompt_text="Summarize the relevant evidence without repeating instructions.",
+            )
+
+            self.assertLessEqual(result.packed_tokens, 180)
+            profile = json.loads((output / "profile.json").read_text(encoding="utf-8"))
+            queue = json.loads((output / "visual-evidence.json").read_text(encoding="utf-8"))
+            ledger = json.loads((output / "context-cost-ledger.json").read_text(encoding="utf-8"))
+            self.assertEqual(profile["recommended_route"], "hybrid")
+            self.assertEqual(queue["selected_count"], 1)
+            self.assertEqual(queue["deferred_count"], 1)
+            self.assertEqual(queue["items"][0]["status"], "pending-vision")
+            self.assertEqual(ledger["measurement_status"], "estimated-not-provider-telemetry")
+            self.assertIn("original_assets", ledger)
+            self.assertIn("canonical_text", ledger)
+            self.assertIn("prompt_and_protocol", ledger)
+            self.assertIn("final_context", ledger)
+            self.assertIn("visual_routing", ledger)
+
+    def test_profile_cli_writes_artifacts_without_installing_or_running_vision(self) -> None:
+        ce = load_context_economy()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "report.md"
+            source.write_text("# Report\n![Risk matrix](risk.png)\n", encoding="utf-8")
+            output = root / "profile-output"
+
+            code, payload = self.run_cli(
+                ce,
+                ["profile", "--input", str(source), "--query", "assess risk", "--output", str(output)],
+            )
+
+            self.assertEqual(code, 0)
+            self.assertEqual(payload["recommended_route"], "hybrid")
+            self.assertFalse(payload["vision_executed"])
+            self.assertTrue((output / "profile.json").is_file())
+            self.assertTrue((output / "visual-evidence.json").is_file())
+
 
 if __name__ == "__main__":
     unittest.main()
