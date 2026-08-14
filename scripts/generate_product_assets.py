@@ -368,9 +368,10 @@ def skill_project_page(root: Path, suite_name: str, name: str, description: str,
         suite_label = suite_en
     install = f"Copy-Item -Recurse -LiteralPath '.\\{folder.replace('/', chr(92))}' -Destination '.\\.agents\\skills\\{name}'"
     stylesheet = "../../../styles.css" if is_zh else "../../styles.css"
+    logo = "../../../assets/tikaz-logo.svg" if is_zh else "../../assets/tikaz-logo.svg"
     return f'''<!doctype html>
-<html lang="{lang_attr}"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="description" content="{html.escape(promise)}" /><title>{html.escape(page_title)}</title><link rel="stylesheet" href="{stylesheet}" /></head>
-<body class="project-page"><header class="project-header"><a class="brand" href="../../index.html"><span class="brand-mark">T</span><span>TIKAZ</span></a><a class="language-link" href="{language_link}" aria-label="{labels['language_label']}">{labels['language']}</a></header>
+<html lang="{lang_attr}"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="description" content="{html.escape(promise)}" /><title>{html.escape(page_title)}</title><link rel="icon" href="{logo}" type="image/svg+xml" /><link rel="stylesheet" href="{stylesheet}" /></head>
+<body class="project-page"><header class="project-header"><a class="brand" href="../../index.html"><img class="brand-mark" src="{logo}" alt="" /><span>TIKAZ</span></a><a class="language-link" href="{language_link}" aria-label="{labels['language_label']}">{labels['language']}</a></header>
 <main><section class="project-hero"><a class="project-back" href="../index.html">← {labels['back']}</a><p class="identity">{emoji} {labels['eyebrow']}</p><h1>{html.escape(name)}</h1><p class="project-promise">{html.escape(promise)}</p><div class="project-meta"><span>{labels['suite']}: <strong>{html.escape(suite_label)}</strong></span><span>{html.escape(role)}</span></div><section class="project-evidence" aria-labelledby="evidence-title"><h2 id="evidence-title">{labels['advantages']}</h2><div>{evidence_cards}</div><p>{evidence_boundary}</p></section></section>
 <section class="project-details"><article><p>01</p><h2>{labels['what']}</h2><div>{html.escape(promise)}</div></article><article><p>02</p><h2>{labels['when']}</h2><div>{labels['when_copy']}</div></article><article class="wide"><p>03</p><h2>{labels['install']}</h2><div><span>{labels['install_copy']}</span><pre><code>{html.escape(install)}</code></pre></div></article><article class="wide"><p>04</p><h2>{labels['try']}</h2><div><pre><code>{html.escape(example)}</code></pre></div></article><article class="wide"><p>05</p><h2>{labels['contract']}</h2><div><span>{labels['contract_copy']}</span><a class="project-source" href="https://github.com/TIKAZI/TIKAZ-AI-Skills/blob/main/{source}">{labels['source']} ↗</a></div></article></section>
 <section class="project-peers"><p class="identity">{labels['peers']}</p><div>{peer_links}</div></section></main>
@@ -392,9 +393,10 @@ def skill_project_index(root: Path, language: str) -> str:
     title = "30 个可独立安装的 Skill" if is_zh else "30 independently installable Skills"
     intro = "按七套工作流分组浏览。每个 Skill 都有独立中英文项目页、安装入口和唯一执行源。" if is_zh else "Browse seven workflow groups. Every Skill has its own bilingual project page, installation entry, and single execution source."
     stylesheet = "../../styles.css" if is_zh else "../styles.css"
+    logo = "../../assets/tikaz-logo.svg" if is_zh else "../assets/tikaz-logo.svg"
     feedback_label = "反馈与建议" if is_zh else "Send feedback"
     issue_label = "GitHub Issue 表单" if is_zh else "GitHub Issue forms"
-    return f'''<!doctype html><html lang="{'zh-CN' if is_zh else 'en'}"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>{title} — TIKAZ</title><link rel="stylesheet" href="{stylesheet}" /></head><body class="project-page"><header class="project-header"><a class="brand" href="{home}"><span class="brand-mark">T</span><span>TIKAZ</span></a><a class="language-link" href="{language_link}">{'EN' if is_zh else '中文'}</a></header><main><section class="project-hero index-hero"><p class="identity">TIKAZ AI SKILLS FOR CODEX</p><h1>{title}</h1><p class="project-promise">{intro}</p><div class="index-actions"><a class="button primary" href="../index.html#feedback">{feedback_label}</a><a class="button secondary" href="https://github.com/TIKAZI/TIKAZ-AI-Skills/issues/new/choose">{issue_label}</a></div></section><section class="skill-index-groups">{''.join(groups)}</section></main></body></html>'''
+    return f'''<!doctype html><html lang="{'zh-CN' if is_zh else 'en'}"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>{title} — TIKAZ</title><link rel="icon" href="{logo}" type="image/svg+xml" /><link rel="stylesheet" href="{stylesheet}" /></head><body class="project-page"><header class="project-header"><a class="brand" href="{home}"><img class="brand-mark" src="{logo}" alt="" /><span>TIKAZ</span></a><a class="language-link" href="{language_link}">{'EN' if is_zh else '中文'}</a></header><main><section class="project-hero index-hero"><p class="identity">TIKAZ AI SKILLS FOR CODEX</p><h1>{title}</h1><p class="project-promise">{intro}</p><div class="index-actions"><a class="button primary" href="../index.html#feedback">{feedback_label}</a><a class="button secondary" href="https://github.com/TIKAZI/TIKAZ-AI-Skills/issues/new/choose">{issue_label}</a></div></section><section class="skill-index-groups">{''.join(groups)}</section></main></body></html>'''
 
 
 def publish_skill_project_pages(root: Path, output: Path, manifest: dict) -> None:
@@ -540,6 +542,9 @@ Every Skill must state its trigger and accepted input, owned workflow, output co
 def generate(root: Path, output: Path) -> None:
     manifest = json.loads((root / "distribution" / "manifest.json").read_text(encoding="utf-8"))
     output.mkdir(parents=True, exist_ok=True)
+    asset_output = output / "assets"
+    asset_output.mkdir(parents=True, exist_ok=True)
+    (asset_output / "tikaz-logo.svg").write_bytes((root / "assets" / "tikaz-logo.svg").read_bytes())
     (output / "feedback-data.js").write_text(feedback_data_javascript(root), encoding="utf-8")
     diagrams = output / "diagrams"
     diagrams.mkdir(parents=True, exist_ok=True)

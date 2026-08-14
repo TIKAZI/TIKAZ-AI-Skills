@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 361 356" role="img" aria-labelledby="title desc">
+  <title id="title">TIKAZ logo</title>
+  <desc id="desc">A geometric TIKAZ monogram in white and electric blue on a dark square.</desc>
+  <rect x="9.5" y="10" width="342" height="336" fill="#070C18"/>
+  <path fill="#1080F8" d="M361 356H0V0h360.5l.5 356ZM351 10H9c-.3.7 1 1.2 1 1.5V346h341V10Z"/>
+  <path fill="#FAFAFB" d="m302.7 83-138 134v-46.5c29.6-29.4 60.4-57.6 89.5-87.5h48.5ZM188.2 83l-.2.3V83H47.2l35.3 36h30.2v161.8l36-35.3V119.1h33.7l35.3-36h-29.5Z"/>
+  <path fill="#1080F8" d="m305.3 271.6-77.2-84.1-5.7-6.4-25.2 22.8 5.2 5.1 58.4 62.6h44.5Z"/>
+</svg>

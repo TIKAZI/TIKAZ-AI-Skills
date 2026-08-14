@@ -18,6 +18,29 @@ def load_generator():
 
 
 class ProductAssetTests(unittest.TestCase):
+    def test_logo_asset_replaces_legacy_header_mark_everywhere(self) -> None:
+        source = ROOT / "assets" / "tikaz-logo.svg"
+        published = ROOT / "docs" / "assets" / "tikaz-logo.svg"
+        self.assertTrue(source.is_file())
+        self.assertEqual(source.read_bytes(), published.read_bytes())
+        logo = source.read_text(encoding="utf-8")
+        self.assertIn('viewBox="0 0 361 356"', logo)
+        self.assertIn("#1080F8", logo)
+
+        branded_pages = []
+        for page in sorted((ROOT / "docs").rglob("*.html")):
+            content = page.read_text(encoding="utf-8")
+            self.assertNotIn('<span class="brand-mark">T</span>', content, page)
+            if 'class="brand"' in content:
+                branded_pages.append(page)
+                self.assertIn('<img class="brand-mark"', content, page)
+                self.assertIn("tikaz-logo.svg", content, page)
+                self.assertIn('rel="icon"', content, page)
+        self.assertEqual(len(branded_pages), 64)
+
+        readme_hero = (ROOT / "assets" / "tikaz-ai-skills-hero.svg").read_text(encoding="utf-8")
+        self.assertIn('id="tikaz-logo-mark"', readme_hero)
+
     def test_every_skill_is_listed_in_catalog_and_bilingual_suite_readmes(self) -> None:
         skill_files = sorted((ROOT / "suites").rglob("SKILL.md"))
         self.assertEqual(len(skill_files), 30)
