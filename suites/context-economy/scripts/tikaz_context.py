@@ -7,6 +7,7 @@ import argparse
 import csv
 import html
 import hashlib
+import importlib.util
 import ipaddress
 import json
 import math
@@ -1507,7 +1508,7 @@ def _write_public_metrics(
 def doctor_report(document_converter: Path | str | None = None) -> dict[str, object]:
     """Report core and optional local capabilities without changing the environment."""
 
-    tokenizer = next((name for name in ("tiktoken", "tokenizers") if __import__("importlib").util.find_spec(name)), None)
+    tokenizer = next((name for name in ("tiktoken", "tokenizers") if importlib.util.find_spec(name)), None)
     explicit_converter = Path(document_converter).expanduser().resolve() if document_converter else None
     if explicit_converter and not explicit_converter.is_file():
         raise FileNotFoundError(explicit_converter)

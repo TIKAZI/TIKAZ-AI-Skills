@@ -42,6 +42,18 @@ class ContextEconomyPackageTests(unittest.TestCase):
         self.assertEqual(completed.returncode, 0, completed.stderr)
         self.assertEqual(completed.stdout.strip(), f"tikaz-context {VERSION}")
 
+    def test_doctor_starts_without_site_preloading_importlib_util(self) -> None:
+        completed = subprocess.run(
+            [sys.executable, "-S", str(SCRIPT), "doctor"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertIn('"installed_anything": false', completed.stdout)
+
     def test_package_metadata_exposes_a_dependency_free_console_script(self) -> None:
         metadata = tomllib.loads((SUITE / "pyproject.toml").read_text(encoding="utf-8"))
 
