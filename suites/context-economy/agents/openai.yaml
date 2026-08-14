@@ -1,4 +1,4 @@
 interface:
   display_name: "TIKAZ Context Economy"
   short_description: "Fidelity-first multimodal context for Codex"
-  default_prompt: "Use $context-economy on my pasted text, attached files, or conversation. Automatically choose Text, Hybrid, or Source; prepare reusable Markdown where safe; reduce repetition; preserve facts and anchors; and queue only necessary images or complex tables for visual review."
+  default_prompt: "Use $context-economy on my pasted text, attached files, webpage, or conversation. Automatically choose Text, Hybrid, or Source; prepare reusable Markdown where safe; reduce repetition; preserve facts and anchors; and queue only necessary images or complex tables for visual review."

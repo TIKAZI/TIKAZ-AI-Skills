@@ -13,11 +13,12 @@ Spend context where it matters. Build the smallest useful context that remains c
 
 ## Inputs and routing
 
-Accept pasted text, a conversation, one or more files or folders, code, logs, structured data, PDFs, or converter-produced Markdown together with the user's task. Ask for a hard text or visual budget only when it materially changes the result; otherwise choose a conservative budget and state it.
+Accept pasted text, a conversation, one or more files or folders, code, logs, structured data, webpages, PDFs, or converter-produced Markdown together with the user's task. Ask for a hard text or visual budget only when it materially changes the result; otherwise choose a conservative budget and state it.
 
 - Route text-first, confidently extracted material to `text`.
 - Route task-relevant images or complex tables to `hybrid`, keeping Markdown primary and bounding vision work.
 - Route uncertain scans, layouts, or unsupported conversions to `source` and preserve the original.
+- For a webpage URL or local HTML, use the optional pinned Defuddle adapter when available. Preserve `source.html`, cleaned HTML, Markdown, metadata, byte/token estimates, and extraction warnings; never install the adapter silently.
 - Route a conversation-only handoff to `conversation-checkpoint`, diagnosis to `context-audit`, and measured claims to `context-benchmark`.
 
 ## Workflow
@@ -25,7 +26,7 @@ Accept pasted text, a conversation, one or more files or folders, code, logs, st
 1. Fix the task, expected output, risk level, text budget, and visual budget without requiring the user to choose a route.
 2. Profile every input and select `text`, `hybrid`, or `source` from conversion confidence, informative visuals, and table complexity, not image presence alone.
 3. Remove only exact or formatting-only repetition, protect literal facts, and build a task-bounded anchored pack.
-4. Convert supported documents through an available external adapter, verify representative content, and keep page or section anchors.
+4. Convert supported documents through an available external adapter, verify representative content, and keep page or section anchors. For webpages, reject local/private URL targets, bound fetch time and size, disable third-party async extraction, and retain images for routing.
 5. Compact text separately from images and complex tables; skip decorative and duplicate visuals; queue only task-relevant evidence; preserve uncertain sources.
 6. Report original and canonical bytes, prompt and protocol estimates, selected text, visual items, final context, omissions, protected facts, and verification limits separately.
 

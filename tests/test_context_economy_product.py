@@ -5,6 +5,7 @@ import tempfile
 import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,6 +26,103 @@ class ContextEconomyProductTests(unittest.TestCase):
         with redirect_stdout(output):
             exit_code = ce.main(argv)
         return exit_code, json.loads(output.getvalue())
+
+    def test_web_cli_and_doctor_expose_optional_defuddle_adapter(self) -> None:
+        ce = load_context_economy()
+        parser = ce._build_parser()
+        args = parser.parse_args([
+            "web", "--input", "page.html", "--output", "out", "--task", "release notes",
+        ])
+        self.assertEqual(args.command, "web")
+
+        doctor = ce.doctor_report()
+        self.assertIn("web_extractor", doctor)
+        self.assertEqual(doctor["web_extractor"]["provider"], "defuddle")
+        self.assertFalse(doctor["web_extractor"]["required"])
+        self.assertFalse(doctor["installed_anything"])
+
+    def test_web_dependency_failure_preserves_source_and_reports_source_route(self) -> None:
+        ce = load_context_economy()
+        fixture = ROOT / "suites" / "context-economy" / "benchmarks" / "fixtures" / "web-article.html"
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "web"
+            result = ce.extract_web_content(
+                input_path=fixture,
+                output_dir=output,
+                adapter_dir=Path(temp_dir) / "missing-adapter",
+            )
+
+            self.assertEqual(result["status"], "dependency-unavailable")
+            self.assertEqual(result["route"], "source")
+            self.assertTrue((output / "source.html").is_file())
+            self.assertFalse((output / "content.md").exists())
+            self.assertIn("defuddle-dependency-unavailable", result["warnings"])
+
+    def test_web_article_routes_text_and_keeps_facts_after_defuddle(self) -> None:
+        ce = load_context_economy()
+        fixture = ROOT / "suites" / "context-economy" / "benchmarks" / "fixtures" / "web-article.html"
+        extracted = {
+            "content": "<article><h2>Release 2.4.1</h2><p>Docs: <a href=\"https://example.com/release\">source</a></p><pre><code>git status</code></pre></article>",
+            "contentMarkdown": "Docs: [source](https://example.com/release)\n\n```\ngit status\n```\n",
+            "title": "Release 2.4.1", "author": "TIKAZ", "wordCount": 8, "parseTime": 7,
+        }
+        with tempfile.TemporaryDirectory() as temp_dir, mock.patch.object(
+            ce, "_defuddle_available", return_value=(True, "node", "0.19.2")
+        ), mock.patch.object(ce, "_invoke_defuddle", return_value=extracted):
+            output = Path(temp_dir) / "web"
+            result = ce.extract_web_content(input_path=fixture, output_dir=output, task="release")
+
+            self.assertEqual(result["status"], "ok")
+            self.assertEqual(result["route"], "text")
+            markdown = (output / "content.md").read_text(encoding="utf-8")
+            self.assertIn("2.4.1", markdown)
+            self.assertIn("https://example.com/release", markdown)
+            self.assertIn("git status", markdown)
+            self.assertNotIn("Recommended posts", markdown)
+            self.assertIn("original_bytes", result)
+            self.assertIn("markdown_bytes", result)
+            self.assertIn("original_estimated_tokens", result)
+            self.assertIn("markdown_estimated_tokens", result)
+
+    def test_web_images_and_complex_tables_route_hybrid(self) -> None:
+        ce = load_context_economy()
+        fixture = ROOT / "suites" / "context-economy" / "benchmarks" / "fixtures" / "web-article-images.html"
+        extracted = {
+            "content": "<article><h2>Architecture</h2><img src=\"architecture.png\" alt=\"Architecture diagram\"><table><tr><th colspan=\"2\">Metrics</th></tr><tr><td>A</td><td>42</td></tr></table></article>",
+            "contentMarkdown": "## Architecture\n\n![Architecture diagram](architecture.png)\n\n| Metric | Value |\n|---|---:|\n| A | 42 |\n",
+            "title": "Architecture", "wordCount": 5, "parseTime": 5,
+        }
+        with tempfile.TemporaryDirectory() as temp_dir, mock.patch.object(
+            ce, "_defuddle_available", return_value=(True, "node", "0.19.2")
+        ), mock.patch.object(ce, "_invoke_defuddle", return_value=extracted):
+            result = ce.extract_web_content(input_path=fixture, output_dir=Path(temp_dir) / "web")
+
+            self.assertEqual(result["route"], "hybrid")
+            self.assertIn("visual-verification-required", result["warnings"])
+            profile = json.loads((Path(temp_dir) / "web" / "web-profile.json").read_text(encoding="utf-8"))
+            self.assertEqual(profile["visual_evidence"][0]["status"], "pending-vision")
+
+    def test_web_empty_extraction_falls_back_to_source(self) -> None:
+        ce = load_context_economy()
+        fixture = ROOT / "suites" / "context-economy" / "benchmarks" / "fixtures" / "web-empty.html"
+        extracted = {"content": "<div></div>", "contentMarkdown": "", "title": "App", "wordCount": 0, "parseTime": 2}
+        with tempfile.TemporaryDirectory() as temp_dir, mock.patch.object(
+            ce, "_defuddle_available", return_value=(True, "node", "0.19.2")
+        ), mock.patch.object(ce, "_invoke_defuddle", return_value=extracted):
+            output = Path(temp_dir) / "web"
+            result = ce.extract_web_content(input_path=fixture, output_dir=output)
+
+            self.assertEqual(result["status"], "extraction-insufficient")
+            self.assertEqual(result["route"], "source")
+            self.assertTrue((output / "source.html").is_file())
+            self.assertIn("dynamic-or-empty-page-source-preserved", result["warnings"])
+
+    def test_web_rejects_private_and_non_http_urls(self) -> None:
+        ce = load_context_economy()
+        for url in ("file:///secret.html", "http://127.0.0.1/admin", "http://10.0.0.4/private"):
+            with self.subTest(url=url), tempfile.TemporaryDirectory() as temp_dir:
+                with self.assertRaises(ValueError):
+                    ce.extract_web_content(url=url, output_dir=Path(temp_dir) / "web")
 
     def test_checkpoint_creation_and_drift_detection(self) -> None:
         ce = load_context_economy()

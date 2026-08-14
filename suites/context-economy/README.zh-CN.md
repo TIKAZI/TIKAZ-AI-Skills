@@ -29,6 +29,22 @@ Context Economy 不是“全部压缩”的技巧。它准备的是**仍然可�
 - 扫描件、重布局文件、转换器缺失或提取不确定时走 **Source**，保留原文件或原页面。
 - 长对话转为 **Checkpoint**，保留决策、约束、完成证据、路径、数字、命令和开放问题。
 
+## 网页转为可追溯 Markdown
+
+网页流程可选使用固定版本的 Defuddle 适配器，Python 核心仍保持零强制外部依赖。它同时保留原始 HTML、清理后 HTML、Markdown、元数据、独立的字节/Token 估算，以及 Text / Hybrid / Source 分流结果。
+
+```powershell
+Set-Location .\adapters\defuddle
+npm ci
+Set-Location ..\..
+python .\scripts\tikaz_context.py web `
+  --url 'https://example.com/article' `
+  --task '提取发布证据' `
+  --output .\.context-economy-web
+```
+
+安装必须由用户明确执行，只影响网页适配器。流程不会执行网页脚本，也关闭了 Defuddle 的第三方异步提取回退；公开 URL、重定向、超时和响应体积均有限制。正文含信息图或复杂表格时进入 Hybrid；动态空壳、依赖缺失或提取不足时保留 `source.html` 并进入 Source。
+
 ## 🚀 快速使用
 
 ```powershell

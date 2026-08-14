@@ -6,6 +6,19 @@ For PDF or Office input, use an available external converter such as a local doc
 
 Executable discovery is only a probe, not a capability guarantee. A converter can exist while its PDF/OCR extras are missing. Run a known fixture before declaring a format supported, record the adapter used, and retain conversion failures as evidence. The public generated-PDF benchmark supports explicit `markitdown` and `pdfplumber` adapters without bundling either one.
 
+## Webpage adapter
+
+The optional `adapters/defuddle` bridge pins Defuddle `0.19.2` and linkedom `0.18.13`. Install it explicitly with `npm ci` inside that adapter directory; the Python core and `doctor` never run package installation. The bridge parses supplied HTML without executing page scripts, uses `separateMarkdown: true`, retains images, and disables Defuddle's third-party async fallback with `useAsync: false`.
+
+```powershell
+python .\scripts\tikaz_context.py web `
+  --url 'https://example.com/article' `
+  --task 'extract release evidence' `
+  --output .\.context-economy-web
+```
+
+Only public HTTP(S) targets are accepted. Local, private, reserved, and link-local addresses are rejected; redirects are revalidated; fetches have explicit size and timeout bounds. Dynamic client-rendered shells, extraction failures, and missing dependencies return `source` instead of pretending Markdown is complete.
+
 Use the profiler before conversion decisions:
 
 - pure text and structurally safe tables -> `text`;

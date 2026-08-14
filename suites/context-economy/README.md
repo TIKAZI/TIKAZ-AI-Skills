@@ -125,6 +125,22 @@ python .\scripts\tikaz_context.py pack `
 
 The output includes canonical Markdown, heading-aware indexes, `profile.json`, `visual-evidence.json`, `context-cost-ledger.json`, a bounded `packs/current-task.context.md`, and `savings-report.md`.
 
+### Webpage to traceable Markdown
+
+Webpages use an optional pinned Defuddle adapter while the Python core remains dependency-free. The workflow keeps the original HTML, cleaned HTML, Markdown, metadata, separate byte/token estimates, and a Text / Hybrid / Source decision.
+
+```powershell
+Set-Location .\adapters\defuddle
+npm ci
+Set-Location ..\..
+python .\scripts\tikaz_context.py web `
+  --url 'https://example.com/article' `
+  --task 'extract release evidence' `
+  --output .\.context-economy-web
+```
+
+Installation is explicit and webpage-only. The adapter does not execute page scripts or call Defuddle's third-party async fallback. Public HTTP(S), redirect, timeout, and response-size checks run before extraction. Images remain available for Hybrid routing; empty dynamic shells and uncertain results preserve `source.html` and return Source.
+
 ### Copy-ready examples
 
 ```text
@@ -146,6 +162,7 @@ Use context-benchmark with this fixed manifest. Keep efficiency, protected-fact 
 ## ⚠️ Limitations and honest fallbacks
 
 - Document conversion depends on an available adapter; the workflow does not silently install one.
+- Defuddle is a work in progress and cannot extract content that exists only after client-side rendering; those pages fall back to Source.
 - Estimated Token counts are not provider billing telemetry.
 - Queued images remain `pending-vision` until a vision-capable host actually inspects them.
 - Generated-PDF literal checks do not prove OCR, scanned-document, layout, or diagram understanding.

@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.9.0] - 2026-08-14
+
+### Added
+
+- Optional pinned Defuddle webpage adapter producing original HTML, cleaned HTML, Markdown, metadata, and a web fidelity/cost profile.
+- Public-URL validation, redirect revalidation, fetch timeout/size limits, and source-preserving failure states.
+- Web Text / Hybrid / Source routing for text-first pages, informative images, complex HTML tables, and dynamic empty shells.
+
+### Changed
+
+- Kept the Python core dependency-free and made webpage dependencies explicit rather than silently installed.
+- Disabled Defuddle third-party async fallback and documented upstream authorship, licenses, version pins, and WIP limitations.
+
 ## [0.8.0] - 2026-08-13
 
 ### Added

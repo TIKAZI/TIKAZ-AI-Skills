@@ -1,0 +1,9 @@
+{
+  "name": "@tikaz/context-economy-defuddle-adapter",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "defuddle": "0.19.2",
+    "linkedom": "0.18.13"
+  }
+}

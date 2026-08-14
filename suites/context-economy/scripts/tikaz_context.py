@@ -7,13 +7,19 @@ import argparse
 import csv
 import html
 import hashlib
+import ipaddress
 import json
 import math
 import re
 import shutil
+import socket
+import subprocess
 import sys
 from pathlib import Path
 from typing import NamedTuple, Sequence
+from urllib.error import HTTPError, URLError
+from urllib.parse import urlparse
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 
 CJK_RE = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]")
@@ -162,6 +168,245 @@ def estimate_tokens(text: str) -> int:
     without_cjk = CJK_RE.sub("", text)
     ascii_units = sum(len(unit) for unit in ASCII_TOKEN_RE.findall(without_cjk))
     return cjk_count + math.ceil(ascii_units / 4)
+
+
+def _default_defuddle_dir() -> Path:
+    return Path(__file__).resolve().parents[1] / "adapters" / "defuddle"
+
+
+def _defuddle_available(
+    adapter_dir: Path | str | None = None,
+    node_command: Path | str | None = None,
+) -> tuple[bool, str | None, str | None]:
+    """Discover the optional pinned adapter without installing or changing anything."""
+
+    root = Path(adapter_dir).expanduser().resolve() if adapter_dir else _default_defuddle_dir()
+    if node_command:
+        candidate = Path(node_command).expanduser()
+        node = str(candidate.resolve()) if candidate.is_file() else shutil.which(str(node_command))
+    else:
+        node = shutil.which("node")
+    package = root / "node_modules" / "defuddle" / "package.json"
+    bridge = root / "extract.mjs"
+    if not node or not Path(node).is_file() or not bridge.is_file() or not package.is_file():
+        return False, node, None
+    try:
+        version = str(json.loads(package.read_text(encoding="utf-8"))["version"])
+    except (OSError, KeyError, TypeError, ValueError):
+        return False, node, None
+    return version == "0.19.2", node, version
+
+
+def _validate_public_web_url(url: str) -> str:
+    parsed = urlparse(url)
+    if parsed.scheme not in {"http", "https"} or not parsed.hostname or parsed.username or parsed.password:
+        raise ValueError("web URL must be public HTTP(S) without embedded credentials")
+    try:
+        addresses = {item[4][0] for item in socket.getaddrinfo(parsed.hostname, parsed.port or 443)}
+    except socket.gaierror as exc:
+        raise ValueError(f"web URL host could not be resolved: {parsed.hostname}") from exc
+    if not addresses:
+        raise ValueError("web URL host did not resolve")
+    for address in addresses:
+        ip = ipaddress.ip_address(address)
+        if not ip.is_global:
+            raise ValueError("web URL resolves to a private, local, reserved, or link-local address")
+    return url
+
+
+class _SafeWebRedirectHandler(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):  # type: ignore[no-untyped-def]
+        _validate_public_web_url(newurl)
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+def _fetch_public_html(url: str, timeout: float, max_bytes: int) -> bytes:
+    _validate_public_web_url(url)
+    request = Request(url, headers={"User-Agent": "TIKAZ-Context-Economy/1.0 (+https://github.com/TIKAZI)"})
+    opener = build_opener(_SafeWebRedirectHandler())
+    try:
+        with opener.open(request, timeout=timeout) as response:
+            content_type = response.headers.get_content_type()
+            if content_type not in {"text/html", "application/xhtml+xml"}:
+                raise ValueError(f"web source is not HTML: {content_type}")
+            declared = response.headers.get("Content-Length")
+            if declared and int(declared) > max_bytes:
+                raise ValueError(f"web response exceeds {max_bytes} bytes")
+            body = response.read(max_bytes + 1)
+    except (HTTPError, URLError, TimeoutError, OSError) as exc:
+        raise RuntimeError(f"web fetch failed: {exc}") from exc
+    if len(body) > max_bytes:
+        raise ValueError(f"web response exceeds {max_bytes} bytes")
+    return body
+
+
+def _invoke_defuddle(
+    html_text: str,
+    source_url: str,
+    adapter_dir: Path,
+    node_command: str,
+    timeout: float,
+) -> dict[str, object]:
+    payload = json.dumps({"html": html_text, "url": source_url}, ensure_ascii=False)
+    process = subprocess.run(
+        [node_command, str(adapter_dir / "extract.mjs")],
+        input=payload,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        timeout=timeout,
+        check=False,
+    )
+    if process.returncode != 0:
+        message = process.stderr.strip() or f"adapter exited with code {process.returncode}"
+        raise RuntimeError(f"Defuddle extraction failed: {message}")
+    try:
+        result = json.loads(process.stdout)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError("Defuddle adapter returned invalid JSON") from exc
+    if not isinstance(result, dict):
+        raise RuntimeError("Defuddle adapter returned a non-object result")
+    return result
+
+
+def extract_web_content(
+    *,
+    output_dir: Path | str,
+    input_path: Path | str | None = None,
+    url: str | None = None,
+    task: str = "",
+    adapter_dir: Path | str | None = None,
+    node_command: Path | str | None = None,
+    timeout: float = 15.0,
+    max_bytes: int = 5_000_000,
+) -> dict[str, object]:
+    """Extract a web page conservatively and emit a source-preserving route report."""
+
+    if bool(input_path) == bool(url):
+        raise ValueError("provide exactly one of input_path or url")
+    if timeout <= 0 or max_bytes <= 0:
+        raise ValueError("timeout and max_bytes must be positive")
+    output = Path(output_dir).expanduser().resolve()
+    output.mkdir(parents=True, exist_ok=True)
+    source_url = _validate_public_web_url(url) if url else ""
+    if input_path:
+        source = Path(input_path).expanduser().resolve()
+        if not source.is_file() or source.suffix.lower() not in {".html", ".htm"}:
+            raise ValueError("local web input must be an existing .html or .htm file")
+        raw_bytes = source.read_bytes()
+        if len(raw_bytes) > max_bytes:
+            raise ValueError(f"web source exceeds {max_bytes} bytes")
+    else:
+        try:
+            raw_bytes = _fetch_public_html(source_url, timeout, max_bytes)
+        except (RuntimeError, ValueError) as exc:
+            failed_fetch: dict[str, object] = {
+                "status": "fetch-failed",
+                "route": "source",
+                "adapter": "defuddle",
+                "adapter_version": "0.19.2",
+                "source_url": source_url,
+                "original_bytes": 0,
+                "cleaned_html_bytes": 0,
+                "markdown_bytes": 0,
+                "original_estimated_tokens": 0,
+                "markdown_estimated_tokens": 0,
+                "estimated_reduction_ratio": 0.0,
+                "parse_time_ms": 0,
+                "protected_facts": list(extract_protected_facts(source_url)),
+                "visual_evidence": [],
+                "warnings": ["web-fetch-failed", str(exc)],
+                "task": task,
+                "measurement_status": "estimated-not-provider-telemetry",
+            }
+            _write_json(output, Path("web-profile.json"), failed_fetch)
+            return failed_fetch
+    adapter_source_url = source.as_uri() if input_path else source_url
+    (output / "source.html").write_bytes(raw_bytes)
+    html_text = raw_bytes.decode("utf-8", errors="replace")
+    root = Path(adapter_dir).expanduser().resolve() if adapter_dir else _default_defuddle_dir()
+    available, node, adapter_version = _defuddle_available(root, node_command)
+
+    base: dict[str, object] = {
+        "status": "dependency-unavailable",
+        "route": "source",
+        "adapter": "defuddle",
+        "adapter_version": adapter_version or "0.19.2",
+        "source_url": source_url,
+        "original_bytes": len(raw_bytes),
+        "cleaned_html_bytes": 0,
+        "markdown_bytes": 0,
+        "original_estimated_tokens": estimate_tokens(html_text),
+        "markdown_estimated_tokens": 0,
+        "estimated_reduction_ratio": 0.0,
+        "parse_time_ms": 0,
+        "protected_facts": list(extract_protected_facts(html_text)),
+        "visual_evidence": [],
+        "warnings": ["defuddle-dependency-unavailable"],
+        "task": task,
+        "measurement_status": "estimated-not-provider-telemetry",
+    }
+    if not available or not node:
+        _write_json(output, Path("web-profile.json"), base)
+        return base
+    try:
+        extracted = _invoke_defuddle(html_text, adapter_source_url, root, node, timeout)
+    except (RuntimeError, subprocess.TimeoutExpired) as exc:
+        base["status"] = "extraction-failed"
+        base["warnings"] = ["defuddle-extraction-failed", str(exc)]
+        _write_json(output, Path("web-profile.json"), base)
+        return base
+
+    cleaned_html = normalize_text(str(extracted.get("content") or ""))
+    markdown = normalize_text(str(extracted.get("contentMarkdown") or ""))
+    title = str(extracted.get("title") or "").strip()
+    markdown_headings = {
+        match.group(1).strip().casefold()
+        for match in re.finditer(r"(?m)^#{1,6}\s+(.+?)\s*$", markdown)
+    }
+    if title and title.casefold() not in markdown_headings:
+        markdown = normalize_text(f"# {title}\n\n{markdown}")
+    parse_time = extracted.get("parseTime", 0)
+    base["parse_time_ms"] = parse_time if isinstance(parse_time, (int, float)) else 0
+    if len(re.sub(r"\s+", "", markdown)) < 20:
+        base["status"] = "extraction-insufficient"
+        base["warnings"] = ["dynamic-or-empty-page-source-preserved"]
+        _write_json(output, Path("metadata.json"), {key: extracted.get(key) for key in (
+            "title", "author", "description", "domain", "published", "site", "wordCount", "parseTime"
+        )})
+        _write_json(output, Path("web-profile.json"), base)
+        return base
+
+    _write_text(output, Path("cleaned.html"), cleaned_html)
+    _write_text(output, Path("content.md"), markdown)
+    metadata = {key: extracted.get(key) for key in (
+        "title", "author", "description", "domain", "published", "site", "language", "image",
+        "wordCount", "parseTime", "schemaOrgData",
+    )}
+    _write_json(output, Path("metadata.json"), metadata)
+    profile = profile_document_text(markdown, "content.md", task)
+    complex_html_table = bool(re.search(r"(?is)<t(?:able|h|d)\b[^>]*(?:rowspan|colspan)\s*=", cleaned_html))
+    warnings = list(profile["warnings"])
+    route = str(profile["route"])
+    if complex_html_table:
+        route = "hybrid"
+        if "visual-verification-required" not in warnings:
+            warnings.append("visual-verification-required")
+    original_tokens = int(base["original_estimated_tokens"])
+    markdown_tokens = estimate_tokens(markdown)
+    base.update({
+        "status": "ok",
+        "route": route,
+        "cleaned_html_bytes": len(cleaned_html.encode("utf-8")),
+        "markdown_bytes": len(markdown.encode("utf-8")),
+        "markdown_estimated_tokens": markdown_tokens,
+        "estimated_reduction_ratio": round(max(0.0, (original_tokens - markdown_tokens) / original_tokens), 4) if original_tokens else 0.0,
+        "protected_facts": list(extract_protected_facts(markdown)),
+        "visual_evidence": profile["visual_evidence"],
+        "warnings": warnings,
+    })
+    _write_json(output, Path("web-profile.json"), base)
+    return base
 
 
 def _table_profiles(text: str) -> list[dict[str, object]]:
@@ -1265,6 +1510,7 @@ def doctor_report(document_converter: Path | str | None = None) -> dict[str, obj
     if explicit_converter and not explicit_converter.is_file():
         raise FileNotFoundError(explicit_converter)
     converter = str(explicit_converter) if explicit_converter else (shutil.which("markitdown") or shutil.which("pandoc"))
+    web_available, web_node, web_version = _defuddle_available()
     return {
         "python": {
             "available": True,
@@ -1283,6 +1529,14 @@ def doctor_report(document_converter: Path | str | None = None) -> dict[str, obj
             "pdf_support": "unverified" if converter else "unavailable",
             "required": False,
             "note": "Command discovery does not prove PDF capability; run a fixture conversion before claiming support.",
+        },
+        "web_extractor": {
+            "available": web_available,
+            "provider": "defuddle",
+            "version": web_version,
+            "node_command": web_node,
+            "required": False,
+            "note": "Optional webpage-only adapter; discovery never installs dependencies.",
         },
         "installed_anything": False,
     }
@@ -1314,6 +1568,16 @@ def _build_parser() -> argparse.ArgumentParser:
     audit.add_argument("--task", default="")
     doctor = subparsers.add_parser("doctor", help="Report core and optional local capabilities without installation.")
     doctor.add_argument("--document-converter")
+    web = subparsers.add_parser("web", help="Extract webpage content with the optional Defuddle adapter.")
+    web_source = web.add_mutually_exclusive_group(required=True)
+    web_source.add_argument("--input", dest="input_path")
+    web_source.add_argument("--url")
+    web.add_argument("--task", default="")
+    web.add_argument("--output", required=True, dest="output_dir")
+    web.add_argument("--adapter-dir")
+    web.add_argument("--node-command")
+    web.add_argument("--timeout", type=float, default=15.0)
+    web.add_argument("--max-bytes", type=int, default=5_000_000)
     prompt = subparsers.add_parser("prompt", help="Remove exact or structural prompt repetition without semantic rewriting.")
     prompt.add_argument("--input", required=True)
     prompt.add_argument("--mode", choices=("exact", "structural"), default="exact")
@@ -1364,6 +1628,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "doctor":
         print(json.dumps(doctor_report(args.document_converter), ensure_ascii=False, sort_keys=True))
         return 0
+    if args.command == "web":
+        result = extract_web_content(
+            input_path=args.input_path, url=args.url, task=args.task, output_dir=args.output_dir,
+            adapter_dir=args.adapter_dir, node_command=args.node_command,
+            timeout=args.timeout, max_bytes=args.max_bytes,
+        )
+        print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+        return 0 if result["status"] == "ok" else 2
     if args.command == "prompt":
         source = Path(args.input).read_text(encoding="utf-8")
         compiled, result = compile_prompt(source, args.mode)

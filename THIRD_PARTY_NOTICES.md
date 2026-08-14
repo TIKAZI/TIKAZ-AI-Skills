@@ -11,6 +11,8 @@ Research that materially informed the problem framing includes:
 
 Full URLs, recorded revisions where known, license observations, contribution types, and distribution status are maintained in [SOURCES.yml](SOURCES.yml).
 
+The optional Context Economy webpage adapter depends on `defuddle` 0.19.2 (MIT, Kepano) and `linkedom` 0.18.13 (ISC, Andrea Giammarchi and contributors). Their packages are installed separately through npm and are not vendored in this repository. TIKAZ authored the adapter bridge, public-URL safety boundaries, Text / Hybrid / Source integration, source-preserving fallback, output ledger, tests, and product documentation; upstream authorship is not claimed.
+
 The previously copied unknown-license and AGPL implementations were removed from the public tree during the 2026-08-12 audit and replaced with clean-room TIKAZ workflows. They remain only in a local, non-release quarantine for provenance review and are not covered by this repository's MIT license.
 
 “Open source” does not waive attribution or transfer authorship. If a future file is derived from or vendors an upstream work, its copyright notice and governing license must be added here before release.

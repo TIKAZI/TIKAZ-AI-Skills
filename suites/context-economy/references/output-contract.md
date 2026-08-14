@@ -27,6 +27,14 @@ Report five ledgers separately: original asset bytes, canonical text bytes/token
 - `context-cost-ledger.json` records the full cost chain without inventing image-token costs.
 - Every resolved visual claim carries a source/page/image anchor and uncertainty; unresolved items remain `pending-vision`.
 
+## Web extraction
+
+- `source.html` is always retained after a local read or successful fetch.
+- `cleaned.html` and `content.md` exist only when extraction is sufficient; `metadata.json` may remain when Defuddle found metadata but not usable body content.
+- `web-profile.json` records adapter/status/route, original and extracted bytes, separate estimated token counts, reduction ratio, protected facts, pending visual evidence, and warnings.
+- `dependency-unavailable`, `fetch-failed`, `extraction-failed`, and `extraction-insufficient` are visible Source outcomes, not successful conversions.
+- Byte reduction and estimated token reduction remain separate; neither is provider billing telemetry.
+
 ## Completion gate
 
 - Pack is within budget or explains the overage.

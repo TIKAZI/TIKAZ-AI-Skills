@@ -22,9 +22,11 @@ skills:
       - {url: https://developers.openai.com/api/docs/guides/compaction, observed_license: terms-governed-documentation}
       - {url: https://developers.openai.com/api/docs/guides/file-inputs, observed_license: terms-governed-documentation}
       - {url: https://developers.openai.com/api/docs/guides/images-vision, observed_license: terms-governed-documentation}
+      - {url: https://github.com/kepano/defuddle/tree/0.19.2, observed_license: MIT}
+      - {url: https://github.com/WebReflection/linkedom/tree/0.18.13, observed_license: ISC}
     license: MIT
     release_status: ready
-    tikaz_changes: [five-skill product architecture, adaptive text-hybrid-source routing, full context cost ledger, exact-and-structural prompt preparation, generated-PDF fidelity benchmark, reproducible public evidence card, hard-budget completion gate, evidence and efficiency separation]
+    tikaz_changes: [five-skill product architecture, adaptive text-hybrid-source routing, optional Defuddle web extraction adapter, public-URL safety boundaries, source-preserving web fallback, web extraction cost and fidelity ledger, full context cost ledger, exact-and-structural prompt preparation, generated-PDF fidelity benchmark, reproducible public evidence card, hard-budget completion gate, evidence and efficiency separation]
 
   context-pack:
     mode: clean-room
