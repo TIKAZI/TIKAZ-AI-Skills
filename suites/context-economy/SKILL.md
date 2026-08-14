@@ -1,6 +1,6 @@
 ---
 name: context-economy
-description: Automatically prepare fidelity-first, bounded context when users paste text, attach files or folders, provide PDFs for Markdown conversion, continue long conversations, or supply documents containing images and complex tables. Route each input through Text, Hybrid, or Source; reduce exact or formatting-only repetition; protect facts and source anchors; queue only useful visual evidence; preserve uncertain originals; and benchmark efficiency and fidelity separately.
+description: Automatically prepare fidelity-first, bounded context when users paste text, attach files or folders, provide webpages or PDFs for Markdown conversion, continue long conversations, or supply documents containing images and complex tables. Route each input through Text, Hybrid, or Source; reduce exact or formatting-only repetition; protect facts and source anchors; queue only useful visual evidence; preserve uncertain originals; and benchmark efficiency and fidelity separately.
 ---
 
 # Context Economy for Codex

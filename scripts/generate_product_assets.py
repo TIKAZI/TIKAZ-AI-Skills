@@ -46,7 +46,7 @@ SUITE_PRESENTATION = {
 }
 
 ZH_PROMISES = {
-    "context-economy": "自动判断文本、文件、PDF、表格与图片应走精简、混合还是原始来源路线。",
+    "context-economy": "自动判断文本、网页、PDF、表格与图片应走 Text、Hybrid 还是 Source，并保留可追溯原始来源。",
     "context-pack": "把文件、目录、代码、日志和结构化数据整理成有预算、可追溯的上下文包。",
     "conversation-checkpoint": "把长对话整理为可恢复的决策、状态、证据与待办。",
     "context-audit": "审计上下文的相关性、重复、可追溯性、安全、缓存与恢复能力。",

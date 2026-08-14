@@ -6,7 +6,7 @@ Install an orchestrator for an end-to-end outcome. Install a specialist when the
 
 | Skill | Suite | Role | Core promise |
 |---|---|---|---|
-| [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-economy/index.html) | Context Economy | Orchestrator | Automatically prepare fidelity-first, bounded context when users paste text, attach files or folders, provide PDFs for Markdown conversion, continue long conversations,… |
+| [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-economy/index.html) | Context Economy | Orchestrator | Automatically prepare fidelity-first, bounded context when users paste text, attach files or folders, provide webpages or PDFs for Markdown conversion, continue long con… |
 | [`context-pack`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-pack/index.html) | Context Economy | Specialist | Prepare files, folders, code, logs, and structured data as a bounded, traceable context pack for Codex. |
 | [`conversation-checkpoint`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/conversation-checkpoint/index.html) | Context Economy | Specialist | Use when a long or repetitive conversation has no source file and must be converted into a recoverable task state before continuation, handoff, or compaction. |
 | [`context-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-audit/index.html) | Context Economy | Specialist | Diagnose context relevance, redundancy, traceability, safety, cacheability, and recoverability. |
