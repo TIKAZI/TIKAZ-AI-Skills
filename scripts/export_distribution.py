@@ -15,7 +15,8 @@ from pathlib import Path
 MANAGED = {
     ".github", ".gitignore", ".gitattributes", ".mailmap", "README.md", "README.zh-CN.md", "LICENSE", "CONTRIBUTING.md", "CONTRIBUTING.zh-CN.md", "CHANGELOG.md", "SECURITY.md", "MAINTAINERS.md",
     "SOURCES.yml", "THIRD_PARTY_NOTICES.md", "DISTRIBUTION.yml", "VERSION",
-    "SKILL.md", "agents", "assets", "references", "scripts",
+    "SKILL.md", "agents", "assets", "references", "scripts", "tests",
+    "pyproject.toml", "MANIFEST.in", "__init__.py", "__main__.py",
 }
 
 
@@ -110,7 +111,89 @@ jobs:
           git commit -m "chore: sync {suite} from canonical collection"
           git push
 '''
-    return {"validate.yml": validate, "sync.yml": sync}
+    workflows = {"validate.yml": validate, "sync.yml": sync}
+    if suite == "context-economy":
+        workflows["package.yml"] = '''name: Package and CLI
+on: [push, pull_request]
+jobs:
+  installed-cli:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install .
+      - name: Verify installed CLI
+        run: |
+          tikaz-context --version
+          tikaz-context doctor
+          tikaz-context benchmark --output .context-benchmark
+  build-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install build
+      - run: python -m build
+      - run: sha256sum dist/* > dist/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tikaz-context-economy
+          path: dist/*
+          if-no-files-found: error
+'''
+        workflows["codeql.yml"] = '''name: CodeQL
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "23 4 * * 2"
+permissions:
+  contents: read
+  security-events: write
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [python, javascript-typescript]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+      - uses: github/codeql-action/analyze@v3
+'''
+    return workflows
+
+
+def dependabot_config(suite: str) -> str:
+    updates = '''  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+'''
+    if suite == "context-economy":
+        updates += '''  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /adapters/defuddle
+    schedule:
+      interval: weekly
+'''
+    return "version: 2\nupdates:\n" + updates
 
 
 def validation_script() -> str:
@@ -128,6 +211,15 @@ foreach ($skill in $skills) {
   if ($content -match '(?i)[A-Z]:\\Users\\|[A-Z]:\\CodexTools') { $errors += "Machine-specific path: $($skill.FullName)" }
 }
 if (-not (Test-Path (Join-Path (Split-Path $PSScriptRoot -Parent) 'DISTRIBUTION.yml'))) { $errors += 'Missing distribution metadata' }
+$distributionRoot = Split-Path $PSScriptRoot -Parent
+$pyproject = Join-Path $distributionRoot 'pyproject.toml'
+if (Test-Path $pyproject) {
+  foreach ($required in @('VERSION', 'MANIFEST.in', '__init__.py', '__main__.py', 'references\threat-model.md', '.github\workflows\package.yml', '.github\workflows\codeql.yml', '.github\dependabot.yml')) {
+    if (-not (Test-Path (Join-Path $distributionRoot $required))) { $errors += "Missing package/security artifact: $required" }
+  }
+  $packageMetadata = Get-Content -Raw -Encoding UTF8 $pyproject
+  if ($packageMetadata -notmatch 'tikaz-context\s*=\s*"tikaz_context_economy:main"') { $errors += 'Missing tikaz-context console entry point' }
+}
 if ($errors.Count) { $errors | ForEach-Object { Write-Error $_ }; exit 1 }
 Write-Output "PASS: validated $($skills.Count) Skills in this distribution."
 '''
@@ -293,6 +385,7 @@ def build(root: Path, suite: str, output: Path) -> None:
     workflow_dir.mkdir(parents=True, exist_ok=True)
     for name, content in workflows.items():
         (workflow_dir / name).write_text(content, encoding="utf-8")
+    (output / ".github" / "dependabot.yml").write_text(dependabot_config(suite), encoding="utf-8")
     scripts_dir = output / "scripts"
     scripts_dir.mkdir(exist_ok=True)
     (scripts_dir / "validate_distribution.ps1").write_text(validation_script(), encoding="utf-8")

@@ -1,0 +1,54 @@
+name: Package Context Economy
+
+on:
+  push:
+    paths:
+      - "suites/context-economy/**"
+      - "tests/test_context_economy*.py"
+      - ".github/workflows/package.yml"
+  pull_request:
+    paths:
+      - "suites/context-economy/**"
+      - "tests/test_context_economy*.py"
+      - ".github/workflows/package.yml"
+
+jobs:
+  installed-cli:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install package from canonical source
+        run: python -m pip install ./suites/context-economy
+      - name: Verify installed CLI
+        run: |
+          tikaz-context --version
+          tikaz-context doctor
+          tikaz-context benchmark --output .context-benchmark
+
+  build-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build wheel and source distribution
+        working-directory: suites/context-economy
+        run: |
+          python -m pip install build
+          python -m build
+      - name: Generate SHA-256 checksums
+        working-directory: suites/context-economy
+        run: sha256sum dist/* > dist/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tikaz-context-economy-0.10.0
+          path: suites/context-economy/dist/*
+          if-no-files-found: error

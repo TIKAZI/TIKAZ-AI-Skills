@@ -51,6 +51,31 @@ class ContextEconomyPackageTests(unittest.TestCase):
             self.assertEqual(completed.returncode, 0, completed.stderr)
             self.assertTrue((output / "summary.json").is_file())
 
+    def test_distribution_includes_security_and_package_automation(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "distribution"
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "scripts" / "export_distribution.py"),
+                    "--suite",
+                    "context-economy",
+                    "--output",
+                    str(output),
+                ],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            self.assertTrue((output / "pyproject.toml").is_file())
+            self.assertTrue((output / "references" / "threat-model.md").is_file())
+            self.assertTrue((output / ".github" / "workflows" / "package.yml").is_file())
+            self.assertTrue((output / ".github" / "workflows" / "codeql.yml").is_file())
+            self.assertTrue((output / ".github" / "dependabot.yml").is_file())
+
 
 if __name__ == "__main__":
     unittest.main()
