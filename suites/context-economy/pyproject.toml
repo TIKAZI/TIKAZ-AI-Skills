@@ -1,0 +1,69 @@
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tikaz-context-economy"
+version = "0.10.0"
+description = "Fidelity-first multimodal context compiler for Codex"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "TIKAZ" }]
+dependencies = []
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries :: Application Frameworks",
+  "Topic :: Text Processing :: Markup",
+]
+
+[project.urls]
+Homepage = "https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy"
+Documentation = "https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy#readme"
+Issues = "https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy/issues"
+Source = "https://github.com/TIKAZI/TIKAZ-AI-Skills/tree/main/suites/context-economy"
+
+[project.scripts]
+tikaz-context = "tikaz_context_economy:main"
+
+[tool.setuptools]
+packages = [
+  "tikaz_context_economy",
+  "tikaz_context_economy.adapters.defuddle",
+  "tikaz_context_economy.agents",
+  "tikaz_context_economy.assets",
+  "tikaz_context_economy.benchmarks",
+  "tikaz_context_economy.benchmarks.fixtures",
+  "tikaz_context_economy.benchmarks.pdf",
+  "tikaz_context_economy.benchmarks.pdf.fixtures",
+  "tikaz_context_economy.benchmarks.pdf.results",
+  "tikaz_context_economy.benchmarks.pdf.results.converted",
+  "tikaz_context_economy.benchmarks.results",
+  "tikaz_context_economy.references",
+  "tikaz_context_economy.scripts",
+]
+package-dir = { tikaz_context_economy = "." }
+include-package-data = true
+
+[tool.setuptools.package-data]
+tikaz_context_economy = [
+  "VERSION",
+  "SKILL.md",
+  "README*.md",
+  "agents/*.yaml",
+  "assets/*",
+  "references/*.md",
+  "adapters/defuddle/*",
+  "benchmarks/**/*",
+  "context-audit/**/*",
+  "context-benchmark/**/*",
+  "context-pack/**/*",
+  "conversation-checkpoint/**/*",
+]

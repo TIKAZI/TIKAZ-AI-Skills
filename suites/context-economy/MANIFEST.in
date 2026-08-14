@@ -1,0 +1,10 @@
+include VERSION SKILL.md README.md README.zh-CN.md
+recursive-include agents *.yaml
+recursive-include assets *
+recursive-include references *.md
+recursive-include adapters *
+recursive-include benchmarks *
+recursive-include context-audit *
+recursive-include context-benchmark *
+recursive-include context-pack *
+recursive-include conversation-checkpoint *

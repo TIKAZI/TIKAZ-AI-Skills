@@ -54,6 +54,8 @@ INFORMATIVE_VISUAL_RE = re.compile(
 )
 COMPLEX_TABLE_RE = re.compile(r"(?i)merged|merge|rowspan|colspan|multi[- ]?level|color[- ]?coded|跨页|合并单元格|多级表头|颜色编码")
 SOURCE_VISUAL_RE = re.compile(r"<!--\s*source-visual:\s*([^>]+?)\s*-->", re.I)
+VERSION = (Path(__file__).resolve().parents[1] / "VERSION").read_text(encoding="utf-8").strip()
+DEFAULT_BENCHMARK_MANIFEST = Path(__file__).resolve().parents[1] / "benchmarks" / "manifest.json"
 
 
 class Chunk(NamedTuple):
@@ -1543,7 +1545,11 @@ def doctor_report(document_converter: Path | str | None = None) -> dict[str, obj
 
 
 def _build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Build deterministic TIKAZ Context Economy artifacts.")
+    parser = argparse.ArgumentParser(
+        prog="tikaz-context",
+        description="Build deterministic TIKAZ Context Economy artifacts.",
+    )
+    parser.add_argument("--version", action="version", version=f"%(prog)s {VERSION}")
     subparsers = parser.add_subparsers(dest="command", required=True)
     pack = subparsers.add_parser("pack", help="Build a context pack from canonical Markdown or text.")
     pack.add_argument("--input", action="append", required=True, dest="inputs")
@@ -1587,7 +1593,7 @@ def _build_parser() -> argparse.ArgumentParser:
     pdf_fidelity.add_argument("--markdown", required=True)
     pdf_fidelity.add_argument("--output", required=True)
     benchmark = subparsers.add_parser("benchmark", help="Run a versioned local benchmark manifest.")
-    benchmark.add_argument("--manifest", required=True)
+    benchmark.add_argument("--manifest", default=str(DEFAULT_BENCHMARK_MANIFEST))
     benchmark.add_argument("--output", required=True)
     benchmark.add_argument("--prune-artifacts", action="store_true")
     return parser
