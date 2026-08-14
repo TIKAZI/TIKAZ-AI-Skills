@@ -20,6 +20,7 @@
 
 <p align="center">
   <a href="https://tikazi.github.io/TIKAZ-AI-Skills/">Live documentation</a> ·
+  <a href="https://tikazi.github.io/TIKAZ-AI-Skills/#feedback">Feedback form</a> ·
   <a href="#start-in-60-seconds">Quick start</a> ·
   <a href="#the-seven-suite-system">Seven suites</a> ·
   <a href="examples/prompts.md">Prompts</a> ·

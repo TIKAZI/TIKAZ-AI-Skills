@@ -392,7 +392,9 @@ def skill_project_index(root: Path, language: str) -> str:
     title = "30 个可独立安装的 Skill" if is_zh else "30 independently installable Skills"
     intro = "按七套工作流分组浏览。每个 Skill 都有独立中英文项目页、安装入口和唯一执行源。" if is_zh else "Browse seven workflow groups. Every Skill has its own bilingual project page, installation entry, and single execution source."
     stylesheet = "../../styles.css" if is_zh else "../styles.css"
-    return f'''<!doctype html><html lang="{'zh-CN' if is_zh else 'en'}"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>{title} — TIKAZ</title><link rel="stylesheet" href="{stylesheet}" /></head><body class="project-page"><header class="project-header"><a class="brand" href="{home}"><span class="brand-mark">T</span><span>TIKAZ</span></a><a class="language-link" href="{language_link}">{'EN' if is_zh else '中文'}</a></header><main><section class="project-hero index-hero"><p class="identity">TIKAZ AI SKILLS FOR CODEX</p><h1>{title}</h1><p class="project-promise">{intro}</p></section><section class="skill-index-groups">{''.join(groups)}</section></main></body></html>'''
+    feedback_label = "反馈与建议" if is_zh else "Send feedback"
+    issue_label = "GitHub Issue 表单" if is_zh else "GitHub Issue forms"
+    return f'''<!doctype html><html lang="{'zh-CN' if is_zh else 'en'}"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>{title} — TIKAZ</title><link rel="stylesheet" href="{stylesheet}" /></head><body class="project-page"><header class="project-header"><a class="brand" href="{home}"><span class="brand-mark">T</span><span>TIKAZ</span></a><a class="language-link" href="{language_link}">{'EN' if is_zh else '中文'}</a></header><main><section class="project-hero index-hero"><p class="identity">TIKAZ AI SKILLS FOR CODEX</p><h1>{title}</h1><p class="project-promise">{intro}</p><div class="index-actions"><a class="button primary" href="../index.html#feedback">{feedback_label}</a><a class="button secondary" href="https://github.com/TIKAZI/TIKAZ-AI-Skills/issues/new/choose">{issue_label}</a></div></section><section class="skill-index-groups">{''.join(groups)}</section></main></body></html>'''
 
 
 def publish_skill_project_pages(root: Path, output: Path, manifest: dict) -> None:
@@ -518,6 +520,8 @@ def catalog_markdown(root: Path, manifest: dict) -> str:
     return f'''# TIKAZ AI Skills Catalog
 
 **{count} independently installable Skills across seven composable Codex workflows.**
+
+[Open the public feedback form]({PAGES_BASE}/#feedback) · [Open GitHub Issue forms](https://github.com/TIKAZI/TIKAZ-AI-Skills/issues/new/choose)
 
 Install an orchestrator for an end-to-end outcome. Install a specialist when the named output is the whole task. Every entry links to its canonical `SKILL.md`; suite READMEs provide human-facing examples and evidence.
 

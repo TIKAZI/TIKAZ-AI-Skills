@@ -2,6 +2,8 @@
 
 **30 independently installable Skills across seven composable Codex workflows.**
 
+[Open the public feedback form](https://tikazi.github.io/TIKAZ-AI-Skills/#feedback) · [Open GitHub Issue forms](https://github.com/TIKAZI/TIKAZ-AI-Skills/issues/new/choose)
+
 Install an orchestrator for an end-to-end outcome. Install a specialist when the named output is the whole task. Every entry links to its canonical `SKILL.md`; suite READMEs provide human-facing examples and evidence.
 
 | Skill | Suite | Role | Core promise |

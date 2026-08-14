@@ -61,6 +61,25 @@ class FeedbackBoardTests(unittest.TestCase):
         self.assertIn("Do not include credentials", english)
         self.assertIn("不要提交凭据", chinese)
 
+    def test_feedback_entry_is_visible_on_home_and_catalogs(self) -> None:
+        english = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+        chinese = (ROOT / "docs" / "zh" / "index.html").read_text(encoding="utf-8")
+        english_index = (ROOT / "docs" / "skills" / "index.html").read_text(encoding="utf-8")
+        chinese_index = (ROOT / "docs" / "zh" / "skills" / "index.html").read_text(encoding="utf-8")
+        catalog = (ROOT / "docs" / "skills-catalog.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        readme_zh = (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
+
+        self.assertIn('class="button secondary feedback-entry" href="#feedback"', english)
+        self.assertIn('class="button secondary feedback-entry" href="#feedback"', chinese)
+        for content in (english_index, chinese_index):
+            self.assertIn('class="index-actions"', content)
+            self.assertIn('issues/new/choose', content)
+        self.assertIn("TIKAZ-AI-Skills/#feedback", catalog)
+        self.assertIn("issues/new/choose", catalog)
+        self.assertIn("TIKAZ-AI-Skills/#feedback", readme)
+        self.assertIn("TIKAZ-AI-Skills/zh/#feedback", readme_zh)
+
     def test_feedback_url_keeps_optional_scope_and_encodes_user_text(self) -> None:
         script = r"""
 const feedback = require('./docs/feedback.js');

@@ -20,6 +20,7 @@
 
 <p align="center">
   <a href="https://tikazi.github.io/TIKAZ-AI-Skills/zh/">中文网站</a> ·
+  <a href="https://tikazi.github.io/TIKAZ-AI-Skills/zh/#feedback">反馈与建议</a> ·
   <a href="#60-秒开始">快速开始</a> ·
   <a href="#七套工作流">七套工作流</a> ·
   <a href="docs/skills-catalog.md">30 Skill 目录</a> ·
