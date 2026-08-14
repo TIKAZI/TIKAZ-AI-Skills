@@ -19,6 +19,7 @@
       <a href="#system">System</a>
       <a href="#workflows">Workflows</a>
       <a href="#proof">Proof</a>
+      <a href="#feedback">Feedback</a>
       <a href="#about">About</a>
       <a class="language-link" data-lang="zh-CN" href="zh/index.html" lang="zh-CN">中文</a>
     </nav>
@@ -165,6 +166,42 @@
       </div>
     </section>
 
+    <section class="feedback-section" id="feedback">
+      <div class="feedback-heading">
+        <p class="identity">Feedback &amp; Ideas</p>
+        <h2>Report a bug.<br />Improve the system.</h2>
+        <p>Choose a workflow or one precise Skill when useful. Both are optional. Your submission opens a public GitHub Issue so progress, discussion, and resolution remain visible.</p>
+      </div>
+      <div class="feedback-layout">
+        <form id="feedback-form" class="feedback-form" data-feedback-language="en" action="https://github.com/TIKAZI/TIKAZ-AI-Skills/issues/new" method="get" target="_blank">
+          <fieldset class="feedback-types">
+            <legend>Feedback type</legend>
+            <label><input type="radio" name="feedback-type" value="bug" checked /><span>Bug</span></label>
+            <label><input type="radio" name="feedback-type" value="improvement" /><span>Improvement</span></label>
+            <label><input type="radio" name="feedback-type" value="idea" /><span>Idea</span></label>
+            <label><input type="radio" name="feedback-type" value="other" /><span>Other</span></label>
+          </fieldset>
+          <div class="feedback-scope">
+            <label for="feedback-workflow">Workflow <small>Optional</small></label>
+            <select id="feedback-workflow" name="workflow"><option value="">All / not sure</option></select>
+            <label for="feedback-skill">Skill <small>Optional</small></label>
+            <select id="feedback-skill" name="skill"><option value="">No specific Skill</option></select>
+          </div>
+          <label for="feedback-title">Title</label>
+          <input id="feedback-title" name="title" type="text" maxlength="100" required placeholder="What should be fixed or improved?" />
+          <label for="feedback-details">Details</label>
+          <textarea id="feedback-details" name="details" rows="7" maxlength="4000" required placeholder="What happened, what did you expect, and what evidence can help verify it?"></textarea>
+          <p class="feedback-privacy">Public submission. Do not include credentials, cookies, private source material, or undisclosed security details.</p>
+          <div class="feedback-submit"><button class="button primary" type="submit">Continue on GitHub</button><span id="feedback-status" role="status" aria-live="polite"></span></div>
+          <noscript><p><a href="https://github.com/TIKAZI/TIKAZ-AI-Skills/issues/new/choose">JavaScript is unavailable. Open the GitHub feedback forms.</a></p></noscript>
+        </form>
+        <div class="feedback-public">
+          <div class="feedback-public-heading"><div><span>PUBLIC BOARD</span><h3>Recent feedback</h3></div><a href="https://github.com/TIKAZI/TIKAZ-AI-Skills/issues?q=label%3Afeedback">View all on GitHub ↗</a></div>
+          <ul id="feedback-list" aria-live="polite" aria-busy="true"><li class="feedback-state feedback-loading">Loading public feedback...</li></ul>
+        </div>
+      </div>
+    </section>
+
     <section class="about-section" id="about">
       <div class="about-title"><p>About TIKAZ</p><h2>Design depth.<br />Technical range.<br />Systems thinking.</h2></div>
       <div class="about-copy">
@@ -180,6 +217,8 @@
     <div><a href="https://github.com/TIKAZI">GitHub</a><a href="https://github.com/TIKAZI/TIKAZ-AI-Skills">Source</a><a href="https://github.com/TIKAZI/TIKAZ-AI-Skills/blob/main/LICENSE">MIT License</a></div>
     <p>Community-maintained for Codex. Not an OpenAI-official project.</p>
   </footer>
+  <script src="feedback-data.js"></script>
+  <script src="feedback.js"></script>
   <script src="site.js"></script>
 </body>
 </html>

@@ -1,8 +1,20 @@
 name: 工作流建议（中文）
 description: 提议行为改进或新的、可单独使用的工作流。
 title: "[Proposal][中文]: "
-labels: [enhancement]
+labels: [enhancement, feedback]
 body:
+  - type: dropdown
+    id: workflow
+    attributes:
+      label: 工作流（可选）
+      description: 如果建议对应现有工作流，可以选择最接近的一项。
+      options: [context-economy, frontend-design, video-intelligence, engineering, knowledge-research, presentation, visual-content, collection]
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Skill（可选）
+      description: 如果建议只优化某一个 Skill，可以精确选择。
+      options: [context-economy, context-pack, conversation-checkpoint, context-audit, context-benchmark, frontend-design, frontend-design-studio, video-intelligence, video-platform-reader, engineering, code-intelligence, engineering-delivery, skill-security-audit, supabase-operations, video-workbench, knowledge-research, document-to-markdown, academic-research, product-strategy, solo-business-operations, personal-knowledge-memory, presentation, html-deck-builder, powerpoint-deck-builder, magazine-web-deck, visual-content, concise-writing-editor, xiaohei-article-illustrator, zhuge-logistics-illustrator, legal-free-music]
   - type: textarea
     id: problem
     attributes:

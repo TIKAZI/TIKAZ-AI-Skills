@@ -19,6 +19,7 @@
       <a href="#system">系统</a>
       <a href="#workflows">工作流</a>
       <a href="#proof">证据</a>
+      <a href="#feedback">反馈</a>
       <a href="#about">关于</a>
       <a class="language-link" data-lang="en" href="../index.html" lang="en">EN</a>
     </nav>
@@ -114,6 +115,42 @@
       </div>
     </section>
 
+    <section class="feedback-section" id="feedback">
+      <div class="feedback-heading">
+          <p class="identity">反馈与建议</p>
+        <h2>报告问题。<br />一起优化系统。</h2>
+        <p>可以选择对应工作流或精确到某个 Skill，也可以都不选择。提交后会打开公开 GitHub Issue，处理进度、讨论与解决状态都可以追踪。</p>
+      </div>
+      <div class="feedback-layout">
+        <form id="feedback-form" class="feedback-form" data-feedback-language="zh" action="https://github.com/TIKAZI/TIKAZ-AI-Skills/issues/new" method="get" target="_blank">
+          <fieldset class="feedback-types">
+            <legend>反馈类型</legend>
+            <label><input type="radio" name="feedback-type" value="bug" checked /><span>Bug</span></label>
+            <label><input type="radio" name="feedback-type" value="improvement" /><span>优化建议</span></label>
+            <label><input type="radio" name="feedback-type" value="idea" /><span>功能想法</span></label>
+            <label><input type="radio" name="feedback-type" value="other" /><span>其他</span></label>
+          </fieldset>
+          <div class="feedback-scope">
+            <label for="feedback-workflow">工作流 <small>可选</small></label>
+            <select id="feedback-workflow" name="workflow"><option value="">全部 / 不确定</option></select>
+            <label for="feedback-skill">Skill <small>可选</small></label>
+            <select id="feedback-skill" name="skill"><option value="">不指定 Skill</option></select>
+          </div>
+          <label for="feedback-title">标题</label>
+          <input id="feedback-title" name="title" type="text" maxlength="100" required placeholder="希望修复或改进什么？" />
+          <label for="feedback-details">详细说明</label>
+          <textarea id="feedback-details" name="details" rows="7" maxlength="4000" required placeholder="发生了什么、期望结果是什么，以及有哪些证据可以帮助核验？"></textarea>
+          <p class="feedback-privacy">公开提交。不要提交凭据、Cookie、私人来源材料或未公开的安全漏洞细节。</p>
+          <div class="feedback-submit"><button class="button primary" type="submit">前往 GitHub 提交</button><span id="feedback-status" role="status" aria-live="polite"></span></div>
+          <noscript><p><a href="https://github.com/TIKAZI/TIKAZ-AI-Skills/issues/new/choose">JavaScript 不可用，请打开 GitHub 反馈表单。</a></p></noscript>
+        </form>
+        <div class="feedback-public">
+          <div class="feedback-public-heading"><div><span>公开留言板</span><h3>最近反馈</h3></div><a href="https://github.com/TIKAZI/TIKAZ-AI-Skills/issues?q=label%3Afeedback">在 GitHub 查看全部 ↗</a></div>
+          <ul id="feedback-list" aria-live="polite" aria-busy="true"><li class="feedback-state feedback-loading">正在加载公开反馈...</li></ul>
+        </div>
+      </div>
+    </section>
+
     <section class="about-section" id="about">
       <div class="about-title"><p>关于 TIKAZ</p><h2>设计深度。<br />技术跨度。<br />系统思维。</h2></div>
       <div class="about-copy"><p>我从事品牌、平面、产品与前端设计，也理解把设计决策落成真实界面的代码。我把 Codex 和其他 OpenAI 工具作为工作媒介，再用设计方向、工程约束与可验证证据塑造最终结果。</p><div class="discipline-list"><span>品牌系统</span><span>平面设计</span><span>产品设计</span><span>前端设计</span><span>代码理解</span><span>Agent 工作流</span></div><a class="button secondary" href="https://github.com/TIKAZI/TIKAZ-AI-Skills/issues">提出工作流建议或报告问题</a></div>
@@ -125,6 +162,8 @@
     <div><a href="https://github.com/TIKAZI">GitHub</a><a href="https://github.com/TIKAZI/TIKAZ-AI-Skills/blob/main/README.zh-CN.md">中文文档</a><a href="https://github.com/TIKAZI/TIKAZ-AI-Skills/blob/main/LICENSE">MIT License</a></div>
     <p>由社区为 Codex 维护，并非 OpenAI 官方项目。</p>
   </footer>
+  <script src="../feedback-data.js"></script>
+  <script src="../feedback.js"></script>
   <script src="../site.js"></script>
 </body>
 </html>

@@ -1,35 +1,28 @@
-name: Workflow proposal
-description: Propose a behavioral improvement or a new independently useful workflow.
-title: "[Proposal]: "
-labels: [enhancement, feedback]
+name: 其他反馈（中文）
+description: 为 TIKAZ AI Skills 留下普通留言、问题或使用体验。
+title: "[Feedback][中文]: "
+labels: [feedback]
 body:
   - type: dropdown
     id: workflow
     attributes:
-      label: Workflow (optional)
-      description: Choose the closest existing workflow when applicable.
+      label: 工作流（可选）
       options: [context-economy, frontend-design, video-intelligence, engineering, knowledge-research, presentation, visual-content, collection]
   - type: dropdown
     id: skill
     attributes:
-      label: Skill (optional)
-      description: Choose one precise Skill when the proposal improves it.
+      label: Skill（可选）
       options: [context-economy, context-pack, conversation-checkpoint, context-audit, context-benchmark, frontend-design, frontend-design-studio, video-intelligence, video-platform-reader, engineering, code-intelligence, engineering-delivery, skill-security-audit, supabase-operations, video-workbench, knowledge-research, document-to-markdown, academic-research, product-strategy, solo-business-operations, personal-knowledge-memory, presentation, html-deck-builder, powerpoint-deck-builder, magazine-web-deck, visual-content, concise-writing-editor, xiaohei-article-illustrator, zhuge-logistics-illustrator, legal-free-music]
   - type: textarea
-    id: problem
+    id: feedback
     attributes:
-      label: User problem
-      description: Describe the recurring job and why existing routing is insufficient.
+      label: 反馈内容
+      description: 请说明相关背景、使用体验或希望改进的内容。
     validations: {required: true}
-  - type: textarea
-    id: examples
+  - type: checkboxes
+    id: checks
     attributes:
-      label: Realistic prompts and outputs
-      description: Give at least three prompts and the evidence required for success.
-    validations: {required: true}
-  - type: textarea
-    id: sources
-    attributes:
-      label: Sources and license status
-      description: List research references, copied/derived files, and their licenses.
-    validations: {required: true}
+      label: 安全检查
+      options:
+        - label: 我已经移除凭据、Cookie、私人来源材料和未公开的安全漏洞细节。
+          required: true

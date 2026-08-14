@@ -1,14 +1,19 @@
 name: Bug report
 description: Report incorrect routing, broken scripts, portability problems, or validation failures.
 title: "[Bug]: "
-labels: [bug]
+labels: [bug, feedback]
 body:
   - type: dropdown
     id: suite
     attributes:
       label: Suite
-      options: [frontend-design, video-intelligence, engineering, knowledge-research, presentation, visual-content, collection]
-    validations: {required: true}
+      options: [context-economy, frontend-design, video-intelligence, engineering, knowledge-research, presentation, visual-content, collection]
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Skill (optional)
+      description: Choose one precise Skill when the issue is scoped to it.
+      options: [context-economy, context-pack, conversation-checkpoint, context-audit, context-benchmark, frontend-design, frontend-design-studio, video-intelligence, video-platform-reader, engineering, code-intelligence, engineering-delivery, skill-security-audit, supabase-operations, video-workbench, knowledge-research, document-to-markdown, academic-research, product-strategy, solo-business-operations, personal-knowledge-memory, presentation, html-deck-builder, powerpoint-deck-builder, magazine-web-deck, visual-content, concise-writing-editor, xiaohei-article-illustrator, zhuge-logistics-illustrator, legal-free-music]
   - type: textarea
     id: behavior
     attributes:

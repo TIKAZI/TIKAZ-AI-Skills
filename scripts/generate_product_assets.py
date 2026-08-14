@@ -248,6 +248,24 @@ def skills_for_suite(suite: Path) -> list[tuple[str, str, Path]]:
     return items
 
 
+def feedback_catalog(root: Path) -> dict[str, list[str]]:
+    """Return the canonical workflow-to-Skill map used by the public feedback form."""
+
+    return {
+        suite_name: [name for name, _, _ in skills_for_suite(root / "suites" / suite_name)]
+        for suite_name in SUITE_ORDER
+    }
+
+
+def feedback_data_javascript(root: Path) -> str:
+    payload = json.dumps(feedback_catalog(root), ensure_ascii=False, separators=(",", ":"))
+    return (
+        f"const TIKAZ_FEEDBACK_DATA={payload};\n"
+        "if(typeof window!=='undefined')window.TIKAZ_FEEDBACK_DATA=TIKAZ_FEEDBACK_DATA;\n"
+        "if(typeof module!=='undefined')module.exports=TIKAZ_FEEDBACK_DATA;\n"
+    )
+
+
 def short_promise(description: str, limit: int = 150) -> str:
     sentence = re.split(r"(?<=[.!?])\s+", description, maxsplit=1)[0]
     if len(sentence) <= limit:
@@ -518,6 +536,7 @@ Every Skill must state its trigger and accepted input, owned workflow, output co
 def generate(root: Path, output: Path) -> None:
     manifest = json.loads((root / "distribution" / "manifest.json").read_text(encoding="utf-8"))
     output.mkdir(parents=True, exist_ok=True)
+    (output / "feedback-data.js").write_text(feedback_data_javascript(root), encoding="utf-8")
     diagrams = output / "diagrams"
     diagrams.mkdir(parents=True, exist_ok=True)
     (output / "skills-catalog.md").write_text(catalog_markdown(root, manifest), encoding="utf-8")
