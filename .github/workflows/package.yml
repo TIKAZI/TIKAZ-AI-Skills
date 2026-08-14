@@ -47,7 +47,7 @@ jobs:
       - name: Generate SHA-256 checksums
         working-directory: suites/context-economy
         run: sha256sum dist/* > dist/SHA256SUMS.txt
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: tikaz-context-economy-0.10.0
           path: suites/context-economy/dist/*
