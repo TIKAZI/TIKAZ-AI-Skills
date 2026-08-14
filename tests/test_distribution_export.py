@@ -110,6 +110,22 @@ class ContextEconomyDistributionTests(unittest.TestCase):
             self.assertIn("https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-pack/index.html", chinese_readme)
             self.assertEqual((output / "VERSION").read_text(encoding="utf-8"), "0.9.0\n")
             self.assertIn("*.pdf binary", (output / ".gitattributes").read_text(encoding="utf-8"))
+            self.assertIn(
+                "288499007+TIKAZI@users.noreply.github.com",
+                (output / ".mailmap").read_text(encoding="utf-8"),
+            )
+            self.assertIn(
+                "https://github.com/TIKAZI",
+                (output / "MAINTAINERS.md").read_text(encoding="utf-8"),
+            )
+            self.assertIn(
+                'git config user.name "TIKAZ"',
+                (output / ".github" / "workflows" / "sync.yml").read_text(encoding="utf-8"),
+            )
+            self.assertIn(
+                'git config user.email "288499007+TIKAZI@users.noreply.github.com"',
+                (output / ".github" / "workflows" / "sync.yml").read_text(encoding="utf-8"),
+            )
 
 
 if __name__ == "__main__":
