@@ -127,6 +127,17 @@ class ContextEconomyDistributionTests(unittest.TestCase):
                 (output / ".github" / "workflows" / "sync.yml").read_text(encoding="utf-8"),
             )
 
+    def test_context_economy_can_be_reexported_to_the_same_directory(self) -> None:
+        exporter = load_exporter()
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "distribution"
+            exporter.build(ROOT, "context-economy", output)
+            exporter.build(ROOT, "context-economy", output)
+
+            self.assertTrue((output / "adapters" / "defuddle" / "package.json").is_file())
+            self.assertTrue((output / "benchmarks" / "manifest.json").is_file())
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -45,7 +45,37 @@ python .\scripts\tikaz_context.py web `
 
 安装必须由用户明确执行，只影响网页适配器。流程不会执行网页脚本，也关闭了 Defuddle 的第三方异步提取回退；公开 URL、重定向、超时和响应体积均有限制。正文含信息图或复杂表格时进入 Hybrid；动态空壳、依赖缺失或提取不足时保留 `source.html` 并进入 Source。
 
-## 🚀 快速使用
+## 🚀 一分钟开始
+
+推荐从独立 GitHub 仓库用 `pipx` 隔离安装零强制运行依赖的核心 CLI：
+
+```bash
+pipx install git+https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy.git
+```
+
+没有 `pipx` 时，可安装到当前 Python 环境：
+
+```bash
+python -m pip install git+https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy.git
+```
+
+检查环境、生成有预算的上下文包，并复现内置基准：
+
+```bash
+tikaz-context doctor
+tikaz-context pack --input notes.md --query "整理发布证据" --budget 800 --output .context-economy
+tikaz-context benchmark --output .context-benchmark
+```
+
+输出包含规范化 Markdown、稳定锚点、受保护事实、遗漏证据、路由结果和分项成本台账；Benchmark 同时保留原始用例、机器可读指标与汇总。
+
+卸载隔离 CLI：
+
+```bash
+pipx uninstall tikaz-context-economy
+```
+
+### 在克隆的 Monorepo 中运行
 
 ```powershell
 python .\scripts\tikaz_context.py pack `
@@ -72,6 +102,12 @@ Copy-Item -Recurse `
 - 生成 PDF 的字面保真测试不证明 OCR、复杂布局、图表语义或扫描件泛化。
 - 短小、密集或高风险输入可能增长或直接透传。
 - 不确定转换回退到原始来源，不伪装成压缩成功。
+
+## 🔐 隐私、安全与真实采用证据
+
+核心 CLI 在本地运行、没有强制运行依赖，也不会自动上传输入、上下文包、诊断信息或使用 telemetry。网页与文档适配器都是需要明确启用的外部边界。处理不可信文件或 URL 前请阅读[威胁模型](references/threat-model.md)，敏感漏洞按 [SECURITY.md](../../SECURITY.md) 的私密报告方式处理。
+
+真实使用比匿名好评更有价值。如果 Context Economy 帮助了公开任务或可脱敏任务，可以提交[可核验用户案例](https://github.com/TIKAZI/TIKAZ-AI-Skills/issues/new?template=context_economy_showcase.yml)，附上版本、输入画像、命令、前后数据、保真检查和可复现产物。未核验的提交不会被宣传为采用证据。
 
 ## 📊 可复现证据
 

@@ -15,7 +15,7 @@ from pathlib import Path
 MANAGED = {
     ".github", ".gitignore", ".gitattributes", ".mailmap", "README.md", "README.zh-CN.md", "LICENSE", "CONTRIBUTING.md", "CONTRIBUTING.zh-CN.md", "CHANGELOG.md", "SECURITY.md", "MAINTAINERS.md",
     "SOURCES.yml", "THIRD_PARTY_NOTICES.md", "DISTRIBUTION.yml", "VERSION",
-    "SKILL.md", "agents", "assets", "references", "scripts", "tests",
+    "SKILL.md", "agents", "assets", "references", "scripts", "tests", "adapters", "benchmarks",
     "pyproject.toml", "MANIFEST.in", "__init__.py", "__main__.py",
 }
 
@@ -271,6 +271,48 @@ def readme(info: dict, suite: str, version: str, owner: str, collection: str, sk
         for name in skill_names
     )
     proofs = proof_strip_markup(info, "en")
+    if suite == "context-economy":
+        install_block = f'''Install the dependency-free core from GitHub. `pipx` is recommended because it keeps the command isolated:
+
+```bash
+pipx install git+https://github.com/{owner}/{repo}.git
+```
+
+Fallback for the active Python environment:
+
+```bash
+python -m pip install git+https://github.com/{owner}/{repo}.git
+```
+
+```bash
+tikaz-context doctor
+tikaz-context pack --input notes.md --query "prepare release evidence" --budget 800 --output .context-economy
+tikaz-context benchmark --output .context-benchmark
+```
+
+Uninstall the isolated CLI with `pipx uninstall tikaz-context-economy`. To install the Codex workflow rather than the CLI, clone or download this repository and copy the root orchestrator or one child Skill into the Skill directory supported by your host.'''
+        context_sections = f'''## 📊 Evidence status
+
+- **Measured:** 50 checked-in synthetic cases, including six long-context variants with 69.7% estimated reduction; declared protected facts and expected anchors are reported separately.
+- **Pending:** provider billing telemetry, real-world and scanned-PDF generalization, vision-description accuracy, and downstream blind-answer quality.
+- **Unavailable until verified:** external adoption counts and testimonials. No usage claim is inferred from Stars or anonymous feedback.
+
+Run `tikaz-context benchmark --output .context-benchmark` and inspect the raw cases, metrics, and summary before repeating any number as a general claim.
+
+## 🔐 Privacy, security, and community evidence
+
+The core runs locally and does not automatically upload inputs, generated packs, diagnostics, or usage telemetry. Optional converters and the Defuddle adapter are explicit external boundaries. Read the [threat model](references/threat-model.md) and [security policy](SECURITY.md) before processing untrusted sources.
+
+Used it on a public or sanitized task? Submit a [verifiable user story](https://github.com/{owner}/{collection}/issues/new?template=context_economy_showcase.yml) with the version, input profile, command, before/after measurements, fidelity checks, and reproducible artifacts. Unverified submissions are not promoted as adoption evidence.
+
+'''
+    else:
+        install_block = f'''Clone or download this repository, then copy the repository folder into the Skill directory supported by your Codex environment. The root `SKILL.md` is the suite orchestrator; child folders are focused Skills that can also be installed separately.
+
+```bash
+git clone https://github.com/{owner}/{repo}.git
+```'''
+        context_sections = ""
     return f'''<p align="center"><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
 
 <p align="center"><img src="assets/hero.svg" alt="{info['title']}" width="100%" /></p>
@@ -296,11 +338,7 @@ This repository is an automatically synchronized distribution of the canonical [
 
 ## 📦 Install
 
-Clone or download this repository, then copy the repository folder into the Skill directory supported by your Codex environment. The root `SKILL.md` is the suite orchestrator; child folders are focused Skills that can also be installed separately.
-
-```bash
-git clone https://github.com/{owner}/{repo}.git
-```
+{install_block}
 
 ## 🧩 Use one Skill independently
 
@@ -312,6 +350,7 @@ Every Skill below has its own promise, installation command, example, execution 
 
 {prompts}
 
+{context_sections}
 ## 🔄 How the suite works
 
 Read [SKILL.md](SKILL.md) for the owning workflow, [references/routing.md](references/routing.md) for specialist routing, and [references/output-contract.md](references/output-contract.md) for the verified handoff. Optional tools are detected at runtime; local login state or machine-specific software is never promised as universally available.
@@ -346,6 +385,7 @@ def localized_readme(root: Path, suite: str, info: dict) -> str:
         content
         .replace("../../SOURCES.yml", "SOURCES.yml")
         .replace("../../THIRD_PARTY_NOTICES.md", "THIRD_PARTY_NOTICES.md")
+        .replace("../../SECURITY.md", "SECURITY.md")
         .replace("../../docs/visual-system.md", "https://github.com/TIKAZI/TIKAZ-AI-Skills/blob/main/docs/visual-system.md")
         .replace("../../docs/zh/skills/", "https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/")
     )

@@ -112,7 +112,37 @@ Read the generated [evidence card](benchmarks/results/README.md), [machine-reada
 - **100% protected facts and anchors** means every declared literal item survived these cases; it does not prove general semantic equivalence.
 - **100% generated-PDF fidelity** covers declared text, numbers, cells, and page anchors—not OCR, layout reconstruction, or diagram interpretation.
 
-## 🚀 Quick start
+## 🚀 Start in one minute
+
+Install the dependency-free core directly from the focused GitHub repository. `pipx` keeps the command isolated and is the recommended path:
+
+```bash
+pipx install git+https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy.git
+```
+
+If `pipx` is unavailable, use the active Python environment:
+
+```bash
+python -m pip install git+https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy.git
+```
+
+Check the environment, build a bounded pack, and reproduce the bundled benchmark:
+
+```bash
+tikaz-context doctor
+tikaz-context pack --input notes.md --query "prepare release evidence" --budget 800 --output .context-economy
+tikaz-context benchmark --output .context-benchmark
+```
+
+The pack contains canonical Markdown, stable anchors, protected facts, omitted evidence, routing decisions, and separate context-cost ledgers. The benchmark writes raw cases and machine-readable metrics alongside its summary.
+
+Uninstall the isolated CLI with:
+
+```bash
+pipx uninstall tikaz-context-economy
+```
+
+### Run from a cloned monorepo
 
 ```powershell
 python .\scripts\tikaz_context.py pack `
@@ -168,6 +198,12 @@ Use context-benchmark with this fixed manifest. Keep efficiency, protected-fact 
 - Generated-PDF literal checks do not prove OCR, scanned-document, layout, or diagram understanding.
 - Short, dense, or high-risk inputs may grow or remain pass-through because protocol overhead can outweigh savings.
 - An uncertain conversion falls back to the original source or page instead of being presented as successful compression.
+
+## 🔐 Privacy, security, and community evidence
+
+The core CLI runs locally, has no required runtime dependencies, and does not automatically upload inputs, generated packs, diagnostics, or usage telemetry. Optional webpage and document adapters remain explicit external boundaries. Read the [threat model](references/threat-model.md) before processing untrusted files or URLs, and report sensitive vulnerabilities through the process in [SECURITY.md](../../SECURITY.md).
+
+Real usage matters more than anonymous praise. If Context Economy helped on a public or sanitized task, submit a [verifiable user story](https://github.com/TIKAZI/TIKAZ-AI-Skills/issues/new?template=context_economy_showcase.yml) with the version, input profile, command, before/after measurements, fidelity checks, and reproducible artifacts. Unverified submissions are not promoted as adoption evidence.
 
 Profile routing without building a pack or running vision:
 

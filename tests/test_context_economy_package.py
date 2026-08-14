@@ -13,6 +13,23 @@ VERSION = "0.10.0"
 
 
 class ContextEconomyPackageTests(unittest.TestCase):
+    def test_bilingual_readmes_publish_install_privacy_and_adoption_contracts(self) -> None:
+        required = (
+            "pipx install git+https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy.git",
+            "python -m pip install git+https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy.git",
+            "tikaz-context doctor",
+            "pipx uninstall tikaz-context-economy",
+            "references/threat-model.md",
+            "issues/new?template=context_economy_showcase.yml",
+        )
+
+        for readme_name in ("README.md", "README.zh-CN.md"):
+            content = (SUITE / readme_name).read_text(encoding="utf-8")
+            with self.subTest(readme=readme_name):
+                for marker in required:
+                    self.assertIn(marker, content)
+                self.assertIn("telemetry", content.lower())
+
     def test_cli_reports_the_release_version(self) -> None:
         completed = subprocess.run(
             [sys.executable, str(SCRIPT), "--version"],
@@ -75,6 +92,14 @@ class ContextEconomyPackageTests(unittest.TestCase):
             self.assertTrue((output / ".github" / "workflows" / "package.yml").is_file())
             self.assertTrue((output / ".github" / "workflows" / "codeql.yml").is_file())
             self.assertTrue((output / ".github" / "dependabot.yml").is_file())
+            readme = (output / "README.md").read_text(encoding="utf-8")
+            self.assertIn(
+                "pipx install git+https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy.git",
+                readme,
+            )
+            self.assertIn("tikaz-context benchmark", readme)
+            self.assertIn("references/threat-model.md", readme)
+            self.assertIn("issues/new?template=context_economy_showcase.yml", readme)
 
 
 if __name__ == "__main__":
