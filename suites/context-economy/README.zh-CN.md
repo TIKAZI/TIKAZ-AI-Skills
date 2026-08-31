@@ -10,6 +10,13 @@
 
 Context Economy 不是“全部压缩”的技巧。它准备的是**仍然可以核验的最小有用上下文**：支持的文档转成可复用 Markdown，事实与来源锚点得到保护，图片和复杂表格进入 Text / Hybrid / Source 路由，转换不确定时保留原始来源。
 
+| 固定基准 | 命中结果 | 同时报告的成本结果 |
+|---|---:|---:|
+| 14 例双语开发集 | **Recall@5 100% · Precision@5 100%** | 动态选择召回 100% · 估算文本降低 28.50% |
+| 12 例独立对抗集 | **Recall@3 94.44% · Precision@3 94.44%** | 动态选择召回 94.44% · 估算文本降低 38.81% |
+
+这是固定合成标签集的可复现结果，不是普遍搜索准确率。所有失败样例都保留在原始结果中，节省数字始终与证据召回一起展示。
+
 ## 🧩 可以单独使用的 Skill
 
 | Skill | 单独使用场景 | 主要输出 |
@@ -65,6 +72,8 @@ python -m pip install git+https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy.
 tikaz-context doctor
 tikaz-context pack --input notes.md --query "整理发布证据" --budget 800 --output .context-economy
 tikaz-context benchmark --output .context-benchmark
+tikaz-context benchmark-retrieval --output .context-retrieval
+tikaz-context benchmark-retrieval --manifest benchmarks/retrieval-challenge-v1.json --output .context-retrieval-challenge
 ```
 
 输出包含规范化 Markdown、稳定锚点、受保护事实、遗漏证据、路由结果和分项成本台账；Benchmark 同时保留原始用例、机器可读指标与汇总。
@@ -111,9 +120,9 @@ Copy-Item -Recurse `
 
 ## 📊 可复现证据
 
-当前公开基准包含 50 个合成样例和独立生成 PDF 固定样例。六个长上下文任务的估算 Token 降低 **69.7%**，受保护事实 **46/46**，预期锚点 **39/39**；30 个短输入样例增长 **143.9%**，作为协议开销的公开负面证据保留。
+当前公开基准包含 50 个上下文/路由合成样例、14 例双语检索开发集、12 例独立对抗检索集和独立生成 PDF 固定样例。检索开发集为 **Recall@5 / Precision@5 100%**；对抗集为 **Recall@3 / Precision@3 94.44%**。六个长上下文任务的估算 Token 降低 **69.7%**，受保护事实 **46/46**，预期锚点 **39/39**；30 个短输入样例增长 **143.9%**，作为协议开销的公开负面证据保留。
 
-这些数字只描述声明的固定样例，不是普遍节省承诺。真实 Provider Token、扫描 PDF、视觉语义准确率和下游盲测仍为 **Pending**。
+这些数字只描述声明的固定样例，不是普遍节省或命中承诺。动态选择的估算降低必须与召回率一起读取；真实 Provider Token、扫描 PDF、视觉语义准确率和下游盲测仍为 **Pending**。
 
 来源、许可证与具体 TIKAZ 贡献见仓库根目录的 [SOURCES.yml](../../SOURCES.yml) 和 [THIRD_PARTY_NOTICES.md](../../THIRD_PARTY_NOTICES.md)。
 

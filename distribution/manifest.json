@@ -1,5 +1,5 @@
 {
-  "version": "0.10.0",
+  "version": "0.11.0",
   "owner": "TIKAZI",
   "collection": "TIKAZ-AI-Skills",
   "suites": {
@@ -9,10 +9,10 @@
       "tagline": "A fidelity-first multimodal context compiler for the smallest useful context that remains checkable.",
       "accent": "60A5FA",
       "proofs": [
-        {"value": "69.73%", "label_en": "Fixed long-context reduction", "label_zh": "固定长上下文估算减少", "note_en": "Six fixed tasks: 4,698 to 1,422 estimated tokens", "note_zh": "6 个固定任务：估算 Token 从 4,698 降至 1,422"},
-        {"value": "27.78%", "label_en": "Fixed prompt reduction", "label_zh": "固定提示词估算减少", "note_en": "Six fixed prompt cases: 252 to 182 estimated tokens", "note_zh": "6 个固定提示词样例：估算 Token 从 252 降至 182"},
+        {"value": "100%", "label_en": "Bilingual Recall@5", "label_zh": "双语检索 Recall@5", "note_en": "14 fixed cases; Precision@5 is also 100%", "note_zh": "14 个固定样例；Precision@5 同为 100%"},
+        {"value": "94.44%", "label_en": "Challenge Recall@3", "label_zh": "对抗集 Recall@3", "note_en": "12 frozen adversarial cases; failures stay public", "note_zh": "12 个冻结对抗样例；失败结果保持公开"},
         {"value": "46/46", "label_en": "Protected facts retained", "label_zh": "保护事实字面保留", "note_en": "Literal recall on declared protected facts", "note_zh": "声明保护事实的字面召回，不等同语义准确率"},
-        {"value": "3/3", "label_en": "Generated PDF checks", "label_zh": "生成 PDF 字面检查", "note_en": "Text, numbers, tables, and page anchors; visual accuracy pending", "note_zh": "文字、数字、表格和页锚点；视觉准确率待测"}
+        {"value": "69.7%", "label_en": "Fixed long-context reduction", "label_zh": "固定长上下文估算减少", "note_en": "Six fixed tasks: 4,698 to 1,422 estimated tokens", "note_zh": "6 个固定任务：估算 Token 从 4,698 降至 1,422"}
       ],
       "highlights": ["Paste text, attach files, or provide a webpage and let the workflow choose Text / Hybrid / Source automatically", "The optional pinned Defuddle adapter keeps source HTML, cleaned HTML, Markdown, metadata, protected facts, and separate byte/token estimates", "Public-URL safety checks, bounded fetching, pending visual evidence, and source-preserving fallback keep uncertain pages visible instead of pretending extraction succeeded"],
       "prompts": ["Process my pasted text, attached files, or webpage for this task. Automatically choose Text, Hybrid, or Source, prepare reusable Markdown where safe, retain protected facts and anchors, and make every omission visible.", "Extract this webpage into traceable Markdown. Keep the source HTML, metadata, images and complex-table warnings; do not treat pending visuals as inspected.", "Create a recoverable checkpoint from this long conversation. Preserve decisions, constraints, completed evidence, file paths, numbers, commands, and open questions."]

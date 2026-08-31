@@ -91,6 +91,10 @@ Current public synthetic benchmark (`50` cases), plus a separate generated-PDF f
 
 | Evidence family | Observed result | Scope |
 |---|---:|---|
+| Dependency-free retrieval | **100% Recall@5 · 100% Precision@5** | 14-case bilingual development manifest; 5 relevant passages per case |
+| Adversarial retrieval | **94.44% Recall@3 · 94.44% Precision@3** | Separately frozen 12-case challenge; misses remain public |
+| Dynamic evidence selection | **100% recall · 28.50% estimated reduction** | Development manifest; evidence recall reported with reduction |
+| Adversarial dynamic selection | **94.44% recall · 38.81% estimated reduction** | Challenge manifest; 92.50% precision |
 | Long-context efficiency | **69.7% reduction** · 4,698 → 1,422 estimated tokens | 6 task variants over one TIKAZ-authored long fixture |
 | Short-input correctness | **143.9% growth** · 1,375 → 3,354 estimated tokens | 30 cases; proves the workflow should pass through small inputs |
 | Prompt exact-repeat reduction | **14.6% reduction** · 157 → 134 estimated tokens | 4 cases including 2 structural-format controls with no exact duplicates |
@@ -102,7 +106,7 @@ Current public synthetic benchmark (`50` cases), plus a separate generated-PDF f
 | Complete-pack budget compliance | **100% · 39/39** | Generated context packs |
 | Generated-PDF literal fidelity | **100% text / numbers / table cells / page anchors** | 3 TIKAZ-authored PDFs; installed pdfplumber adapter; visual meaning excluded |
 
-Read the generated [evidence card](benchmarks/results/README.md), [machine-readable metrics](benchmarks/results/metrics.json), [raw cases](benchmarks/results/cases.json), and [PDF fidelity evidence](benchmarks/pdf/results/README.md). Real-world/scanned PDF fidelity, actual provider input-token savings, vision-description accuracy, and downstream blind-answer quality remain explicitly **Pending**.
+Read the generated [evidence card](benchmarks/results/README.md), [machine-readable metrics](benchmarks/results/metrics.json), [raw cases](benchmarks/results/cases.json), [retrieval development results](benchmarks/retrieval-results/development-v1/evidence-card.md), [retrieval challenge results](benchmarks/retrieval-results/challenge-v1/evidence-card.md), and [PDF fidelity evidence](benchmarks/pdf/results/README.md). Real-world/scanned PDF fidelity, actual provider input-token savings, vision-description accuracy, and downstream blind-answer quality remain explicitly **Pending**.
 
 ### How to read these numbers
 
@@ -111,6 +115,14 @@ Read the generated [evidence card](benchmarks/results/README.md), [machine-reada
 - **49.5% Structural** removes formatting-only repetition without paraphrasing instructions.
 - **100% protected facts and anchors** means every declared literal item survived these cases; it does not prove general semantic equivalence.
 - **100% generated-PDF fidelity** covers declared text, numbers, cells, and page anchors—not OCR, layout reconstruction, or diagram interpretation.
+- **Recall@K / Precision@K** describe committed synthetic labels, not general search accuracy. Dynamic reduction is shown only beside evidence recall.
+
+Reproduce both retrieval suites:
+
+```bash
+tikaz-context benchmark-retrieval --output .context-retrieval
+tikaz-context benchmark-retrieval --manifest benchmarks/retrieval-challenge-v1.json --output .context-retrieval-challenge
+```
 
 ## 🚀 Start in one minute
 

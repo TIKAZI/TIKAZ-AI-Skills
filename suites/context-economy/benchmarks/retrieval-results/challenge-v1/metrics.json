@@ -1,0 +1,15 @@
+{
+  "dynamic_facet_coverage": 0.8155618686868688,
+  "dynamic_precision": 0.9249999999999999,
+  "dynamic_recall": 0.9444444444444445,
+  "dynamic_selected_count": 3.1666666666666665,
+  "evidence_precision": 0.9444444444444445,
+  "mrr": 1.0,
+  "ndcg_at_1": 1.0,
+  "ndcg_at_3": 0.9557732271685629,
+  "precision_at_1": 1.0,
+  "precision_at_3": 0.9444444444444445,
+  "recall_at_1": 0.3333333333333333,
+  "recall_at_3": 0.9444444444444445,
+  "selected_token_reduction_estimated": 0.3880901934996697
+}

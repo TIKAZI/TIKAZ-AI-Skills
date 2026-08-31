@@ -1,0 +1,800 @@
+[
+  {
+    "id": "release-migration",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.2680412371134021
+    },
+    "query": "release database migration rollback backup verification",
+    "query_variants": [],
+    "ranked_ids": [
+      "rel-rollback",
+      "rel-backup",
+      "rel-owner",
+      "rel-verify",
+      "rel-command",
+      "noise-brand",
+      "noise-menu",
+      "noise-office"
+    ],
+    "relevant_ids": [
+      "rel-backup",
+      "rel-command",
+      "rel-owner",
+      "rel-rollback",
+      "rel-verify"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "rel-rollback",
+        "rel-backup",
+        "rel-owner",
+        "rel-verify",
+        "rel-command"
+      ],
+      "selected_tokens_estimated": 71,
+      "source_tokens_estimated": 97,
+      "status": "matched",
+      "token_reduction_estimated": 0.2680412371134021
+    }
+  },
+  {
+    "id": "document-fidelity",
+    "metrics": {
+      "dynamic_facet_coverage": 0.75,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.3125
+    },
+    "query": "扫描 PDF OCR 表格 图片 来源锚点 高保真转换",
+    "query_variants": [],
+    "ranked_ids": [
+      "doc-anchor",
+      "doc-gate",
+      "doc-scan",
+      "doc-table",
+      "doc-image",
+      "noise-color",
+      "noise-social",
+      "noise-logo"
+    ],
+    "relevant_ids": [
+      "doc-anchor",
+      "doc-gate",
+      "doc-image",
+      "doc-scan",
+      "doc-table"
+    ],
+    "selection": {
+      "confidence": 0.75,
+      "evidence_precision": 1.0,
+      "facet_coverage": 0.75,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "doc-anchor",
+        "doc-gate",
+        "doc-scan",
+        "doc-table",
+        "doc-image"
+      ],
+      "selected_tokens_estimated": 77,
+      "source_tokens_estimated": 112,
+      "status": "partial-evidence",
+      "token_reduction_estimated": 0.3125
+    }
+  },
+  {
+    "id": "code-review",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.25
+    },
+    "query": "review deployment dependency security error configuration tests",
+    "query_variants": [],
+    "ranked_ids": [
+      "code-test",
+      "code-dep",
+      "code-error",
+      "code-sec",
+      "code-entry",
+      "noise-css",
+      "noise-copy",
+      "noise-sales"
+    ],
+    "relevant_ids": [
+      "code-dep",
+      "code-entry",
+      "code-error",
+      "code-sec",
+      "code-test"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "code-test",
+        "code-dep",
+        "code-error",
+        "code-sec",
+        "code-entry"
+      ],
+      "selected_tokens_estimated": 72,
+      "source_tokens_estimated": 96,
+      "status": "matched",
+      "token_reduction_estimated": 0.25
+    }
+  },
+  {
+    "id": "video-evidence",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.27192982456140347
+    },
+    "query": "视频 转写 时间戳 关键帧 画面 OCR 语义 证据",
+    "query_variants": [],
+    "ranked_ids": [
+      "vid-anchor",
+      "vid-asr",
+      "vid-ocr",
+      "vid-scene",
+      "vid-vlm",
+      "noise-music",
+      "noise-avatar",
+      "noise-footer"
+    ],
+    "relevant_ids": [
+      "vid-anchor",
+      "vid-asr",
+      "vid-ocr",
+      "vid-scene",
+      "vid-vlm"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "vid-anchor",
+        "vid-asr",
+        "vid-ocr",
+        "vid-scene",
+        "vid-vlm"
+      ],
+      "selected_tokens_estimated": 83,
+      "source_tokens_estimated": 114,
+      "status": "matched",
+      "token_reduction_estimated": 0.27192982456140347
+    }
+  },
+  {
+    "id": "incident-response",
+    "metrics": {
+      "dynamic_facet_coverage": 0.8888888888888888,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.2808988764044944
+    },
+    "query": "incident root cause affected systems mitigation validation owner",
+    "query_variants": [],
+    "ranked_ids": [
+      "inc-cause",
+      "inc-impact",
+      "inc-check",
+      "inc-fix",
+      "inc-owner",
+      "noise-theme",
+      "noise-event",
+      "noise-print"
+    ],
+    "relevant_ids": [
+      "inc-cause",
+      "inc-check",
+      "inc-fix",
+      "inc-impact",
+      "inc-owner"
+    ],
+    "selection": {
+      "confidence": 0.888888888888889,
+      "evidence_precision": 1.0,
+      "facet_coverage": 0.8888888888888888,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "inc-cause",
+        "inc-impact",
+        "inc-check",
+        "inc-fix",
+        "inc-owner"
+      ],
+      "selected_tokens_estimated": 64,
+      "source_tokens_estimated": 89,
+      "status": "partial-evidence",
+      "token_reduction_estimated": 0.2808988764044944
+    }
+  },
+  {
+    "id": "frontend-quality",
+    "metrics": {
+      "dynamic_facet_coverage": 0.875,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.2872340425531915
+    },
+    "query": "frontend accessibility responsive contrast typography interaction states",
+    "query_variants": [],
+    "ranked_ids": [
+      "ui-state",
+      "ui-a11y",
+      "ui-responsive",
+      "ui-type",
+      "ui-contrast",
+      "noise-db",
+      "noise-audio",
+      "noise-legal"
+    ],
+    "relevant_ids": [
+      "ui-a11y",
+      "ui-contrast",
+      "ui-responsive",
+      "ui-state",
+      "ui-type"
+    ],
+    "selection": {
+      "confidence": 0.875,
+      "evidence_precision": 1.0,
+      "facet_coverage": 0.875,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "ui-state",
+        "ui-a11y",
+        "ui-responsive",
+        "ui-type",
+        "ui-contrast"
+      ],
+      "selected_tokens_estimated": 67,
+      "source_tokens_estimated": 94,
+      "status": "partial-evidence",
+      "token_reduction_estimated": 0.2872340425531915
+    }
+  },
+  {
+    "id": "financial-reconciliation",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.3176470588235294
+    },
+    "query": "invoice reconciliation approved pending total anomaly audit",
+    "query_variants": [],
+    "ranked_ids": [
+      "fin-approved",
+      "fin-pending",
+      "fin-audit",
+      "fin-anomaly",
+      "fin-total",
+      "noise-video",
+      "noise-font",
+      "noise-cache"
+    ],
+    "relevant_ids": [
+      "fin-anomaly",
+      "fin-approved",
+      "fin-audit",
+      "fin-pending",
+      "fin-total"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "fin-approved",
+        "fin-pending",
+        "fin-audit",
+        "fin-anomaly",
+        "fin-total"
+      ],
+      "selected_tokens_estimated": 58,
+      "source_tokens_estimated": 85,
+      "status": "matched",
+      "token_reduction_estimated": 0.3176470588235294
+    }
+  },
+  {
+    "id": "contract-obligations",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.2558139534883721
+    },
+    "query": "contract effective date termination amount approval audit obligation",
+    "query_variants": [],
+    "ranked_ids": [
+      "law-date",
+      "law-audit",
+      "law-amount",
+      "law-term",
+      "law-approval",
+      "noise-chart",
+      "noise-search",
+      "noise-photo"
+    ],
+    "relevant_ids": [
+      "law-amount",
+      "law-approval",
+      "law-audit",
+      "law-date",
+      "law-term"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "law-date",
+        "law-audit",
+        "law-amount",
+        "law-term",
+        "law-approval"
+      ],
+      "selected_tokens_estimated": 64,
+      "source_tokens_estimated": 86,
+      "status": "matched",
+      "token_reduction_estimated": 0.2558139534883721
+    }
+  },
+  {
+    "id": "dynamic-web",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.2727272727272727
+    },
+    "query": "dynamic webpage rendered main content citation screenshot source anchor",
+    "query_variants": [],
+    "ranked_ids": [
+      "web-anchor",
+      "web-render",
+      "web-main",
+      "web-cite",
+      "web-shot",
+      "noise-team",
+      "noise-color",
+      "noise-price"
+    ],
+    "relevant_ids": [
+      "web-anchor",
+      "web-cite",
+      "web-main",
+      "web-render",
+      "web-shot"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "web-anchor",
+        "web-render",
+        "web-main",
+        "web-cite",
+        "web-shot"
+      ],
+      "selected_tokens_estimated": 56,
+      "source_tokens_estimated": 77,
+      "status": "matched",
+      "token_reduction_estimated": 0.2727272727272727
+    }
+  },
+  {
+    "id": "research-synthesis",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.2696629213483146
+    },
+    "query": "research method sample result limitation citation evidence",
+    "query_variants": [],
+    "ranked_ids": [
+      "res-cite",
+      "res-limit",
+      "res-method",
+      "res-sample",
+      "res-result",
+      "noise-logo",
+      "noise-build",
+      "noise-social"
+    ],
+    "relevant_ids": [
+      "res-cite",
+      "res-limit",
+      "res-method",
+      "res-result",
+      "res-sample"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "res-cite",
+        "res-limit",
+        "res-method",
+        "res-sample",
+        "res-result"
+      ],
+      "selected_tokens_estimated": 65,
+      "source_tokens_estimated": 89,
+      "status": "matched",
+      "token_reduction_estimated": 0.2696629213483146
+    }
+  },
+  {
+    "id": "semantic-certificate-recovery",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.31999999999999995
+    },
+    "query": "What should operators do when encrypted traffic stops because machine identity is no longer valid?",
+    "query_variants": [],
+    "ranked_ids": [
+      "sem-cert-check",
+      "sem-cert-restart",
+      "sem-cert-alert",
+      "sem-cert-cause",
+      "sem-cert-rotate",
+      "sem-noise-machine",
+      "sem-noise-traffic",
+      "sem-noise-identity"
+    ],
+    "relevant_ids": [
+      "sem-cert-alert",
+      "sem-cert-cause",
+      "sem-cert-check",
+      "sem-cert-restart",
+      "sem-cert-rotate"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "sem-cert-check",
+        "sem-cert-restart",
+        "sem-cert-alert",
+        "sem-cert-cause",
+        "sem-cert-rotate"
+      ],
+      "selected_tokens_estimated": 68,
+      "source_tokens_estimated": 100,
+      "status": "matched",
+      "token_reduction_estimated": 0.31999999999999995
+    }
+  },
+  {
+    "id": "semantic-scanned-report",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.29268292682926833
+    },
+    "query": "没有可复制文字的报告怎样保住表格和插图信息",
+    "query_variants": [],
+    "ranked_ids": [
+      "sem-scan-table",
+      "sem-scan-detect",
+      "sem-scan-fallback",
+      "sem-scan-image",
+      "sem-scan-anchor",
+      "sem-noise-copy",
+      "sem-noise-print",
+      "sem-noise-chart"
+    ],
+    "relevant_ids": [
+      "sem-scan-anchor",
+      "sem-scan-detect",
+      "sem-scan-fallback",
+      "sem-scan-image",
+      "sem-scan-table"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "sem-scan-table",
+        "sem-scan-detect",
+        "sem-scan-fallback",
+        "sem-scan-image",
+        "sem-scan-anchor"
+      ],
+      "selected_tokens_estimated": 87,
+      "source_tokens_estimated": 123,
+      "status": "matched",
+      "token_reduction_estimated": 0.29268292682926833
+    }
+  },
+  {
+    "id": "semantic-context-proof",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.2808988764044944
+    },
+    "query": "prepare the smallest useful material while keeping proof",
+    "query_variants": [],
+    "ranked_ids": [
+      "sem-context-fact",
+      "sem-context-task",
+      "sem-context-omit",
+      "sem-context-budget",
+      "sem-context-anchor",
+      "sem-noise-material",
+      "sem-noise-proof",
+      "sem-noise-small"
+    ],
+    "relevant_ids": [
+      "sem-context-anchor",
+      "sem-context-budget",
+      "sem-context-fact",
+      "sem-context-omit",
+      "sem-context-task"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "sem-context-fact",
+        "sem-context-task",
+        "sem-context-omit",
+        "sem-context-budget",
+        "sem-context-anchor"
+      ],
+      "selected_tokens_estimated": 64,
+      "source_tokens_estimated": 89,
+      "status": "matched",
+      "token_reduction_estimated": 0.2808988764044944
+    }
+  },
+  {
+    "id": "semantic-accessibility",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "ndcg_at_5": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "precision_at_5": 1.0,
+      "recall_at_1": 0.2,
+      "recall_at_3": 0.6,
+      "recall_at_5": 1.0,
+      "selected_token_reduction_estimated": 0.30927835051546393
+    },
+    "query": "make the interface usable without a mouse and readable on a phone",
+    "query_variants": [],
+    "ranked_ids": [
+      "sem-ui-label",
+      "sem-ui-type",
+      "sem-ui-mobile",
+      "sem-ui-focus",
+      "sem-ui-keyboard",
+      "sem-noise-interface",
+      "sem-noise-mouse",
+      "sem-noise-phone"
+    ],
+    "relevant_ids": [
+      "sem-ui-focus",
+      "sem-ui-keyboard",
+      "sem-ui-label",
+      "sem-ui-mobile",
+      "sem-ui-type"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "sem-ui-label",
+        "sem-ui-type",
+        "sem-ui-mobile",
+        "sem-ui-focus",
+        "sem-ui-keyboard"
+      ],
+      "selected_tokens_estimated": 67,
+      "source_tokens_estimated": 97,
+      "status": "matched",
+      "token_reduction_estimated": 0.30927835051546393
+    }
+  }
+]

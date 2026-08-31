@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "description": "TIKAZ fixed bilingual retrieval suite. Synthetic labeled evidence; not a universal accuracy claim.",
+  "k_values": [1, 3, 5],
+  "minimums_by_mode": {
+    "economy": {
+      "recall_at_5": 0.75,
+      "precision_at_5": 0.75,
+      "evidence_precision": 0.75,
+      "mrr": 0.80,
+      "ndcg_at_5": 0.75
+    },
+    "onpremise": {
+      "recall_at_5": 0.95,
+      "precision_at_5": 0.85,
+      "evidence_precision": 0.85,
+      "mrr": 0.95,
+      "ndcg_at_5": 0.90
+    }
+  },
+  "cases": [
+    {
+      "id": "release-migration",
+      "query": "release database migration rollback backup verification",
+      "chunks": [
+        {"id": "rel-backup", "text": "Create and verify the database backup before migration.", "relevance": 2},
+        {"id": "rel-command", "text": "Run the release migration command after the maintenance window opens.", "relevance": 2},
+        {"id": "rel-verify", "text": "Verify schema version and record the release evidence anchor.", "relevance": 2},
+        {"id": "rel-rollback", "text": "Rollback restores the previous database snapshot if validation fails.", "relevance": 2},
+        {"id": "rel-owner", "text": "The release owner signs the migration verification checklist.", "relevance": 2},
+        {"id": "noise-brand", "text": "The campaign hero uses a blue gradient.", "relevance": 0},
+        {"id": "noise-menu", "text": "The navigation menu has six items.", "relevance": 0},
+        {"id": "noise-office", "text": "The office closes at six in the evening.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "document-fidelity",
+      "query": "扫描 PDF OCR 表格 图片 来源锚点 高保真转换",
+      "chunks": [
+        {"id": "doc-scan", "text": "扫描 PDF 没有文字层，应进入 OCR 路线。", "relevance": 2},
+        {"id": "doc-table", "text": "复杂表格必须保留单元格和可回算数据。", "relevance": 2},
+        {"id": "doc-image", "text": "信息图片单独进入视觉识别并保留原图。", "relevance": 2},
+        {"id": "doc-anchor", "text": "转换结果为每页建立来源锚点。", "relevance": 2},
+        {"id": "doc-gate", "text": "高保真验证失败时回退 PDF 原件。", "relevance": 2},
+        {"id": "noise-color", "text": "品牌主色为蓝色和紫色。", "relevance": 0},
+        {"id": "noise-social", "text": "社交媒体简介需要一句短文案。", "relevance": 0},
+        {"id": "noise-logo", "text": "Logo 使用矢量路径绘制。", "relevance": 0}
+      ]
+    },
+    {
+      "id": "code-review",
+      "query": "review deployment dependency security error configuration tests",
+      "chunks": [
+        {"id": "code-entry", "text": "The deployment entry point calls the release service.", "relevance": 2},
+        {"id": "code-dep", "text": "The dependency graph links the release service to configuration loading.", "relevance": 2},
+        {"id": "code-sec", "text": "Security validation rejects secret-shaped configuration values.", "relevance": 2},
+        {"id": "code-error", "text": "Deployment errors retain the exact exception and error code.", "relevance": 2},
+        {"id": "code-test", "text": "Integration tests cover deployment rollback and configuration failure.", "relevance": 2},
+        {"id": "noise-css", "text": "The button radius is twelve pixels.", "relevance": 0},
+        {"id": "noise-copy", "text": "The landing page headline is concise.", "relevance": 0},
+        {"id": "noise-sales", "text": "Sales targets are reviewed monthly.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "video-evidence",
+      "query": "视频 转写 时间戳 关键帧 画面 OCR 语义 证据",
+      "chunks": [
+        {"id": "vid-asr", "text": "视频音轨通过本地转写生成带时间戳字幕。", "relevance": 2},
+        {"id": "vid-scene", "text": "场景切分后选择不重复的关键帧。", "relevance": 2},
+        {"id": "vid-ocr", "text": "画面 OCR 提取幻灯片中的文字证据。", "relevance": 2},
+        {"id": "vid-vlm", "text": "视觉模型描述画面语义并标记置信度。", "relevance": 2},
+        {"id": "vid-anchor", "text": "每条视频结论链接时间戳和关键帧证据。", "relevance": 2},
+        {"id": "noise-music", "text": "背景音乐采用轻快节奏。", "relevance": 0},
+        {"id": "noise-avatar", "text": "作者头像使用圆形裁切。", "relevance": 0},
+        {"id": "noise-footer", "text": "页脚展示版权年份。", "relevance": 0}
+      ]
+    },
+    {
+      "id": "incident-response",
+      "query": "incident root cause affected systems mitigation validation owner",
+      "chunks": [
+        {"id": "inc-cause", "text": "Root cause was an expired certificate in the gateway.", "relevance": 2},
+        {"id": "inc-impact", "text": "Affected systems included checkout and account login.", "relevance": 2},
+        {"id": "inc-fix", "text": "Mitigation rotated the certificate and restarted gateway workers.", "relevance": 2},
+        {"id": "inc-check", "text": "Validation confirmed checkout and login recovered.", "relevance": 2},
+        {"id": "inc-owner", "text": "The platform owner will automate certificate expiry alerts.", "relevance": 2},
+        {"id": "noise-event", "text": "The customer event starts next Friday.", "relevance": 0},
+        {"id": "noise-theme", "text": "Dark theme follows system preference.", "relevance": 0},
+        {"id": "noise-print", "text": "Printed cards use coated paper.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "frontend-quality",
+      "query": "frontend accessibility responsive contrast typography interaction states",
+      "chunks": [
+        {"id": "ui-a11y", "text": "Accessibility requires keyboard focus and semantic labels.", "relevance": 2},
+        {"id": "ui-responsive", "text": "Responsive layout is checked at mobile, tablet, and desktop widths.", "relevance": 2},
+        {"id": "ui-contrast", "text": "Contrast ratios are verified for text and controls.", "relevance": 2},
+        {"id": "ui-type", "text": "Typography uses a consistent scale and readable line length.", "relevance": 2},
+        {"id": "ui-state", "text": "Interaction states include hover, focus, loading, empty, and error.", "relevance": 2},
+        {"id": "noise-db", "text": "The database creates a nightly snapshot.", "relevance": 0},
+        {"id": "noise-audio", "text": "Audio is normalized before transcription.", "relevance": 0},
+        {"id": "noise-legal", "text": "The license permits redistribution.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "financial-reconciliation",
+      "query": "invoice reconciliation approved pending total anomaly audit",
+      "chunks": [
+        {"id": "fin-approved", "text": "Approved invoices are grouped for reconciliation.", "relevance": 2},
+        {"id": "fin-pending", "text": "Pending invoices remain outside the payable total.", "relevance": 2},
+        {"id": "fin-total", "text": "The invoice total is recalculated from every source row.", "relevance": 2},
+        {"id": "fin-anomaly", "text": "Anomaly detection flags duplicated invoice identifiers.", "relevance": 2},
+        {"id": "fin-audit", "text": "The reconciliation ledger retains an audit trail.", "relevance": 2},
+        {"id": "noise-video", "text": "The video frame rate is thirty frames per second.", "relevance": 0},
+        {"id": "noise-font", "text": "The interface uses a sans serif font.", "relevance": 0},
+        {"id": "noise-cache", "text": "Static assets are cached for one hour.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "contract-obligations",
+      "query": "contract effective date termination amount approval audit obligation",
+      "chunks": [
+        {"id": "law-date", "text": "The contract effective date starts the service obligation.", "relevance": 2},
+        {"id": "law-term", "text": "Termination requires written notice before the deadline.", "relevance": 2},
+        {"id": "law-amount", "text": "The exact contract amount remains verbatim in the source.", "relevance": 2},
+        {"id": "law-approval", "text": "Legal and finance approval are required before signature.", "relevance": 2},
+        {"id": "law-audit", "text": "The audit record anchors every extracted obligation.", "relevance": 2},
+        {"id": "noise-chart", "text": "The chart uses rounded bars.", "relevance": 0},
+        {"id": "noise-search", "text": "Search suggestions appear after typing.", "relevance": 0},
+        {"id": "noise-photo", "text": "The profile photo is optional.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "dynamic-web",
+      "query": "dynamic webpage rendered main content citation screenshot source anchor",
+      "chunks": [
+        {"id": "web-render", "text": "Render the dynamic webpage before extraction.", "relevance": 2},
+        {"id": "web-main", "text": "Select the main article content and remove navigation noise.", "relevance": 2},
+        {"id": "web-cite", "text": "Keep citations and outbound source links intact.", "relevance": 2},
+        {"id": "web-shot", "text": "Capture a screenshot for layout verification.", "relevance": 2},
+        {"id": "web-anchor", "text": "Attach source anchors to the rendered HTML and Markdown.", "relevance": 2},
+        {"id": "noise-team", "text": "The team meets every Monday.", "relevance": 0},
+        {"id": "noise-color", "text": "Purple is used as a secondary accent.", "relevance": 0},
+        {"id": "noise-price", "text": "The annual plan has a discount.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "research-synthesis",
+      "query": "research method sample result limitation citation evidence",
+      "chunks": [
+        {"id": "res-method", "text": "The research method defines the evaluation protocol.", "relevance": 2},
+        {"id": "res-sample", "text": "The sample description states inclusion and exclusion criteria.", "relevance": 2},
+        {"id": "res-result", "text": "Results report the measured outcome separately from estimates.", "relevance": 2},
+        {"id": "res-limit", "text": "Limitations restrict the evidence to the tested corpus.", "relevance": 2},
+        {"id": "res-cite", "text": "Every research claim retains a citation and evidence anchor.", "relevance": 2},
+        {"id": "noise-logo", "text": "The logo uses a geometric symbol.", "relevance": 0},
+        {"id": "noise-build", "text": "The build finishes without warnings.", "relevance": 0},
+        {"id": "noise-social", "text": "The social post includes two hashtags.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "semantic-certificate-recovery",
+      "query": "What should operators do when encrypted traffic stops because machine identity is no longer valid?",
+      "chunks": [
+        {"id": "sem-cert-cause", "text": "The gateway certificate expired and TLS handshakes began failing.", "relevance": 2},
+        {"id": "sem-cert-rotate", "text": "Rotate the certificate from the approved secret store.", "relevance": 2},
+        {"id": "sem-cert-restart", "text": "Restart gateway workers so they load the renewed certificate.", "relevance": 2},
+        {"id": "sem-cert-check", "text": "Validate checkout and login through the repaired HTTPS endpoint.", "relevance": 2},
+        {"id": "sem-cert-alert", "text": "Add certificate-expiry monitoring to prevent recurrence.", "relevance": 2},
+        {"id": "sem-noise-identity", "text": "The brand identity manual defines logo spacing.", "relevance": 0},
+        {"id": "sem-noise-machine", "text": "The office coffee machine is serviced monthly.", "relevance": 0},
+        {"id": "sem-noise-traffic", "text": "Marketing traffic increased after the campaign.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "semantic-scanned-report",
+      "query": "没有可复制文字的报告怎样保住表格和插图信息",
+      "chunks": [
+        {"id": "sem-scan-detect", "text": "检测 PDF 是否缺少文字层，并把扫描件路由到 OCR。", "relevance": 2},
+        {"id": "sem-scan-table", "text": "复杂表格保留原始单元格与页面布局警告。", "relevance": 2},
+        {"id": "sem-scan-image", "text": "信息图片进入视觉识别，同时保留原图证据。", "relevance": 2},
+        {"id": "sem-scan-anchor", "text": "识别结果记录页码、区域和来源锚点。", "relevance": 2},
+        {"id": "sem-scan-fallback", "text": "OCR 置信度不足时回退到原始文档。", "relevance": 2},
+        {"id": "sem-noise-copy", "text": "报告封面的宣传文字需要缩短。", "relevance": 0},
+        {"id": "sem-noise-chart", "text": "首页图表采用蓝色渐变。", "relevance": 0},
+        {"id": "sem-noise-print", "text": "打印报告使用双面装订。", "relevance": 0}
+      ]
+    },
+    {
+      "id": "semantic-context-proof",
+      "query": "prepare the smallest useful material while keeping proof",
+      "chunks": [
+        {"id": "sem-context-task", "text": "Select passages that directly support the requested task.", "relevance": 2},
+        {"id": "sem-context-anchor", "text": "Attach evidence anchors to every retained excerpt.", "relevance": 2},
+        {"id": "sem-context-fact", "text": "Preserve protected facts, exact commands, and source URLs.", "relevance": 2},
+        {"id": "sem-context-budget", "text": "Keep the complete context pack within its declared budget.", "relevance": 2},
+        {"id": "sem-context-omit", "text": "List omitted evidence and unresolved visual items explicitly.", "relevance": 2},
+        {"id": "sem-noise-small", "text": "Use a small icon in the navigation bar.", "relevance": 0},
+        {"id": "sem-noise-material", "text": "The package material is recycled paper.", "relevance": 0},
+        {"id": "sem-noise-proof", "text": "A proof print was sent to the designer.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "semantic-accessibility",
+      "query": "make the interface usable without a mouse and readable on a phone",
+      "chunks": [
+        {"id": "sem-ui-keyboard", "text": "All interactive controls support keyboard navigation.", "relevance": 2},
+        {"id": "sem-ui-focus", "text": "Visible focus indicators show the current control.", "relevance": 2},
+        {"id": "sem-ui-label", "text": "Semantic labels give assistive technology meaningful names.", "relevance": 2},
+        {"id": "sem-ui-mobile", "text": "Responsive breakpoints prevent horizontal overflow on narrow screens.", "relevance": 2},
+        {"id": "sem-ui-type", "text": "Readable typography and contrast remain clear at mobile sizes.", "relevance": 2},
+        {"id": "sem-noise-mouse", "text": "The wireless mouse is available in three colors.", "relevance": 0},
+        {"id": "sem-noise-phone", "text": "The phone campaign launches next month.", "relevance": 0},
+        {"id": "sem-noise-interface", "text": "The audio interface has two input channels.", "relevance": 0}
+      ]
+    }
+  ]
+}

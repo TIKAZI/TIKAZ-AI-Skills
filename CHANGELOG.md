@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.11.0] - 2026-08-31
+
+### Added
+
+- Dependency-free BM25 retrieval with bounded semantic bridges, evidence facets, diversity control, and explicit insufficient-evidence fallback.
+- Bounded caller query variants that are recorded as retrieval hints and never treated as source facts.
+- Reproducible 14-case bilingual retrieval development benchmark and separately frozen 12-case adversarial challenge, including raw failures and dynamic-selection cost ledgers.
+
+### Changed
+
+- Dynamic selection now stops early only when explicit evidence facets are covered; generic queries retain a conservative Top-5.
+- Public evidence now reports Recall@K, Precision@K, MRR, nDCG, dynamic evidence recall/precision, facet coverage, and estimated selected-text reduction separately.
+
 ## [0.9.0] - 2026-08-14
 
 ### Added

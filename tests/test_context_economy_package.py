@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SUITE = ROOT / "suites" / "context-economy"
 SCRIPT = SUITE / "scripts" / "tikaz_context.py"
-VERSION = "0.10.0"
+VERSION = "0.11.0"
 
 
 class ContextEconomyPackageTests(unittest.TestCase):

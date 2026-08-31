@@ -71,6 +71,33 @@ class ContextEconomyPrimitiveTests(unittest.TestCase):
         self.assertEqual(first[0].source, "release.md")
         self.assertEqual([(c.source, c.anchor) for c in first], [(c.source, c.anchor) for c in second])
 
+    def test_query_plan_rejects_unbounded_caller_variants(self) -> None:
+        ce = load_context_economy()
+
+        with self.assertRaises(ValueError):
+            ce._query_plan("release recovery", ("hint",) * 6)
+
+    def test_dependency_free_semantic_bridge_suppresses_polysemy_noise(self) -> None:
+        ce = load_context_economy()
+        texts = [
+            "The gateway certificate expired and TLS handshakes began failing.",
+            "Rotate the certificate from the approved secret store.",
+            "Restart gateway workers so they load the renewed certificate.",
+            "Validate checkout and login through the repaired HTTPS endpoint.",
+            "Add certificate-expiry monitoring to prevent recurrence.",
+            "The office coffee machine is serviced monthly.",
+            "The brand identity manual defines logo spacing.",
+            "Marketing traffic increased after the campaign.",
+        ]
+        chunks = [ce._make_chunk("fixture.md", f"section-{index}", "", [text]) for index, text in enumerate(texts)]
+
+        ranked = ce.rank_chunks(
+            chunks,
+            "What should operators do when encrypted traffic stops because machine identity is no longer valid?",
+        )
+
+        self.assertEqual(set(ranked[:5]), set(chunks[:5]))
+
     def test_choose_mode_exposes_only_implemented_pack_paths(self) -> None:
         ce = load_context_economy()
 
@@ -84,6 +111,60 @@ class ContextEconomyPrimitiveTests(unittest.TestCase):
 
 
 class ContextEconomyPipelineTests(unittest.TestCase):
+    def test_pack_accepts_query_variants_and_records_retrieval_evidence(self) -> None:
+        ce = load_context_economy()
+        source = """# Combined
+Backup the database, run rollback_db.py, and verify MIGRATION_OK.
+
+# Owner
+The release owner records the verification result.
+
+# Duplicate
+This repeats rollback and verification without new evidence.
+
+# Noise
+The campaign page uses blue cards.
+
+# Office
+The office coffee machine is serviced monthly by the facilities team.
+
+# Marketing
+The marketing traffic report discusses campaign growth and brand identity.
+
+# Design
+The design system documents colors, spacing, typography, and rounded corners.
+"""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            input_path = root / "source.md"
+            output = root / "out"
+            input_path.write_text(source, encoding="utf-8")
+
+            ce.build_pack(
+                [input_path], "database backup rollback verification owner", 60, output,
+                query_variants=("database backup rollback verification", "release owner"),
+            )
+
+            ledger = json.loads((output / "context-cost-ledger.json").read_text(encoding="utf-8"))
+            self.assertEqual(ledger["retrieval"]["strategy"], "bm25-facet-rrf-mmr")
+            self.assertEqual(ledger["retrieval"]["status"], "matched")
+            self.assertEqual(ledger["retrieval"]["facet_coverage"], 1.0)
+            self.assertEqual(ledger["retrieval"]["query_variants"], [
+                "database backup rollback verification", "release owner",
+            ])
+
+    def test_retrieval_benchmark_keeps_raw_cases_and_passes_declared_gates(self) -> None:
+        ce = load_context_economy()
+        manifest = ROOT / "suites" / "context-economy" / "benchmarks" / "retrieval-challenge-v1.json"
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "retrieval"
+            result = ce.run_retrieval_benchmark(manifest, output)
+
+            self.assertTrue(result["validation"]["all_required_pass"])
+            self.assertEqual(result["case_count"], 12)
+            self.assertTrue((output / "cases.json").is_file())
+            self.assertTrue((output / "metrics.json").is_file())
+
     def test_pack_accepts_core_structured_formats_and_directories(self) -> None:
         ce = load_context_economy()
         with tempfile.TemporaryDirectory() as temp_dir:

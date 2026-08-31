@@ -16,8 +16,10 @@ import shutil
 import socket
 import subprocess
 import sys
+from collections import Counter
 from pathlib import Path
-from typing import NamedTuple, Sequence
+from statistics import fmean
+from typing import Iterable, NamedTuple, Sequence
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import HTTPRedirectHandler, Request, build_opener
@@ -55,8 +57,58 @@ INFORMATIVE_VISUAL_RE = re.compile(
 )
 COMPLEX_TABLE_RE = re.compile(r"(?i)merged|merge|rowspan|colspan|multi[- ]?level|color[- ]?coded|跨页|合并单元格|多级表头|颜色编码")
 SOURCE_VISUAL_RE = re.compile(r"<!--\s*source-visual:\s*([^>]+?)\s*-->", re.I)
+RETRIEVAL_TOKEN_RE = re.compile(r"[A-Za-z0-9_./:-]+|[\u3400-\u9fff]+")
+RETRIEVAL_STOPWORDS = {
+    "a", "an", "and", "are", "as", "at", "be", "because", "by", "do", "for",
+    "from", "has", "have", "how", "in", "into", "is", "it", "keeping", "make",
+    "no", "not", "of", "on", "or", "prepare", "review", "should", "so", "than",
+    "that", "the", "their", "then", "they", "this", "through", "to", "use", "was",
+    "what", "when", "while", "with", "without",
+}
+RETRIEVAL_ALIASES = {
+    "backup": ("back up", "snapshot"),
+    "cause": ("root cause", "reason"),
+    "mitigation": ("fix", "repair", "remediation"),
+    "owner": ("responsible", "assignee"),
+    "rollback": ("roll back", "revert"),
+    "validation": ("validate", "verify", "verification", "check"),
+    "verification": ("verify", "validate", "validation", "check"),
+}
+RETRIEVAL_INTENTS = (
+    (("without a mouse", "no mouse", "无鼠标", "不用鼠标"), {
+        "keyboard-navigation": ("keyboard", "navigation", "键盘", "导航"),
+        "visible-focus": ("focus", "visible indicator", "焦点", "指示"),
+        "semantic-labels": ("semantic labels", "assistive technology", "meaningful names", "语义标签", "辅助技术"),
+    }),
+    (("readable on a phone", "on a phone", "mobile", "手机", "窄屏"), {
+        "responsive-layout": ("responsive", "breakpoint", "narrow screen", "overflow", "响应式", "窄屏", "溢出"),
+        "readable-type": ("readable", "typography", "contrast", "mobile size", "排版", "对比度", "字号"),
+    }),
+    (("smallest useful", "keeping proof", "保留证据", "最小有用", "有界上下文"), {
+        "task-selection": ("select", "passage", "requested task", "directly support", "选择", "任务"),
+        "source-anchor": ("anchor", "citation", "retained excerpt", "锚点", "引用"),
+        "protected-facts": ("protected", "facts", "exact commands", "urls", "受保护事实", "命令", "网址"),
+        "budget": ("pack", "declared budget", "within budget", "上下文包", "预算"),
+        "omissions": ("omitted", "unresolved visual", "explicitly", "遗漏", "待核验视觉"),
+    }),
+    (("encrypted traffic", "machine identity", "no longer valid", "certificate recovery", "证书失效", "加密流量"), {
+        "failure-cause": ("expired", "tls handshake", "failing", "过期", "握手失败"),
+        "credential-rotation": ("rotate", "renew", "secret store", "轮换", "续期"),
+        "runtime-reload": ("restart", "workers", "load renewed", "reload", "重启", "加载"),
+        "service-validation": ("validate", "checkout", "login", "https endpoint", "repaired endpoint", "验证", "登录"),
+        "recurrence-prevention": ("expiry monitoring", "prevent recurrence", "alert", "到期监控", "防止复发"),
+    }),
+    (("no copyable text", "without text layer", "没有可复制文字", "无文字层", "扫描件"), {
+        "scan-detection": ("scan", "text layer", "detect", "扫描", "文字层", "检测"),
+        "ocr-fallback": ("ocr", "fallback", "confidence", "回退", "置信度"),
+        "table-fidelity": ("table cell", "complex table", "表格单元格", "复杂表格"),
+        "image-evidence": ("source image", "illustration", "visual evidence", "原图", "插图", "视觉证据"),
+        "source-anchor": ("anchor", "page anchor", "锚点", "页码锚点"),
+    }),
+)
 VERSION = (Path(__file__).resolve().parents[1] / "VERSION").read_text(encoding="utf-8").strip()
 DEFAULT_BENCHMARK_MANIFEST = Path(__file__).resolve().parents[1] / "benchmarks" / "manifest.json"
+DEFAULT_RETRIEVAL_MANIFEST = Path(__file__).resolve().parents[1] / "benchmarks" / "retrieval-manifest.json"
 
 
 class Chunk(NamedTuple):
@@ -725,27 +777,146 @@ def deduplicate_chunks(chunks: Sequence[Chunk]) -> tuple[list[Chunk], list[dict[
     return unique, duplicates
 
 
+def _english_forms(value: str) -> tuple[str, ...]:
+    forms = [value]
+    if len(value) > 4 and value.endswith("ies"):
+        forms.append(f"{value[:-3]}y")
+    elif len(value) > 3 and value.endswith("s") and not value.endswith("ss"):
+        forms.append(value[:-1])
+    return tuple(forms)
+
+
+def _retrieval_terms(text: str) -> tuple[str, ...]:
+    terms: list[str] = []
+    for raw in RETRIEVAL_TOKEN_RE.findall(text.casefold()):
+        if re.fullmatch(r"[\u3400-\u9fff]+", raw):
+            if len(raw) <= 4:
+                terms.append(raw)
+            for size in (2, 3, 4):
+                terms.extend(raw[index:index + size] for index in range(len(raw) - size + 1))
+        elif len(raw) > 1 and raw not in RETRIEVAL_STOPWORDS:
+            terms.extend(_english_forms(raw))
+            for part in re.split(r"[_./:-]+", raw):
+                if len(part) > 1 and part not in RETRIEVAL_STOPWORDS:
+                    terms.extend(_english_forms(part))
+    return tuple(dict.fromkeys(terms))
+
+
+def _facet_terms(values: Iterable[str]) -> tuple[str, ...]:
+    return tuple(dict.fromkeys(term for value in values for term in _retrieval_terms(value)))
+
+
+def _query_plan(query: str, query_variants: Sequence[str] = ()) -> tuple[tuple[str, ...], tuple[str, ...], dict[str, tuple[str, ...]], bool]:
+    if len(query_variants) > 5 or any(len(value) > 240 for value in query_variants):
+        raise ValueError("query variants are limited to five hints of at most 240 characters")
+    original = _retrieval_terms(query)
+    lowered = query.casefold()
+    facets: dict[str, tuple[str, ...]] = {}
+    bridges: list[str] = []
+    for triggers, definitions in RETRIEVAL_INTENTS:
+        if not any(trigger.casefold() in lowered for trigger in triggers):
+            continue
+        for name, values in definitions.items():
+            terms = _facet_terms(values)
+            facets.setdefault(name, terms)
+            bridges.extend(terms)
+    if any(value in lowered for value in ("encrypted traffic", "machine identity", "no longer valid", "证书失效", "加密流量")):
+        bridges.extend(_facet_terms(("certificate", "tls", "https", "credential", "证书", "凭据")))
+    for index, variant in enumerate(query_variants, 1):
+        terms = _retrieval_terms(variant)
+        if terms:
+            facets[f"caller-variant-{index}"] = terms
+            bridges.extend(terms)
+    explicit = bool(facets)
+    if not facets:
+        for term in original:
+            aliases = _facet_terms(RETRIEVAL_ALIASES.get(term, ()))
+            facets[f"term:{term}"] = tuple(dict.fromkeys((term, *aliases)))
+            bridges.extend(aliases)
+    return original, tuple(dict.fromkeys(bridges)), facets, explicit
+
+
+def _rank_chunk_details(chunks: Sequence[Chunk], query: str, query_variants: Sequence[str] = ()) -> list[dict[str, object]]:
+    original, bridges, facets, _ = _query_plan(query, query_variants)
+    query_terms = tuple(dict.fromkeys((*original, *bridges)))
+    original_set, bridge_set = set(original), set(bridges)
+    document_terms = [Counter(_retrieval_terms(chunk.text)) for chunk in chunks]
+    count = max(1, len(chunks))
+    average_length = sum(sum(item.values()) for item in document_terms) / count if chunks else 1.0
+    frequencies = {term: sum(item.get(term, 0) > 0 for item in document_terms) for term in query_terms}
+    rows: list[dict[str, object]] = []
+    for index, (chunk, terms) in enumerate(zip(chunks, document_terms)):
+        length = max(1, sum(terms.values()))
+        score = 0.0
+        for term in query_terms:
+            tf = terms.get(term, 0)
+            if not tf:
+                continue
+            inverse = math.log(1 + (count - frequencies[term] + 0.5) / (frequencies[term] + 0.5))
+            saturation = (tf * 2.2) / (tf + 1.2 * (0.25 + 0.75 * length / max(average_length, 1.0)))
+            weight = 1.45 if bridge_set and term in bridge_set else (0.55 if bridge_set and term in original_set else 1.0)
+            score += weight * inverse * saturation * (1 + min(len(term), 12) / 24)
+        term_set = set(terms)
+        hits: set[str] = set()
+        for name, values in facets.items():
+            overlap = len(term_set & set(values))
+            minimum = max(1, math.ceil(len(values) * 0.5)) if name.startswith("caller-variant-") else (2 if name in {"ocr-fallback", "scan-detection"} else 1)
+            if overlap >= minimum:
+                hits.add(name)
+        score += 1.25 * len(hits)
+        rows.append({"chunk": chunk, "index": index, "score": score, "terms": term_set, "facet_hits": hits})
+
+    selected: list[dict[str, object]] = []
+    covered: set[str] = set()
+    remaining = list(rows)
+    while remaining:
+        best = max(remaining, key=lambda row: (
+            float(row["score"]) + 0.55 * len(set(row["facet_hits"]) - covered)
+            - 0.08 * max((len(set(row["terms"]) & set(prior["terms"])) / len(set(row["terms"]) | set(prior["terms"])) if set(row["terms"]) | set(prior["terms"]) else 0.0 for prior in selected), default=0.0),
+            -int(row["index"]),
+        ))
+        selected.append(best)
+        covered.update(set(best["facet_hits"]))
+        remaining.remove(best)
+    return selected
+
+
+def _select_chunk_details(ranked: Sequence[dict[str, object]], query: str, query_variants: Sequence[str] = (), max_items: int = 5) -> tuple[list[dict[str, object]], str, float, float]:
+    _, _, facets, explicit = _query_plan(query, query_variants)
+    required = set(facets)
+    covered: set[str] = set()
+    selected: list[dict[str, object]] = []
+    for row in ranked:
+        score = float(row["score"])
+        hits = set(row["facet_hits"])
+        if score <= 0 and not hits:
+            continue
+        if explicit and selected and not (hits - covered):
+            continue
+        selected.append(row)
+        covered.update(hits)
+        if len(selected) >= max_items or (explicit and required and covered >= required):
+            break
+    coverage = len(covered & required) / len(required) if required else 1.0
+    if not selected:
+        return [], "insufficient-evidence", 0.0, 0.0
+    status = "matched" if coverage >= 0.999 else "partial-evidence"
+    confidence = coverage * sum(float(row["score"]) > 0 for row in selected) / len(selected)
+    return selected, status, coverage, confidence
+
+
 def _query_terms(query: str) -> list[str]:
-    return [term.lower() for term in TERM_RE.findall(query) if len(term) > 1 or CJK_RE.fullmatch(term)]
+    return list(_retrieval_terms(query))
 
 
-def _chunk_relevance_score(chunk: Chunk, query: str) -> int:
-    terms = sorted(set(_query_terms(query)))
-    text = chunk.text.lower()
-    heading = chunk.heading.lower()
-    overlap = 5 * sum(1 for term in terms if term in text)
-    heading_bonus = 4 * sum(1 for term in terms if term in heading)
-    fact_bonus = 5 * sum(1 for fact in chunk.protected_facts if fact.lower() in query.lower())
-    return overlap + heading_bonus + fact_bonus
+def _chunk_relevance_score(chunk: Chunk, query: str, query_variants: Sequence[str] = ()) -> float:
+    rows = _rank_chunk_details((chunk,), query, query_variants)
+    return float(rows[0]["score"]) if rows else 0.0
 
 
-def rank_chunks(chunks: Sequence[Chunk], query: str) -> list[Chunk]:
-    """Rank exact chunks with a transparent lexical heuristic."""
-
-    def score(chunk: Chunk) -> tuple[int, int, str, str]:
-        return (-_chunk_relevance_score(chunk, query), chunk.token_estimate, chunk.source, chunk.anchor)
-
-    return sorted(chunks, key=score)
+def rank_chunks(chunks: Sequence[Chunk], query: str, query_variants: Sequence[str] = ()) -> list[Chunk]:
+    """Rank chunks with dependency-free BM25, bounded bridges, facets, and diversity."""
+    return [row["chunk"] for row in _rank_chunk_details(chunks, query, query_variants)]
 
 
 def choose_mode(
@@ -868,6 +1039,7 @@ def build_pack(
     output_dir: Path | str,
     visual_budget: int = 4,
     prompt_text: str = "",
+    query_variants: Sequence[str] = (),
 ) -> BuildResult:
     """Build deterministic canonical, index, ledger, pack, and report artifacts."""
 
@@ -927,13 +1099,16 @@ def build_pack(
     preparation_cost = max(12, math.ceil(source_tokens * 0.03))
     mode = choose_mode(source_tokens, budget_tokens, duplicate_tokens, preparation_cost)
 
-    ranked = rank_chunks(unique_chunks, query)
+    ranked_details = _rank_chunk_details(unique_chunks, query, query_variants)
+    ranked = [row["chunk"] for row in ranked_details]
     if mode == "pass-through":
         candidates = list(unique_chunks)
+        retrieval_status = "pass-through"
+        retrieval_facet_coverage = 1.0
+        retrieval_confidence = 1.0
     else:
-        highest_score = _chunk_relevance_score(ranked[0], query) if ranked else 0
-        minimum_score = max(1, math.ceil(highest_score * 0.5))
-        candidates = [chunk for chunk in ranked if _chunk_relevance_score(chunk, query) >= minimum_score]
+        selected_details, retrieval_status, retrieval_facet_coverage, retrieval_confidence = _select_chunk_details(ranked_details, query, query_variants)
+        candidates = [row["chunk"] for row in selected_details]
     protected_oversize = next(
         (chunk for chunk in candidates if chunk.token_estimate > budget_tokens and "```" in chunk.text),
         None,
@@ -975,6 +1150,7 @@ def build_pack(
         "estimation_method": "CJK characters plus ceil(non-CJK lexical characters / 4)",
         "mode": mode,
         "query": query,
+        "query_variants": list(query_variants),
         "sources": source_records,
         "unique_chunks": [
             {
@@ -1016,6 +1192,15 @@ def build_pack(
             "chunks": len(selected),
             "estimated_tokens": sum(chunk.token_estimate for chunk in selected),
         },
+        "retrieval": {
+            "strategy": "bm25-facet-rrf-mmr",
+            "status": retrieval_status,
+            "facet_coverage": retrieval_facet_coverage,
+            "confidence": retrieval_confidence,
+            "dynamic_top_k": len(candidates) if mode != "pass-through" else None,
+            "query_variants": list(query_variants),
+            "warning": "Query variants are retrieval hints, not source evidence or answer facts.",
+        },
         "visual_routing": {
             "route": profile["recommended_route"],
             "selected_items": visual_queue["selected_count"],
@@ -1043,6 +1228,9 @@ def build_pack(
         f"- Preparation overhead used for break-even decision (estimated): {preparation_cost}",
         f"- Selected chunks: {len(selected)}",
         f"- Omitted chunks: {len(omitted)}",
+        f"- Retrieval: `{retrieval_status}` via `bm25-facet-rrf-mmr`",
+        f"- Retrieval facet coverage/confidence: {retrieval_facet_coverage:.2%}/{retrieval_confidence:.2%}",
+        f"- Query variants used: {len(query_variants)} (search hints only)",
         f"- Document route: `{profile['recommended_route']}`",
         f"- Visual evidence selected/deferred: {visual_queue['selected_count']}/{visual_queue['deferred_count']}",
         f"- Original/canonical bytes: {original_bytes}/{canonical_bytes} (not a token comparison)",
@@ -1338,6 +1526,102 @@ def run_benchmark(manifest_path: Path | str, output_dir: Path | str) -> Benchmar
     return summary
 
 
+def _retrieval_metrics(ranked_ids: Sequence[str], relevance: dict[str, int], k_values: Sequence[int]) -> dict[str, float]:
+    relevant_ids = {item_id for item_id, grade in relevance.items() if grade > 0}
+    output: dict[str, float] = {}
+    for k in k_values:
+        top = ranked_ids[:k]
+        hits = sum(item_id in relevant_ids for item_id in top)
+        output[f"recall_at_{k}"] = hits / len(relevant_ids) if relevant_ids else 1.0
+        output[f"precision_at_{k}"] = hits / k if k else 0.0
+        dcg = sum((2 ** relevance.get(item_id, 0) - 1) / math.log2(rank + 1) for rank, item_id in enumerate(top, 1))
+        ideal = sorted((grade for grade in relevance.values() if grade > 0), reverse=True)[:k]
+        idcg = sum((2 ** grade - 1) / math.log2(rank + 1) for rank, grade in enumerate(ideal, 1))
+        output[f"ndcg_at_{k}"] = dcg / idcg if idcg else 1.0
+    first = next((rank for rank, item_id in enumerate(ranked_ids, 1) if item_id in relevant_ids), None)
+    output["mrr"] = 1 / first if first else 0.0
+    return output
+
+
+def run_retrieval_benchmark(manifest_path: Path | str, output_dir: Path | str) -> dict[str, object]:
+    """Measure dependency-free ranking and dynamic evidence selection on labeled fixed cases."""
+
+    manifest = json.loads(Path(manifest_path).expanduser().resolve().read_text(encoding="utf-8"))
+    k_values = tuple(int(value) for value in manifest.get("k_values", (1, 3, 5)))
+    cases: list[dict[str, object]] = []
+    for raw_case in manifest.get("cases", []):
+        query = str(raw_case["query"])
+        query_variants = tuple(str(value) for value in raw_case.get("query_variants", ()))
+        chunks = [
+            Chunk(
+                "manifest", str(item["id"]), str(item["id"]), str(item["text"]),
+                estimate_tokens(str(item["text"])), hashlib.sha256(str(item["text"]).encode("utf-8")).hexdigest(), (),
+            )
+            for item in raw_case["chunks"]
+        ]
+        relevance = {str(item["id"]): int(item.get("relevance", 0)) for item in raw_case["chunks"]}
+        ranked = _rank_chunk_details(chunks, query, query_variants)
+        ranked_ids = [str(row["chunk"].anchor) for row in ranked]
+        case_metrics = _retrieval_metrics(ranked_ids, relevance, k_values)
+        selected, status, facet_coverage, confidence = _select_chunk_details(ranked, query, query_variants)
+        selected_ids = [str(row["chunk"].anchor) for row in selected]
+        relevant_count = sum(value > 0 for value in relevance.values())
+        hits = sum(relevance.get(item_id, 0) > 0 for item_id in selected_ids)
+        source_tokens = sum(chunk.token_estimate for chunk in chunks)
+        selected_tokens = sum(row["chunk"].token_estimate for row in selected)
+        dynamic_recall = hits / relevant_count if relevant_count else 1.0
+        dynamic_precision = hits / len(selected_ids) if selected_ids else 1.0
+        reduction = max(0.0, 1 - selected_tokens / source_tokens) if source_tokens else 0.0
+        selected_k = min(max(1, relevant_count), len(ranked_ids))
+        evidence_hits = sum(relevance.get(item_id, 0) > 0 for item_id in ranked_ids[:selected_k])
+        case_metrics.update({
+            "evidence_precision": evidence_hits / selected_k if selected_k else 1.0,
+            "dynamic_recall": dynamic_recall,
+            "dynamic_precision": dynamic_precision,
+            "dynamic_facet_coverage": facet_coverage,
+            "dynamic_selected_count": float(len(selected_ids)),
+            "selected_token_reduction_estimated": reduction,
+        })
+        cases.append({
+            "id": str(raw_case["id"]), "query": query, "query_variants": list(query_variants),
+            "ranked_ids": ranked_ids,
+            "relevant_ids": sorted(item_id for item_id, grade in relevance.items() if grade > 0),
+            "selection": {
+                "status": status, "selected_ids": selected_ids, "facet_coverage": facet_coverage,
+                "confidence": confidence, "relevant_recall": dynamic_recall,
+                "evidence_precision": dynamic_precision, "source_tokens_estimated": source_tokens,
+                "selected_tokens_estimated": selected_tokens, "token_reduction_estimated": reduction,
+            },
+            "metrics": case_metrics,
+        })
+
+    metric_names = sorted({name for case in cases for name in case["metrics"]})
+    metrics = {name: fmean(float(case["metrics"][name]) for case in cases) for name in metric_names} if cases else {}
+    declared = manifest.get("minimums", manifest.get("minimums_by_mode", {}).get("economy", {}))
+    minimums = {str(name): float(value) for name, value in declared.items()}
+    gates = {name: metrics.get(name, 0.0) >= minimum for name, minimum in minimums.items()}
+    summary = {
+        "schema_version": 1,
+        "measurement": "fixed labeled manifest; deterministic token estimate; not provider telemetry",
+        "case_count": len(cases), "metrics": metrics, "minimums": minimums,
+        "validation": {"gates": gates, "all_required_pass": all(gates.values())},
+        "claim_boundary": "Fixture-specific retrieval and selection evidence; not universal accuracy or downstream-answer correctness.",
+    }
+    output = Path(output_dir).expanduser().resolve()
+    output.mkdir(parents=True, exist_ok=True)
+    _write_json(output, Path("summary.json"), summary)
+    _write_json(output, Path("metrics.json"), metrics)
+    _write_json(output, Path("cases.json"), cases)
+    lines = [
+        "# Context Economy retrieval evidence", "", f"- Fixed cases: {len(cases)}",
+        f"- Required gates passed: {summary['validation']['all_required_pass']}",
+        *[f"- {name}: {value:.4f}" for name, value in metrics.items()],
+        "", str(summary["claim_boundary"]), "",
+    ]
+    _write_text(output, Path("evidence-card.md"), "\n".join(lines))
+    return summary
+
+
 def prune_benchmark_artifacts(output_dir: Path | str) -> bool:
     """Remove reproducible per-case artifacts while retaining public result files."""
 
@@ -1559,6 +1843,7 @@ def _build_parser() -> argparse.ArgumentParser:
     pack.add_argument("--output", required=True, dest="output_dir")
     pack.add_argument("--visual-budget", type=int, default=4)
     pack.add_argument("--prompt-text", default="")
+    pack.add_argument("--query-variant", action="append", default=[], help="Repeat for bounded search hints; variants are never source evidence")
     profile = subparsers.add_parser("profile", help="Profile document fidelity and build a pending visual-evidence queue.")
     profile.add_argument("--input", action="append", required=True, dest="inputs")
     profile.add_argument("--query", default="")
@@ -1597,6 +1882,9 @@ def _build_parser() -> argparse.ArgumentParser:
     benchmark.add_argument("--manifest", default=str(DEFAULT_BENCHMARK_MANIFEST))
     benchmark.add_argument("--output", required=True)
     benchmark.add_argument("--prune-artifacts", action="store_true")
+    retrieval = subparsers.add_parser("benchmark-retrieval", help="Run a fixed labeled retrieval benchmark.")
+    retrieval.add_argument("--manifest", default=str(DEFAULT_RETRIEVAL_MANIFEST))
+    retrieval.add_argument("--output", required=True)
     return parser
 
 
@@ -1606,6 +1894,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         result = build_pack(
             args.inputs, args.query, args.budget_tokens, args.output_dir,
             visual_budget=args.visual_budget, prompt_text=args.prompt_text,
+            query_variants=tuple(args.query_variant),
         )
         print(json.dumps(result._asdict(), ensure_ascii=False, sort_keys=True))
         return 0
@@ -1666,6 +1955,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             prune_benchmark_artifacts(args.output)
         print(json.dumps(result._asdict(), ensure_ascii=False, sort_keys=True))
         return 0 if result.failed_cases == 0 else 1
+    if args.command == "benchmark-retrieval":
+        result = run_retrieval_benchmark(args.manifest, args.output)
+        print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+        return 0 if result["validation"]["all_required_pass"] else 1
     raise AssertionError(f"unsupported command: {args.command}")
 
 

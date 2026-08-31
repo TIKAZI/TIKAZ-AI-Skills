@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "description": "Adversarial dependency-free retrieval challenge created after the original 14-case development set; not an independent blind evaluation.",
+  "k_values": [1, 3],
+  "minimums_by_mode": {
+    "economy": {
+      "recall_at_3": 0.8,
+      "precision_at_3": 0.8,
+      "mrr": 0.9,
+      "ndcg_at_3": 0.8
+    }
+  },
+  "cases": [
+    {
+      "id": "zh-certificate-outage",
+      "query": "证书失效导致加密流量中断后，如何恢复并防止复发？",
+      "chunks": [
+        {"id": "cause", "text": "网关证书已经过期，TLS 握手因此失败。", "relevance": 2},
+        {"id": "recover", "text": "从密钥库轮换证书并重启网关进程。", "relevance": 2},
+        {"id": "prevent", "text": "增加证书到期监控，并验证 HTTPS 登录链路。", "relevance": 2},
+        {"id": "traffic", "text": "市场活动带来了更多网站流量。", "relevance": 0},
+        {"id": "identity", "text": "品牌视觉识别系统使用蓝色。", "relevance": 0},
+        {"id": "machine", "text": "办公室机器每月维护一次。", "relevance": 0}
+      ]
+    },
+    {
+      "id": "zh-accessibility",
+      "query": "不用鼠标也能操作，并且在手机窄屏上保持可读",
+      "chunks": [
+        {"id": "keyboard", "text": "所有交互控件支持键盘导航并带有可见焦点。", "relevance": 2},
+        {"id": "labels", "text": "控件提供语义标签供辅助技术读取。", "relevance": 2},
+        {"id": "mobile", "text": "响应式断点、排版和对比度适配手机窄屏。", "relevance": 2},
+        {"id": "mouse", "text": "无线鼠标有三种颜色。", "relevance": 0},
+        {"id": "phone", "text": "手机营销活动下月开始。", "relevance": 0},
+        {"id": "audio", "text": "音频接口提供两个输入通道。", "relevance": 0}
+      ]
+    },
+    {
+      "id": "zh-context-proof",
+      "query": "生成最小有用的上下文，同时保留证据和可追溯性",
+      "chunks": [
+        {"id": "facts", "text": "保留受保护事实、精确命令和来源网址。", "relevance": 2},
+        {"id": "anchors", "text": "每段证据都附带来源锚点，并明确列出遗漏。", "relevance": 2},
+        {"id": "budget", "text": "上下文包必须处于声明预算内并支持恢复。", "relevance": 2},
+        {"id": "small", "text": "导航栏使用较小图标。", "relevance": 0},
+        {"id": "material", "text": "包装材料使用再生纸。", "relevance": 0},
+        {"id": "proof", "text": "设计师收到了一份打样稿。", "relevance": 0}
+      ]
+    },
+    {
+      "id": "en-scanned-document",
+      "query": "A report without a text layer must retain tables, illustrations, and page evidence",
+      "chunks": [
+        {"id": "detect", "text": "Detect a scanned PDF and route the page to OCR fallback.", "relevance": 2},
+        {"id": "table", "text": "Preserve table cells and warn when layout fidelity is uncertain.", "relevance": 2},
+        {"id": "visual", "text": "Keep source images with page anchors for pending visual inspection.", "relevance": 2},
+        {"id": "cover", "text": "The report cover uses a short headline.", "relevance": 0},
+        {"id": "print", "text": "The report is printed on both sides.", "relevance": 0},
+        {"id": "chart", "text": "The homepage chart uses a blue gradient.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "release-rollback",
+      "query": "release database rollback backup verification owner",
+      "chunks": [
+        {"id": "backup", "text": "The release owner records a database backup before deployment.", "relevance": 2},
+        {"id": "rollback", "text": "Run the rollback command when migration verification fails.", "relevance": 2},
+        {"id": "verify", "text": "The owner verifies the schema and service health after recovery.", "relevance": 2},
+        {"id": "brand", "text": "The release campaign uses a blue brand image.", "relevance": 0},
+        {"id": "office", "text": "The office closes early on Friday.", "relevance": 0},
+        {"id": "menu", "text": "The navigation menu has five items.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "incident-response",
+      "query": "incident impact root cause mitigation validation accountable owner",
+      "chunks": [
+        {"id": "cause", "text": "The incident root cause was an expired upstream credential.", "relevance": 2},
+        {"id": "impact", "text": "Checkout and login were the affected systems.", "relevance": 2},
+        {"id": "action", "text": "The accountable owner applied mitigation and validated recovery.", "relevance": 2},
+        {"id": "event", "text": "The customer event begins on Friday.", "relevance": 0},
+        {"id": "theme", "text": "The dark theme follows system preference.", "relevance": 0},
+        {"id": "paper", "text": "Printed cards use coated paper.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "contract-audit",
+      "query": "contract effective date payment termination approval audit",
+      "chunks": [
+        {"id": "date", "text": "The contract effective date is 2026-09-01.", "relevance": 2},
+        {"id": "payment", "text": "Payment and termination require documented approval.", "relevance": 2},
+        {"id": "audit", "text": "The audit trail retains every approval event.", "relevance": 2},
+        {"id": "photo", "text": "The campaign photo uses a wide crop.", "relevance": 0},
+        {"id": "search", "text": "Search suggestions appear after two characters.", "relevance": 0},
+        {"id": "chart", "text": "The chart axis begins at zero.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "finance-reconciliation",
+      "query": "reconcile invoices approved pending anomaly total audit",
+      "chunks": [
+        {"id": "status", "text": "Invoice rows separate approved and pending status.", "relevance": 2},
+        {"id": "total", "text": "The reconciled total is checked against the source ledger.", "relevance": 2},
+        {"id": "anomaly", "text": "Every anomaly is retained in the audit report.", "relevance": 2},
+        {"id": "font", "text": "The invoice page uses a serif font.", "relevance": 0},
+        {"id": "video", "text": "The campaign video is thirty seconds long.", "relevance": 0},
+        {"id": "cache", "text": "Browser assets use a long cache lifetime.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "research-synthesis",
+      "query": "research methods samples results limitations citations",
+      "chunks": [
+        {"id": "method", "text": "The research method and sample selection are documented.", "relevance": 2},
+        {"id": "result", "text": "Results include effect sizes and confidence intervals.", "relevance": 2},
+        {"id": "limit", "text": "Limitations and citations are attached to the evidence.", "relevance": 2},
+        {"id": "logo", "text": "The institute logo appears in the footer.", "relevance": 0},
+        {"id": "build", "text": "The build server runs every night.", "relevance": 0},
+        {"id": "social", "text": "The social post uses a square image.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "video-evidence",
+      "query": "视频转写时间戳关键帧画面语义来源证据",
+      "chunks": [
+        {"id": "asr", "text": "转写文本保留逐句时间戳并标注字幕来源。", "relevance": 2},
+        {"id": "frames", "text": "关键帧记录画面 OCR 和原始帧哈希。", "relevance": 2},
+        {"id": "meaning", "text": "画面语义结论附带来源证据和不确定性。", "relevance": 2},
+        {"id": "music", "text": "片尾音乐使用轻快节奏。", "relevance": 0},
+        {"id": "avatar", "text": "作者头像位于页面右侧。", "relevance": 0},
+        {"id": "footer", "text": "页脚展示品牌口号。", "relevance": 0}
+      ]
+    },
+    {
+      "id": "dynamic-web",
+      "query": "render dynamic webpage main content screenshot citation source anchor",
+      "chunks": [
+        {"id": "render", "text": "Render the dynamic webpage before extracting main content.", "relevance": 2},
+        {"id": "shot", "text": "Keep a screenshot and source anchor for visual verification.", "relevance": 2},
+        {"id": "cite", "text": "Each extracted claim carries a citation to the rendered page.", "relevance": 2},
+        {"id": "team", "text": "The team meets every Tuesday.", "relevance": 0},
+        {"id": "price", "text": "The pricing card has a purple border.", "relevance": 0},
+        {"id": "color", "text": "The footer uses a blue background.", "relevance": 0}
+      ]
+    },
+    {
+      "id": "negative-evidence",
+      "query": "database rollback verification evidence",
+      "chunks": [
+        {"id": "rollback", "text": "Rollback the database and verify the restored schema.", "relevance": 2},
+        {"id": "record", "text": "Record the verification evidence with the release owner.", "relevance": 2},
+        {"id": "backup", "text": "The backup identifier must remain attached to the recovery record.", "relevance": 2},
+        {"id": "none-a", "text": "The landing page uses a blue illustration.", "relevance": 0},
+        {"id": "none-b", "text": "The office coffee machine is serviced monthly.", "relevance": 0},
+        {"id": "none-c", "text": "A marketing report describes traffic growth.", "relevance": 0}
+      ]
+    }
+  ]
+}

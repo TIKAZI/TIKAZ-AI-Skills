@@ -25,18 +25,21 @@ Accept pasted text, a conversation, one or more files or folders, code, logs, st
 
 1. Fix the task, expected output, risk level, text budget, and visual budget without requiring the user to choose a route.
 2. Profile every input and select `text`, `hybrid`, or `source` from conversion confidence, informative visuals, and table complexity, not image presence alone.
-3. Remove only exact or formatting-only repetition, protect literal facts, and build a task-bounded anchored pack.
+3. Decompose the task into evidence slots, expand only auditable context-domain intents, remove exact or formatting-only repetition, protect literal facts, and build a task-bounded anchored pack. Use dependency-free BM25 ranking, bounded semantic bridges, facet-aware fusion, and polysemy guards; expansions and caller query variants are retrieval hints, never source facts.
 4. Convert supported documents through an available external adapter, verify representative content, and keep page or section anchors. For webpages, reject local/private URL targets, bound fetch time and size, disable third-party async extraction, and retain images for routing.
 5. Compact text separately from images and complex tables; skip decorative and duplicate visuals; queue only task-relevant evidence; preserve uncertain sources.
-6. Report original and canonical bytes, prompt and protocol estimates, selected text, visual items, final context, omissions, protected facts, and verification limits separately.
+6. Prefer evidence-slot coverage plus diversity so repeated wording cannot displace another required slot. Keep a conservative Top-5 when slots are inferred from surface terms; stop earlier only when explicit auditable slots are covered.
+7. Report original and canonical bytes, prompt and protocol estimates, selected text, visual items, final context, omissions, protected facts, retrieval status, evidence-slot coverage, dynamic selection count, and verification limits separately.
 
 ## Output contract
 
-Return the selected route, a task-ready context artifact, protected facts, stable source anchors, omitted evidence, unresolved visual items, budget status, and an explicit distinction between measured values and estimates. The artifact must remain useful without the surrounding conversation.
+Return the selected route, a task-ready context artifact, protected facts, stable source anchors, omitted evidence, unresolved visual items, budget status, retrieval status, and an explicit distinction between measured values and estimates. When labels exist, report Recall@K, Precision@K, MRR, and nDCG separately; without labels report coverage and confidence only, never a fabricated hit rate. The artifact must remain useful without the surrounding conversation.
 
 ## Validation and fallback
 
 Check that protected facts and expected anchors survive, the complete artifact respects its declared budget, and pending visuals are not described as inspected. If a converter, tokenizer, or vision capability is absent, do not install it silently: use a documented adapter, estimated counts, or the source route. If essential evidence cannot fit, expose a budget conflict rather than silently dropping it.
+
+Retrieval confidence is not answer accuracy. Keep fixed-set ranking, dynamic-selection recall, estimated Token reduction, and downstream blind-answer quality separate. A smaller selection is acceptable only when evidence-slot and protected-fact gates pass; otherwise retain Top-5 or the source.
 
 ## Limits
 

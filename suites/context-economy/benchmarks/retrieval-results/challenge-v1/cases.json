@@ -1,0 +1,580 @@
+[
+  {
+    "id": "zh-certificate-outage",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 3.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "selected_token_reduction_estimated": 0.44318181818181823
+    },
+    "query": "证书失效导致加密流量中断后，如何恢复并防止复发？",
+    "query_variants": [],
+    "ranked_ids": [
+      "prevent",
+      "cause",
+      "recover",
+      "traffic",
+      "identity",
+      "machine"
+    ],
+    "relevant_ids": [
+      "cause",
+      "prevent",
+      "recover"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "prevent",
+        "cause",
+        "recover"
+      ],
+      "selected_tokens_estimated": 49,
+      "source_tokens_estimated": 88,
+      "status": "matched",
+      "token_reduction_estimated": 0.44318181818181823
+    }
+  },
+  {
+    "id": "zh-accessibility",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 3.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "selected_token_reduction_estimated": 0.38636363636363635
+    },
+    "query": "不用鼠标也能操作，并且在手机窄屏上保持可读",
+    "query_variants": [],
+    "ranked_ids": [
+      "labels",
+      "mobile",
+      "keyboard",
+      "mouse",
+      "phone",
+      "audio"
+    ],
+    "relevant_ids": [
+      "keyboard",
+      "labels",
+      "mobile"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "labels",
+        "mobile",
+        "keyboard"
+      ],
+      "selected_tokens_estimated": 54,
+      "source_tokens_estimated": 88,
+      "status": "matched",
+      "token_reduction_estimated": 0.38636363636363635
+    }
+  },
+  {
+    "id": "zh-context-proof",
+    "metrics": {
+      "dynamic_facet_coverage": 0.8,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 3.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "selected_token_reduction_estimated": 0.367816091954023
+    },
+    "query": "生成最小有用的上下文，同时保留证据和可追溯性",
+    "query_variants": [],
+    "ranked_ids": [
+      "facts",
+      "budget",
+      "anchors",
+      "small",
+      "proof",
+      "material"
+    ],
+    "relevant_ids": [
+      "anchors",
+      "budget",
+      "facts"
+    ],
+    "selection": {
+      "confidence": 0.8000000000000002,
+      "evidence_precision": 1.0,
+      "facet_coverage": 0.8,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "facts",
+        "budget",
+        "anchors"
+      ],
+      "selected_tokens_estimated": 55,
+      "source_tokens_estimated": 87,
+      "status": "partial-evidence",
+      "token_reduction_estimated": 0.367816091954023
+    }
+  },
+  {
+    "id": "en-scanned-document",
+    "metrics": {
+      "dynamic_facet_coverage": 0.2727272727272727,
+      "dynamic_precision": 0.6,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 5.0,
+      "evidence_precision": 0.6666666666666666,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 0.7039180890341348,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.6666666666666666,
+      "selected_token_reduction_estimated": 0.13432835820895528
+    },
+    "query": "A report without a text layer must retain tables, illustrations, and page evidence",
+    "query_variants": [],
+    "ranked_ids": [
+      "table",
+      "print",
+      "detect",
+      "cover",
+      "visual",
+      "chart"
+    ],
+    "relevant_ids": [
+      "detect",
+      "table",
+      "visual"
+    ],
+    "selection": {
+      "confidence": 0.2727272727272727,
+      "evidence_precision": 0.6,
+      "facet_coverage": 0.2727272727272727,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "table",
+        "print",
+        "detect",
+        "cover",
+        "visual"
+      ],
+      "selected_tokens_estimated": 58,
+      "source_tokens_estimated": 67,
+      "status": "partial-evidence",
+      "token_reduction_estimated": 0.13432835820895528
+    }
+  },
+  {
+    "id": "release-rollback",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 0.75,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 4.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "selected_token_reduction_estimated": 0.23880597014925375
+    },
+    "query": "release database rollback backup verification owner",
+    "query_variants": [],
+    "ranked_ids": [
+      "backup",
+      "verify",
+      "rollback",
+      "brand",
+      "office",
+      "menu"
+    ],
+    "relevant_ids": [
+      "backup",
+      "rollback",
+      "verify"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 0.75,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "backup",
+        "verify",
+        "rollback",
+        "brand"
+      ],
+      "selected_tokens_estimated": 51,
+      "source_tokens_estimated": 67,
+      "status": "matched",
+      "token_reduction_estimated": 0.23880597014925375
+    }
+  },
+  {
+    "id": "incident-response",
+    "metrics": {
+      "dynamic_facet_coverage": 0.75,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 0.6666666666666666,
+      "dynamic_selected_count": 2.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "selected_token_reduction_estimated": 0.5483870967741935
+    },
+    "query": "incident impact root cause mitigation validation accountable owner",
+    "query_variants": [],
+    "ranked_ids": [
+      "cause",
+      "action",
+      "impact",
+      "event",
+      "paper",
+      "theme"
+    ],
+    "relevant_ids": [
+      "action",
+      "cause",
+      "impact"
+    ],
+    "selection": {
+      "confidence": 0.75,
+      "evidence_precision": 1.0,
+      "facet_coverage": 0.75,
+      "relevant_recall": 0.6666666666666666,
+      "selected_ids": [
+        "cause",
+        "action"
+      ],
+      "selected_tokens_estimated": 28,
+      "source_tokens_estimated": 62,
+      "status": "partial-evidence",
+      "token_reduction_estimated": 0.5483870967741935
+    }
+  },
+  {
+    "id": "contract-audit",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 3.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "selected_token_reduction_estimated": 0.4482758620689655
+    },
+    "query": "contract effective date payment termination approval audit",
+    "query_variants": [],
+    "ranked_ids": [
+      "date",
+      "payment",
+      "audit",
+      "photo",
+      "search",
+      "chart"
+    ],
+    "relevant_ids": [
+      "audit",
+      "date",
+      "payment"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "date",
+        "payment",
+        "audit"
+      ],
+      "selected_tokens_estimated": 32,
+      "source_tokens_estimated": 58,
+      "status": "matched",
+      "token_reduction_estimated": 0.4482758620689655
+    }
+  },
+  {
+    "id": "finance-reconciliation",
+    "metrics": {
+      "dynamic_facet_coverage": 0.75,
+      "dynamic_precision": 0.75,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 4.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "selected_token_reduction_estimated": 0.30000000000000004
+    },
+    "query": "reconcile invoices approved pending anomaly total audit",
+    "query_variants": [],
+    "ranked_ids": [
+      "status",
+      "anomaly",
+      "total",
+      "font",
+      "video",
+      "cache"
+    ],
+    "relevant_ids": [
+      "anomaly",
+      "status",
+      "total"
+    ],
+    "selection": {
+      "confidence": 0.75,
+      "evidence_precision": 0.75,
+      "facet_coverage": 0.75,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "status",
+        "anomaly",
+        "total",
+        "font"
+      ],
+      "selected_tokens_estimated": 42,
+      "source_tokens_estimated": 60,
+      "status": "partial-evidence",
+      "token_reduction_estimated": 0.30000000000000004
+    }
+  },
+  {
+    "id": "research-synthesis",
+    "metrics": {
+      "dynamic_facet_coverage": 0.8181818181818182,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 3.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "selected_token_reduction_estimated": 0.4032258064516129
+    },
+    "query": "research methods samples results limitations citations",
+    "query_variants": [],
+    "ranked_ids": [
+      "limit",
+      "method",
+      "result",
+      "logo",
+      "build",
+      "social"
+    ],
+    "relevant_ids": [
+      "limit",
+      "method",
+      "result"
+    ],
+    "selection": {
+      "confidence": 0.8181818181818182,
+      "evidence_precision": 1.0,
+      "facet_coverage": 0.8181818181818182,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "limit",
+        "method",
+        "result"
+      ],
+      "selected_tokens_estimated": 37,
+      "source_tokens_estimated": 62,
+      "status": "partial-evidence",
+      "token_reduction_estimated": 0.4032258064516129
+    }
+  },
+  {
+    "id": "video-evidence",
+    "metrics": {
+      "dynamic_facet_coverage": 0.3958333333333333,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 3.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "selected_token_reduction_estimated": 0.3780487804878049
+    },
+    "query": "视频转写时间戳关键帧画面语义来源证据",
+    "query_variants": [],
+    "ranked_ids": [
+      "meaning",
+      "asr",
+      "frames",
+      "music",
+      "avatar",
+      "footer"
+    ],
+    "relevant_ids": [
+      "asr",
+      "frames",
+      "meaning"
+    ],
+    "selection": {
+      "confidence": 0.3958333333333333,
+      "evidence_precision": 1.0,
+      "facet_coverage": 0.3958333333333333,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "meaning",
+        "asr",
+        "frames"
+      ],
+      "selected_tokens_estimated": 51,
+      "source_tokens_estimated": 82,
+      "status": "partial-evidence",
+      "token_reduction_estimated": 0.3780487804878049
+    }
+  },
+  {
+    "id": "dynamic-web",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 1.0,
+      "dynamic_selected_count": 3.0,
+      "evidence_precision": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 1.0,
+      "precision_at_1": 1.0,
+      "precision_at_3": 1.0,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "selected_token_reduction_estimated": 0.3709677419354839
+    },
+    "query": "render dynamic webpage main content screenshot citation source anchor",
+    "query_variants": [],
+    "ranked_ids": [
+      "render",
+      "shot",
+      "cite",
+      "team",
+      "price",
+      "color"
+    ],
+    "relevant_ids": [
+      "cite",
+      "render",
+      "shot"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 1.0,
+      "selected_ids": [
+        "render",
+        "shot",
+        "cite"
+      ],
+      "selected_tokens_estimated": 39,
+      "source_tokens_estimated": 62,
+      "status": "matched",
+      "token_reduction_estimated": 0.3709677419354839
+    }
+  },
+  {
+    "id": "negative-evidence",
+    "metrics": {
+      "dynamic_facet_coverage": 1.0,
+      "dynamic_precision": 1.0,
+      "dynamic_recall": 0.6666666666666666,
+      "dynamic_selected_count": 2.0,
+      "evidence_precision": 0.6666666666666666,
+      "mrr": 1.0,
+      "ndcg_at_1": 1.0,
+      "ndcg_at_3": 0.7653606369886218,
+      "precision_at_1": 1.0,
+      "precision_at_3": 0.6666666666666666,
+      "recall_at_1": 0.3333333333333333,
+      "recall_at_3": 0.6666666666666666,
+      "selected_token_reduction_estimated": 0.6376811594202898
+    },
+    "query": "database rollback verification evidence",
+    "query_variants": [],
+    "ranked_ids": [
+      "rollback",
+      "record",
+      "none-a",
+      "none-b",
+      "none-c",
+      "backup"
+    ],
+    "relevant_ids": [
+      "backup",
+      "record",
+      "rollback"
+    ],
+    "selection": {
+      "confidence": 1.0,
+      "evidence_precision": 1.0,
+      "facet_coverage": 1.0,
+      "relevant_recall": 0.6666666666666666,
+      "selected_ids": [
+        "rollback",
+        "record"
+      ],
+      "selected_tokens_estimated": 25,
+      "source_tokens_estimated": 69,
+      "status": "matched",
+      "token_reduction_estimated": 0.6376811594202898
+    }
+  }
+]

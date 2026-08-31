@@ -23,6 +23,8 @@ Run a versioned manifest of independent cases and keep raw per-case results. Rep
 - preparation runtime;
 - optional externally supplied answer score.
 - document-route correctness, informative-visual recall, decorative/duplicate skip accuracy, and complex-table fidelity warnings for multimodal fixtures.
+- retrieval Recall@K, Precision@K, MRR, nDCG@K, evidence-facet coverage, and explicit insufficient-evidence fallback on independently labeled cases.
+- dynamic-selection count, selected-evidence recall and precision, facet coverage, and estimated selected-token reduction; never present reduction without the corresponding selection recall.
 
 Do not hide failures inside averages. A smaller pack with lower fidelity is a regression, not a win. Do not claim superiority until the same files, questions, model/detail settings, budgets, and blind answer rubric are used. Use the shared CLI `benchmark` command and read `../references/benchmark-method.md` when publishing results.
 
@@ -40,4 +42,4 @@ Keep failed cases visible and verify manifest version, fixture identity, budgets
 Benchmark this context workflow against the fixed manifest. Report efficiency and protected-fact recall separately, retain failed cases, and label provider-token measurements Pending.
 ```
 
-From the suite directory, run `python scripts/tikaz_context.py benchmark --manifest benchmarks/manifest.json --output <directory>`. Inspect both `summary.json` and `cases.json`; a passing case is not evidence of positive savings or semantic equivalence.
+From the suite directory, run `python scripts/tikaz_context.py benchmark --manifest benchmarks/manifest.json --output <directory>`. For retrieval, run `python scripts/tikaz_context.py benchmark-retrieval --manifest benchmarks/retrieval-manifest.json --output <directory>`. Inspect both `summary.json` and `cases.json`; a passing case is not evidence of positive savings, semantic equivalence, or universal retrieval accuracy.

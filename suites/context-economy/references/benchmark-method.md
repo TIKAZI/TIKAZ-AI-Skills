@@ -4,6 +4,8 @@ Use the versioned public manifest in `../benchmarks/manifest.json`. Each case de
 
 Report four independent measures: complete-pack budget compliance, estimated token savings, literal protected-fact recall, and expected-anchor correctness. Preserve raw per-case failures in `cases.json`; never hide a failed case in the aggregate.
 
+For retrieval claims, use committed labeled manifests and report Recall@K, Precision@K, MRR, nDCG@K, dynamic selected-evidence recall/precision, facet coverage, selection count, and estimated selected-text reduction separately. Publish the development manifest and a separately frozen challenge manifest; never present either as general search accuracy. A reduction number without its matching selected-evidence recall is incomplete.
+
 The estimator is deterministic but is not provider billing telemetry. Cases with no declared protected facts are reported as vacuously complete and must not be counted as evidence that all facts were preserved. The benchmark does not measure answer quality or semantic equivalence. Add externally scored answer quality only as a separate field with its evaluator and rubric disclosed.
 
 The bundled efficiency cases reuse one synthetic source across six tasks. Report that limitation whenever publishing their aggregate. Do not compare the percentage directly with command-output filters, model-based compressors, or proxy systems unless all projects run the same corpus, task, tokenizer, budget unit, and downstream evaluation.

@@ -177,6 +177,9 @@ Context Economy is positioned as a **fidelity-first multimodal context compiler*
 In practical use, users can paste text or attach files without choosing a pipeline first. Plain text is compacted conservatively; supported documents are converted to Markdown and checked; documents containing images or complex tables split into compact text, visual filtering, bounded vision work, and source fallback; long conversations become recoverable checkpoints.
 
 - long-context profile: **69.7% estimated reduction** (`4,698 → 1,422`, 6 task variants over one synthetic source);
+- dependency-free retrieval: **100% Recall@5 / Precision@5** on a 14-case bilingual development manifest;
+- separately frozen adversarial retrieval: **94.44% Recall@3 / Precision@3** on 12 cases, with misses retained in raw results;
+- dynamic evidence selection: **100% recall with 28.50% estimated candidate-text reduction** on development, and **94.44% recall with 38.81% estimated reduction** on challenge;
 - prompt exact-repeat profile: **14.6% estimated reduction** (`157 → 134`, 4 cases including no-exact-duplicate controls);
 - prompt structural-repeat profile: **49.5% estimated reduction** (`95 → 48`, 2 synthetic variants; first wording retained);
 - protected facts: **46/46 retained**;

@@ -288,16 +288,20 @@ python -m pip install git+https://github.com/{owner}/{repo}.git
 tikaz-context doctor
 tikaz-context pack --input notes.md --query "prepare release evidence" --budget 800 --output .context-economy
 tikaz-context benchmark --output .context-benchmark
+tikaz-context benchmark-retrieval --output .context-retrieval
+tikaz-context benchmark-retrieval --manifest benchmarks/retrieval-challenge-v1.json --output .context-retrieval-challenge
 ```
 
 Uninstall the isolated CLI with `pipx uninstall tikaz-context-economy`. To install the Codex workflow rather than the CLI, clone or download this repository and copy the root orchestrator or one child Skill into the Skill directory supported by your host.'''
         context_sections = f'''## 📊 Evidence status
 
-- **Measured:** 50 checked-in synthetic cases, including six long-context variants with 69.7% estimated reduction; declared protected facts and expected anchors are reported separately.
+- **Retrieval development:** 100% Recall@5 and 100% Precision@5 on 14 fixed bilingual cases; dynamic selection retained 100% of labeled evidence with 28.50% estimated selected-text reduction.
+- **Frozen challenge:** 94.44% Recall@3 and 94.44% Precision@3 on 12 adversarial cases; dynamic selection retained 94.44% of labeled evidence with 38.81% estimated selected-text reduction.
+- **Context preparation:** 50 checked-in synthetic cases, including six long-context variants with 69.7% estimated reduction; declared protected facts and expected anchors are reported separately.
 - **Pending:** provider billing telemetry, real-world and scanned-PDF generalization, vision-description accuracy, and downstream blind-answer quality.
 - **Unavailable until verified:** external adoption counts and testimonials. No usage claim is inferred from Stars or anonymous feedback.
 
-Run `tikaz-context benchmark --output .context-benchmark` and inspect the raw cases, metrics, and summary before repeating any number as a general claim.
+Run the benchmark commands above and inspect the raw cases, metrics, and summary before repeating any number as a general claim. Retrieval accuracy, dynamic selection recall, estimated Token reduction, and downstream answer quality are separate measures.
 
 ## 🔐 Privacy, security, and community evidence
 

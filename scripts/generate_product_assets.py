@@ -114,11 +114,11 @@ SUITE_ADVANTAGES = {
 
 CONTEXT_EVIDENCE = {
     "context-economy": [
-        ("69.73%", "estimated token reduction", "6 fixed long-context tasks: 4,698 → 1,422", "估算 Token 减少", "6 个固定长上下文任务：4,698 → 1,422"),
-        ("27.78%", "estimated prompt reduction", "6 fixed prompt cases: 252 → 182", "估算提示词减少", "6 个固定提示词样例：252 → 182"),
+        ("100%", "bilingual Recall@5 / Precision@5", "14 fixed development cases", "双语 Recall@5 / Precision@5", "14 个固定开发样例"),
+        ("94.44%", "challenge Recall@3 / Precision@3", "12 frozen adversarial cases; failures stay public", "对抗集 Recall@3 / Precision@3", "12 个冻结对抗样例；失败保持公开"),
+        ("69.7%", "estimated long-context reduction", "6 fixed tasks: 4,698 → 1,422", "长上下文估算减少", "6 个固定任务：4,698 → 1,422"),
         ("46/46", "declared protected facts retained", "literal recall, not semantic accuracy", "声明保护事实保留", "字面召回，不等同语义准确率"),
         ("39/39", "expected anchors retained", "fixed public benchmark", "预期锚点保留", "固定公开基准"),
-        ("3/3", "generated PDF literal checks complete", "text, numbers, tables, and page anchors; visual accuracy pending", "生成 PDF 字面检查完成", "文字、数字、表格与页锚点；视觉准确率待测"),
     ],
     "context-pack": [
         ("69.73%", "estimated token reduction", "6 fixed long-context tasks: 4,698 → 1,422", "估算 Token 减少", "6 个固定长上下文任务：4,698 → 1,422"),
@@ -126,8 +126,9 @@ CONTEXT_EVIDENCE = {
         ("39/39", "expected anchors retained", "source anchors stay traceable", "预期锚点保留", "来源锚点保持可追溯"),
     ],
     "context-benchmark": [
-        ("50", "versioned public cases", "30 correctness + 6 efficiency + 14 routing/filtering cases", "版本化公开样例", "30 个正确性 + 6 个效率 + 14 个路由/过滤样例"),
-        ("69.73%", "long-context reduction", "estimated tokens on the fixed efficiency profile", "长上下文减少", "固定效率组的估算 Token"),
+        ("76", "versioned public cases", "50 context/routing + 14 retrieval development + 12 challenge", "版本化公开样例", "50 个上下文/路由 + 14 个检索开发 + 12 个对抗样例"),
+        ("100%", "development Recall@5 / Precision@5", "fixed bilingual retrieval labels", "开发集 Recall@5 / Precision@5", "固定双语检索标签"),
+        ("94.44%", "challenge Recall@3 / Precision@3", "frozen adversarial labels", "对抗集 Recall@3 / Precision@3", "冻结对抗标签"),
         ("+143.93%", "short-input overhead", "negative result remains visible", "短输入开销", "负向结果保持公开"),
     ],
     "context-audit": [
