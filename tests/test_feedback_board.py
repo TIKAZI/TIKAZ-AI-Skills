@@ -32,7 +32,7 @@ class FeedbackBoardTests(unittest.TestCase):
             {skill for skills in payload.values() for skill in skills},
             expected,
         )
-        self.assertEqual(sum(len(skills) for skills in payload.values()), 30)
+        self.assertEqual(sum(len(skills) for skills in payload.values()), 32)
 
         generated = (ROOT / "docs" / "feedback-data.js").read_text(encoding="utf-8")
         for suite, skills in payload.items():

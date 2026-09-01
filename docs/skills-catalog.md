@@ -1,6 +1,6 @@
 # TIKAZ AI Skills Catalog
 
-**30 independently installable Skills across seven composable Codex workflows.**
+**32 independently installable Skills across seven composable Codex workflows.**
 
 [Open the public feedback form](https://tikazi.github.io/TIKAZ-AI-Skills/#feedback) · [Open GitHub Issue forms](https://github.com/TIKAZI/TIKAZ-AI-Skills/issues/new/choose)
 
@@ -8,11 +8,13 @@ Install an orchestrator for an end-to-end outcome. Install a specialist when the
 
 | Skill | Suite | Role | Core promise |
 |---|---|---|---|
-| [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-economy/index.html) | Context Economy | Orchestrator | Automatically prepare fidelity-first, bounded context when users paste text, attach files or folders, provide webpages or PDFs for Markdown conversion, continue long con… |
-| [`context-pack`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-pack/index.html) | Context Economy | Specialist | Prepare files, folders, code, logs, and structured data as a bounded, traceable context pack for Codex. |
-| [`conversation-checkpoint`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/conversation-checkpoint/index.html) | Context Economy | Specialist | Use when a long or repetitive conversation has no source file and must be converted into a recoverable task state before continuation, handoff, or compaction. |
-| [`context-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-audit/index.html) | Context Economy | Specialist | Diagnose context relevance, redundancy, traceability, safety, cacheability, and recoverability. |
-| [`context-benchmark`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-benchmark/index.html) | Context Economy | Specialist | Measure context preparation across fixed cases. |
+| [`context-orchestrator`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-orchestrator/index.html) | Context Orchestration | Specialist | Route long text, files, webpages, code, tables, images, audio, video, or long conversations between default Context Economy and explicit ON-triggered Context On-Premise… |
+| [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-economy/index.html) | Context Orchestration | Orchestrator | Automatically prepare fidelity-first, bounded context when users paste text, attach files or folders, provide webpages or PDFs for Markdown conversion, continue long con… |
+| [`context-onpremise`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-onpremise/index.html) | Context Orchestration | Specialist | Use deployed local conversion, OCR, audio/video, visual, retrieval, reranking, and guarded compression to build high-fidelity bounded Codex context. |
+| [`context-pack`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-pack/index.html) | Context Orchestration | Specialist | Prepare files, folders, code, logs, and structured data as a bounded, traceable context pack for Codex. |
+| [`conversation-checkpoint`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/conversation-checkpoint/index.html) | Context Orchestration | Specialist | Use when a long or repetitive conversation has no source file and must be converted into a recoverable task state before continuation, handoff, or compaction. |
+| [`context-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-audit/index.html) | Context Orchestration | Specialist | Diagnose context relevance, redundancy, traceability, safety, cacheability, and recoverability. |
+| [`context-benchmark`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-benchmark/index.html) | Context Orchestration | Specialist | Measure context preparation across fixed cases. |
 | [`frontend-design`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/frontend-design/index.html) | Frontend Design | Orchestrator | Orchestrate product-aware frontend art direction, implementation, responsive QA, code impact analysis, and engineering handoff. |
 | [`frontend-design-studio`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/frontend-design-studio/index.html) | Frontend Design | Specialist | Direct, design, implement, animate, critique, audit, polish, and deploy distinctive production frontend interfaces for websites, landing pages, web apps, dashboards, mob… |
 | [`video-intelligence`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/video-intelligence/index.html) | Video Intelligence | Orchestrator | Orchestrate evidence-based video research across platforms, transcripts, Whisper fallback, keyframes, source verification, and cross-video synthesis. |

@@ -1,20 +1,21 @@
 {
-  "version": "0.11.0",
+  "version": "0.12.0",
   "owner": "TIKAZI",
   "collection": "TIKAZ-AI-Skills",
   "suites": {
     "context-economy": {
       "repository": "TIKAZ-Codex-Context-Economy",
-      "title": "TIKAZ Context Economy for Codex",
-      "tagline": "A fidelity-first multimodal context compiler for the smallest useful context that remains checkable.",
+      "related_repository": "TIKAZ-Codex-Context-OnPremise",
+      "title": "TIKAZ Context Orchestration for Codex",
+      "tagline": "One controller for portable Context Economy and explicit ON-triggered local multimodal context compilation.",
       "accent": "60A5FA",
       "proofs": [
-        {"value": "100%", "label_en": "Bilingual Recall@5", "label_zh": "双语检索 Recall@5", "note_en": "14 fixed cases; Precision@5 is also 100%", "note_zh": "14 个固定样例；Precision@5 同为 100%"},
-        {"value": "94.44%", "label_en": "Challenge Recall@3", "label_zh": "对抗集 Recall@3", "note_en": "12 frozen adversarial cases; failures stay public", "note_zh": "12 个冻结对抗样例；失败结果保持公开"},
-        {"value": "46/46", "label_en": "Protected facts retained", "label_zh": "保护事实字面保留", "note_en": "Literal recall on declared protected facts", "note_zh": "声明保护事实的字面召回，不等同语义准确率"},
-        {"value": "69.7%", "label_en": "Fixed long-context reduction", "label_zh": "固定长上下文估算减少", "note_en": "Six fixed tasks: 4,698 to 1,422 estimated tokens", "note_zh": "6 个固定任务：估算 Token 从 4,698 降至 1,422"}
+        {"value": "100%", "label_en": "Economy bilingual Recall@5", "label_zh": "Economy 双语 Recall@5", "note_en": "14 fixed cases; Precision@5 is also 100%", "note_zh": "14 个固定样例；Precision@5 同为 100%"},
+        {"value": "20/20", "label_en": "On-Premise scenarios passed", "label_zh": "On-Premise 全场景通过", "note_en": "Fixed documents, OCR, web, media, code, table, and archive cases", "note_zh": "固定文档、OCR、网页、媒体、代码、表格与压缩包样例"},
+        {"value": "53/53", "label_en": "On-Premise protected facts", "label_zh": "On-Premise 保护事实", "note_en": "Literal recall on declared facts in the checked acceptance set", "note_zh": "已检查验收集中声明事实的字面召回"},
+        {"value": "89.57%", "label_en": "On-Premise weighted estimate", "label_zh": "On-Premise 加权估算减少", "note_en": "Seven fixed context cases; not provider telemetry", "note_zh": "7 个固定上下文样例；不是 Provider 遥测"}
       ],
-      "highlights": ["Paste text, attach files, or provide a webpage and let the workflow choose Text / Hybrid / Source automatically", "The optional pinned Defuddle adapter keeps source HTML, cleaned HTML, Markdown, metadata, protected facts, and separate byte/token estimates", "Public-URL safety checks, bounded fetching, pending visual evidence, and source-preserving fallback keep uncertain pages visible instead of pretending extraction succeeded"],
+      "highlights": ["Context Orchestrator defaults to portable Economy and activates the dependency-rich local route only for a valid uppercase ON prefix", "Economy and On-Premise share evidence slots, protected facts, retrieval ledgers, cost ledgers, omissions, Pending states, and source-preserving fallback", "Hit quality, fidelity, estimated Token reduction, visual routing, latency, and downstream-answer quality remain separate metrics"],
       "prompts": ["Process my pasted text, attached files, or webpage for this task. Automatically choose Text, Hybrid, or Source, prepare reusable Markdown where safe, retain protected facts and anchors, and make every omission visible.", "Extract this webpage into traceable Markdown. Keep the source HTML, metadata, images and complex-table warnings; do not treat pending visuals as inspected.", "Create a recoverable checkpoint from this long conversation. Preserve decisions, constraints, completed evidence, file paths, numbers, commands, and open questions."]
     },
     "frontend-design": {

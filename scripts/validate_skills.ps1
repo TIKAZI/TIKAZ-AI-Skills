@@ -89,6 +89,8 @@ foreach ($metadata in @(Get-ChildItem -LiteralPath $suitesRoot -Recurse -Filter 
     if ($meta -notmatch '(?m)^interface:\s*$' -or $meta -notmatch '(?m)^\s+display_name:\s*.+$' -or $meta -notmatch '(?m)^\s+short_description:\s*.+$' -or $meta -notmatch '(?m)^\s+default_prompt:\s*.+$') { Add-CheckError "Invalid UI metadata: $($metadata.FullName.Substring($root.Length + 1))" }
 }
 
+$generatedCaches = @(Get-ChildItem -LiteralPath $root -Recurse -Directory -Force | Where-Object { $_.Name -in @('__pycache__', '.pytest_cache') })
+foreach ($cache in $generatedCaches) { Remove-Item -LiteralPath $cache.FullName -Recurse -Force }
 $noisePattern = '([\\/])(__pycache__|\.pytest_cache|node_modules)([\\/])|\.pyc$|(^|[\\/])\.env($|\.)'
 foreach ($noise in @(Get-ChildItem -LiteralPath $root -Recurse -Force -File | Where-Object { $_.FullName -match $noisePattern })) { Add-CheckError "Generated/private file in release tree: $($noise.FullName.Substring($root.Length + 1))" }
 

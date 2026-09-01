@@ -26,7 +26,7 @@ SUITE_LIMITS = {
 }
 
 SUITE_ORDER = {
-    "context-economy": ["context-economy", "context-pack", "conversation-checkpoint", "context-audit", "context-benchmark"],
+    "context-economy": ["context-orchestrator", "context-economy", "context-onpremise", "context-pack", "conversation-checkpoint", "context-audit", "context-benchmark"],
     "frontend-design": ["frontend-design", "frontend-design-studio"],
     "video-intelligence": ["video-intelligence", "video-platform-reader"],
     "engineering": ["engineering", "code-intelligence", "engineering-delivery", "skill-security-audit", "supabase-operations", "video-workbench"],
@@ -46,7 +46,9 @@ SUITE_PRESENTATION = {
 }
 
 ZH_PROMISES = {
+    "context-orchestrator": "在默认无依赖 Economy 与显式 ON 本地 On-Premise 之间路由，并统一命中、保真与成本合同。",
     "context-economy": "自动判断文本、网页、PDF、表格与图片应走 Text、Hybrid 还是 Source，并保留可追溯原始来源。",
+    "context-onpremise": "用本地转换、OCR、音视频、视觉、检索、重排与受保护压缩生成高保真上下文。",
     "context-pack": "把文件、目录、代码、日志和结构化数据整理成有预算、可追溯的上下文包。",
     "conversation-checkpoint": "把长对话整理为可恢复的决策、状态、证据与待办。",
     "context-audit": "审计上下文的相关性、重复、可追溯性、安全、缓存与恢复能力。",
@@ -113,12 +115,23 @@ SUITE_ADVANTAGES = {
 }
 
 CONTEXT_EVIDENCE = {
+    "context-orchestrator": [
+        ("2 routes", "one deterministic controller", "Economy by default; On-Premise only for a valid ON prefix", "两条路线", "一个确定性总控", "默认 Economy；仅合法 ON 前缀触发 On-Premise"),
+        ("5 forms", "false-positive trigger guard", "on, ONLY, ON-board, mid-sentence ON, and Chinese-prefixed ON stay Economy", "5 类形式", "误触发保护", "on、ONLY、ON-board、句中 ON 与中文前缀 ON 均保持 Economy"),
+        ("1 contract", "quality and cost stay separate", "evidence slots, omissions, Pending, fallback, and ledgers use one schema", "一套合同", "质量与成本分开", "证据槽、遗漏、Pending、回退与台账统一"),
+    ],
     "context-economy": [
         ("100%", "bilingual Recall@5 / Precision@5", "14 fixed development cases", "双语 Recall@5 / Precision@5", "14 个固定开发样例"),
         ("94.44%", "challenge Recall@3 / Precision@3", "12 frozen adversarial cases; failures stay public", "对抗集 Recall@3 / Precision@3", "12 个冻结对抗样例；失败保持公开"),
         ("69.7%", "estimated long-context reduction", "6 fixed tasks: 4,698 → 1,422", "长上下文估算减少", "6 个固定任务：4,698 → 1,422"),
         ("46/46", "declared protected facts retained", "literal recall, not semantic accuracy", "声明保护事实保留", "字面召回，不等同语义准确率"),
         ("39/39", "expected anchors retained", "fixed public benchmark", "预期锚点保留", "固定公开基准"),
+    ],
+    "context-onpremise": [
+        ("20/20", "fixed acceptance scenarios", "documents, OCR, web, media, code, tables, email, and archives", "固定验收场景", "文档、OCR、网页、媒体、代码、表格、邮件与压缩包"),
+        ("53/53", "declared protected facts", "literal recall on the checked acceptance set", "声明保护事实", "已检查验收集上的字面召回"),
+        ("89.57%", "token-weighted estimated reduction", "7 fixed context cases; not provider telemetry", "Token 加权估算减少", "7 个固定上下文样例；不是 Provider 遥测"),
+        ("37/37", "visual protected facts", "12 fixed synthetic images; real-world vision remains bounded", "视觉保护事实", "12 张固定合成图像；不代表真实世界泛化"),
     ],
     "context-pack": [
         ("69.73%", "estimated token reduction", "6 fixed long-context tasks: 4,698 → 1,422", "估算 Token 减少", "6 个固定长上下文任务：4,698 → 1,422"),
@@ -226,7 +239,7 @@ Source modes, upstream licenses, and concrete TIKAZ contributions are recorded i
 
 ## 🌐 Explore the TIKAZ workflow family
 
-[🏠 AI Skills](https://github.com/TIKAZI/TIKAZ-AI-Skills) · [⚡ Context Economy](https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy) · [🎨 Frontend Design](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) · [🎬 Video Intelligence](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) · [🛠️ Engineering](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) · [🔬 Research](https://github.com/TIKAZI/TIKAZ-Codex-Knowledge-Research) · [📽️ Presentation](https://github.com/TIKAZI/TIKAZ-Codex-Presentation) · [🖼️ Visual Content](https://github.com/TIKAZI/TIKAZ-Codex-Visual-Content)
+[🏠 AI Skills](https://github.com/TIKAZI/TIKAZ-AI-Skills) · [⚡ Context Economy](https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy) · [🧠 Context On-Premise](https://github.com/TIKAZI/TIKAZ-Codex-Context-OnPremise) · [🎨 Frontend Design](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) · [🎬 Video Intelligence](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) · [🛠️ Engineering](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) · [🔬 Research](https://github.com/TIKAZI/TIKAZ-Codex-Knowledge-Research) · [📽️ Presentation](https://github.com/TIKAZI/TIKAZ-Codex-Presentation) · [🖼️ Visual Content](https://github.com/TIKAZI/TIKAZ-Codex-Visual-Content)
 '''
 
 
@@ -343,7 +356,7 @@ def skill_project_page(root: Path, suite_name: str, name: str, description: str,
         language_link = f"../../../skills/{name}/index.html"
         labels = {
             "language": "EN", "language_label": "切换到英文", "eyebrow": "可独立安装的 TIKAZ Skill",
-            "back": "返回 30 Skill 目录", "what": "它解决什么", "when": "适合何时使用",
+            "back": "返回 Skill 目录", "what": "它解决什么", "when": "适合何时使用",
             "when_copy": "当这一项明确能力就是你的完整目标时，直接安装并调用它；需要跨能力端到端结果时，改用所属工作流编排器。",
             "install": "独立安装", "install_copy": "只复制这个 Skill 文件夹即可；不需要安装同组其他 Skill。目标文件夹名称保持与 Skill 名称一致。",
             "try": "直接这样调用", "contract": "执行合同", "contract_copy": "执行细节、输入输出、验证、降级与限制以唯一英文执行源为准。中文页只负责用户说明，不复制第二份执行规则。",
@@ -357,7 +370,7 @@ def skill_project_page(root: Path, suite_name: str, name: str, description: str,
         language_link = f"../../zh/skills/{name}/index.html"
         labels = {
             "language": "中文", "language_label": "切换到简体中文", "eyebrow": "Independently installable TIKAZ Skill",
-            "back": "Back to the 30-Skill catalog", "what": "What it owns", "when": "When to use it",
+            "back": "Back to the Skill catalog", "what": "What it owns", "when": "When to use it",
             "when_copy": "Install and invoke this Skill directly when its named capability is the complete task. Use the suite orchestrator when the outcome crosses multiple capabilities.",
             "install": "Install independently", "install_copy": "Copy only this Skill folder. No sibling Skill is required. Keep the destination folder identical to the Skill name.",
             "try": "Try it directly", "contract": "Execution contract", "contract_copy": "The single English execution source owns inputs, outputs, validation, fallback, and limits. User documentation never creates a second executable rule set.",
@@ -391,7 +404,8 @@ def skill_project_index(root: Path, language: str) -> str:
         groups.append(f'<article><h2>{emoji} {suite_zh if is_zh else suite_en}<span>{len(SUITE_ORDER[suite_name])}</span></h2>{links}</article>')
     language_link = "../../skills/index.html" if is_zh else "../../zh/skills/index.html"
     home = "../index.html"
-    title = "30 个可独立安装的 Skill" if is_zh else "30 independently installable Skills"
+    skill_count = sum(len(skills) for skills in SUITE_ORDER.values())
+    title = f"{skill_count} 个可独立安装的 Skill" if is_zh else f"{skill_count} independently installable Skills"
     intro = "按七套工作流分组浏览。每个 Skill 都有独立中英文项目页、安装入口和唯一执行源。" if is_zh else "Browse seven workflow groups. Every Skill has its own bilingual project page, installation entry, and single execution source."
     stylesheet = "../../styles.css" if is_zh else "../styles.css"
     logo = "../../assets/tikaz-logo.svg" if is_zh else "../assets/tikaz-logo.svg"

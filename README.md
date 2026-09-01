@@ -15,7 +15,7 @@
   <a href="https://github.com/TIKAZI/TIKAZ-AI-Skills/actions/workflows/validate.yml"><img src="https://github.com/TIKAZI/TIKAZ-AI-Skills/actions/workflows/validate.yml/badge.svg" alt="Validate Skills" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-f4c95d.svg" alt="MIT License" /></a>
   <img src="https://img.shields.io/badge/suites-7-60a5fa.svg" alt="7 suites" />
-  <img src="https://img.shields.io/badge/skills-30-22d3ee.svg" alt="30 Skills" />
+  <img src="https://img.shields.io/badge/skills-32-22d3ee.svg" alt="32 Skills" />
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@
   <a href="#start-in-60-seconds">Quick start</a> ·
   <a href="#the-seven-suite-system">Seven suites</a> ·
   <a href="examples/prompts.md">Prompts</a> ·
-  <a href="docs/skills-catalog.md">30-Skill catalog</a> ·
+  <a href="docs/skills-catalog.md">32-Skill catalog</a> ·
   <a href="SOURCES.yml">Provenance</a> ·
   <a href="CONTRIBUTING.md">Contributing</a>
 </p>
@@ -72,7 +72,7 @@ label evidence levels, and list every claim that remains unverified.
 
 | Suite | Skills | Owns | Typical path |
 |---|---:|---|---|
-| **[Context Economy](suites/context-economy)** | 5 | Efficient, recoverable context | pack → checkpoint → audit → benchmark |
+| **[Context Orchestration](suites/context-economy)** | 7 | Portable Economy + explicit ON local context | route → retrieve → protect → pack → audit → benchmark |
 | **[Video Intelligence](suites/video-intelligence)** | 2 | Auditable video learning | sources → transcript/ASR → keyframes → evidence cards → synthesis |
 | **[Frontend Design](suites/frontend-design)** | 2 | Distinctive product interfaces | surface → Design Read → proof → implementation → visual QA |
 | **[Engineering](suites/engineering)** | 6 | Safe repository delivery | specification → impact map → code → tests → review → release evidence |
@@ -80,9 +80,9 @@ label evidence levels, and list every claim that remains unverified.
 | **[Presentation](suites/presentation)** | 4 | Verified decks | narrative → one format → page contracts → render QA → artifact |
 | **[Visual Content](suites/visual-content)** | 5 | Publishable content assets | thesis → one style → shot card → creation → publishing QA |
 
-There are **30 installable Skills**, including the seven suite orchestrators. Use a suite orchestrator for an end-to-end outcome; install a child Skill when you need only one focused capability.
+There are **32 installable Skills** across seven suites. Use a controller or suite orchestrator for an end-to-end outcome; install a child Skill when you need only one focused capability.
 
-Browse the generated [30-Skill Catalog](docs/skills-catalog.md). Every entry links to its canonical `SKILL.md` and is checked for an independent trigger, input, output, example, validation, fallback, limitation, TIKAZ contribution, and Codex UI metadata.
+Browse the generated [32-Skill Catalog](docs/skills-catalog.md). Every entry links to its canonical `SKILL.md` and is checked for an independent trigger, input, output, example, validation, fallback, limitation, TIKAZ contribution, and Codex UI metadata.
 
 ### Every Skill, individually installable
 
@@ -90,7 +90,9 @@ Each link below opens that Skill's own executable contract. Install an **orchest
 
 | Workflow | Skill | Role | Use it on its own for |
 |---|---|---|---|
-| Context Economy | [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-economy/index.html) | Orchestrator | Automatically route pasted text, files, PDFs, tables, and visuals into the safest compact context path. |
+| Context Orchestration | [`context-orchestrator`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-orchestrator/index.html) | Controller | Route between default Economy and explicit ON-triggered On-Premise while enforcing one evidence/cost contract. |
+| Context Orchestration | [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-economy/index.html) | Default route | Prepare pasted text, files, PDFs, tables, and visuals without mandatory local-model dependencies. |
+| Context Orchestration | [`context-onpremise`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-onpremise/index.html) | Local route | Use local conversion, OCR, media, vision, retrieval, reranking, and guarded compression after a valid ON trigger. |
 | Context Economy | [`context-pack`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-pack/index.html) | Specialist | Build a bounded, traceable context pack from files, folders, code, logs, or structured data. |
 | Context Economy | [`conversation-checkpoint`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/conversation-checkpoint/index.html) | Specialist | Turn a long conversation into recoverable decisions, state, evidence, and open questions. |
 | Context Economy | [`context-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-audit/index.html) | Specialist | Audit relevance, repetition, traceability, safety, cacheability, and recoverability. |
@@ -123,11 +125,12 @@ Each link below opens that Skill's own executable contract. Install an **orchest
 
 ### Install a complete suite separately
 
-The monorepo is the **single source of truth**. Seven focused repositories are automatically generated from it so each suite can be discovered, starred, cloned, and installed on its own without creating eight drifting codebases.
+The monorepo is the **single source of truth** for the seven Skill suites. Seven focused suite repositories are generated from it; the optional dependency-rich Context On-Premise engine is maintained as an eighth companion repository because its adapters, benchmarks, and runtime documentation have a different release boundary.
 
 | Standalone distribution | Best entry point |
 |---|---|
 | [TIKAZ Context Economy for Codex](suites/context-economy) *(canonical preview)* | Hard-budget packs, recoverable checkpoints, context audit, and reproducible benchmarks |
+| [TIKAZ Context On-Premise for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Context-OnPremise) | Local document/OCR/media/vision pipeline, hybrid retrieval, guarded compression, and full-scenario evidence |
 | [TIKAZ Frontend Design for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) | Interface art direction, implementation, and visual QA |
 | [TIKAZ Video Intelligence for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) | Timestamped video evidence and synthesis |
 | [TIKAZ Engineering Workflows for Codex](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) | Repository delivery, impact analysis, review, and operations |
@@ -228,7 +231,7 @@ powershell -NoProfile -ExecutionPolicy Bypass `
   -File '.\scripts\validate_skills.ps1'
 ```
 
-It checks all 30 Skills for structure, attribution, source policy, portability, routing, UI metadata, generated files, and Python syntax. A green check proves repository consistency; optional platform access still depends on the user's environment and permissions.
+It checks all 32 Skills for structure, attribution, source policy, portability, routing, UI metadata, generated files, and Python syntax. A green check proves repository consistency; optional platform access still depends on the user's environment and permissions.
 
 ## ⚖️ Authorship, sources, and license
 
@@ -241,6 +244,7 @@ TIKAZ-authored files are released under the [MIT License](LICENSE). Contribution
 ## 🌐 Explore TIKAZ projects
 
 - [⚡ Context Economy](https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy) — fidelity-first multimodal context compilation with reproducible evidence.
+- [🧠 Context On-Premise](https://github.com/TIKAZI/TIKAZ-Codex-Context-OnPremise) — local document, OCR, media, visual, retrieval, and guarded-compression engine.
 - [🎨 Frontend Design](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) — art-directed frontend workflows from visual proof to implementation.
 - [🎬 Video Intelligence](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) — evidence-graded cross-platform video reading and synthesis.
 - [🛠️ Engineering](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) — specification-to-release engineering delivery.

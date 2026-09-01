@@ -2,13 +2,13 @@
 
 <p align="center"><img src="assets/workflow.svg" alt="Context Economy 工作流" width="100%" /></p>
 
-# TIKAZ Context Economy for Codex
+# TIKAZ Context Orchestration for Codex
 
-**面向文本、文件、对话、表格与视觉证据的高保真上下文准备工作流。**
+**用一套证据合同统筹默认 Economy 与首词 `ON` 触发的本地多模态路线。**
 
 由 **TIKAZ** 主导设计、整合、独立重构和持续维护。
 
-Context Economy 不是“全部压缩”的技巧。它准备的是**仍然可以核验的最小有用上下文**：支持的文档转成可复用 Markdown，事实与来源锚点得到保护，图片和复杂表格进入 Text / Hybrid / Source 路由，转换不确定时保留原始来源。
+Context Orchestrator 不是第三个压缩器。它默认使用无依赖 **Context Economy**；只有首个非空控制词为大写 `ON`，或用户显式调用时，才进入 **Context On-Premise**。两条路线都准备**仍然可以核验的最小有用上下文**，并统一返回证据、遗漏、Pending、回退与成本台账。
 
 | 固定基准 | 命中结果 | 同时报告的成本结果 |
 |---|---:|---:|
@@ -21,13 +21,17 @@ Context Economy 不是“全部压缩”的技巧。它准备的是**仍然可�
 
 | Skill | 单独使用场景 | 主要输出 |
 |---|---|---|
-| [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-economy/index.html) | 输入混合或需要自动选择处理路线 | 路由结果、上下文、遗漏项与验证边界 |
+| [`context-orchestrator`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-orchestrator/index.html) | 任务可能需要默认轻量路线或显式 ON 本地路线 | 路由、证据槽、有界上下文、命中与成本台账 |
+| [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-economy/index.html) | 默认无依赖路线需要安全处理混合输入 | Text / Hybrid / Source、上下文、遗漏项与验证边界 |
+| [`context-onpremise`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-onpremise/index.html) | 合法 ON 请求需要本地 OCR、音视频、视觉、检索、重排或受保护压缩 | 规范证据、本地检索台账、保护结果、回退与成本数据 |
 | [`context-pack`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-pack/index.html) | 文件、代码或日志需要形成一次任务移交 | Context Markdown、锚点、视觉队列和成本台账 |
 | [`conversation-checkpoint`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/conversation-checkpoint/index.html) | 长对话需要压缩、恢复或移交 | 七部分的可恢复任务状态 |
 | [`context-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-audit/index.html) | 只诊断现有上下文而不改写 | 六维 Context Health 报告 |
 | [`context-benchmark`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-benchmark/index.html) | 节省与保真主张需要可复现实证 | 原始用例、指标、汇总和证据卡 |
 
 安装套件可获得完整编排；复制任一子文件夹即可单独安装专业 Skill。
+
+重依赖 On-Premise 引擎独立发布在 [TIKAZ-Codex-Context-OnPremise](https://github.com/TIKAZI/TIKAZ-Codex-Context-OnPremise)；模型和本地运行时不会打包进 Monorepo。
 
 ## 🔄 自动路由
 
@@ -128,4 +132,4 @@ Copy-Item -Recurse `
 
 ## 🌐 探索 TIKAZ 工作流家族
 
-[🏠 AI Skills](https://github.com/TIKAZI/TIKAZ-AI-Skills) · [⚡ Context Economy](https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy) · [🎨 Frontend Design](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) · [🎬 Video Intelligence](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) · [🛠️ Engineering](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) · [🔬 Research](https://github.com/TIKAZI/TIKAZ-Codex-Knowledge-Research) · [📽️ Presentation](https://github.com/TIKAZI/TIKAZ-Codex-Presentation) · [🖼️ Visual Content](https://github.com/TIKAZI/TIKAZ-Codex-Visual-Content)
+[🏠 AI Skills](https://github.com/TIKAZI/TIKAZ-AI-Skills) · [⚡ Context Economy](https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy) · [🧠 Context On-Premise](https://github.com/TIKAZI/TIKAZ-Codex-Context-OnPremise) · [🎨 Frontend Design](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) · [🎬 Video Intelligence](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) · [🛠️ Engineering](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) · [🔬 Research](https://github.com/TIKAZI/TIKAZ-Codex-Knowledge-Research) · [📽️ Presentation](https://github.com/TIKAZI/TIKAZ-Codex-Presentation) · [🖼️ Visual Content](https://github.com/TIKAZI/TIKAZ-Codex-Visual-Content)

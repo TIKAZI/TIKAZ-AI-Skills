@@ -36,14 +36,14 @@ class ProductAssetTests(unittest.TestCase):
                 self.assertIn('<img class="brand-mark"', content, page)
                 self.assertIn("tikaz-logo.svg", content, page)
                 self.assertIn('rel="icon"', content, page)
-        self.assertEqual(len(branded_pages), 64)
+        self.assertEqual(len(branded_pages), 68)
 
         readme_hero = (ROOT / "assets" / "tikaz-ai-skills-hero.svg").read_text(encoding="utf-8")
         self.assertIn('id="tikaz-logo-mark"', readme_hero)
 
     def test_every_skill_is_listed_in_catalog_and_bilingual_suite_readmes(self) -> None:
         skill_files = sorted((ROOT / "suites").rglob("SKILL.md"))
-        self.assertEqual(len(skill_files), 30)
+        self.assertEqual(len(skill_files), 32)
         catalog = (ROOT / "docs" / "skills-catalog.md").read_text(encoding="utf-8")
         catalog_names = set(re.findall(r"\| \[`([a-z0-9-]+)`\]\(", catalog))
         skill_names = {}
@@ -96,9 +96,9 @@ class ProductAssetTests(unittest.TestCase):
             self.assertIn(f"../../zh/skills/{name}/index.html", en)
             self.assertIn(f"../../../skills/{name}/index.html", zh)
 
-        self.assertEqual(len(names), 30)
-        self.assertEqual(len(list((ROOT / "docs" / "skills").glob("*/index.html"))), 30)
-        self.assertEqual(len(list((ROOT / "docs" / "zh" / "skills").glob("*/index.html"))), 30)
+        self.assertEqual(len(names), 32)
+        self.assertEqual(len(list((ROOT / "docs" / "skills").glob("*/index.html"))), 32)
+        self.assertEqual(len(list((ROOT / "docs" / "zh" / "skills").glob("*/index.html"))), 32)
         entry_documents = (
             (ROOT / "README.md", "https://tikazi.github.io/TIKAZ-AI-Skills/skills/{name}/index.html"),
             (ROOT / "README.zh-CN.md", "https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/{name}/index.html"),
@@ -134,7 +134,7 @@ class ProductAssetTests(unittest.TestCase):
             generator.generate(ROOT, output)
 
             catalog = (output / "skills-catalog.md").read_text(encoding="utf-8")
-            self.assertIn("30 independently installable Skills", catalog)
+            self.assertIn("32 independently installable Skills", catalog)
             self.assertIn("`context-pack`", catalog)
             self.assertIn("Designed, integrated", catalog)
 

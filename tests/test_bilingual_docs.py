@@ -34,7 +34,7 @@ class BilingualDocumentationTests(unittest.TestCase):
     def test_skill_execution_sources_are_not_duplicated_by_language(self) -> None:
         localized_skills = list((ROOT / "suites").rglob("SKILL.zh-CN.md"))
         self.assertEqual(localized_skills, [])
-        self.assertEqual(len(list((ROOT / "suites").rglob("SKILL.md"))), 30)
+        self.assertEqual(len(list((ROOT / "suites").rglob("SKILL.md"))), 32)
 
     def test_pages_has_real_language_routes_and_switches(self) -> None:
         english = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")

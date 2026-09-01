@@ -15,7 +15,7 @@
   <a href="https://github.com/TIKAZI/TIKAZ-AI-Skills/actions/workflows/validate.yml"><img src="https://github.com/TIKAZI/TIKAZ-AI-Skills/actions/workflows/validate.yml/badge.svg" alt="Skill 校验" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-f4c95d.svg" alt="MIT License" /></a>
   <img src="https://img.shields.io/badge/suites-7-60a5fa.svg" alt="7 套工作流" />
-  <img src="https://img.shields.io/badge/skills-30-22d3ee.svg" alt="30 个 Skill" />
+  <img src="https://img.shields.io/badge/skills-32-22d3ee.svg" alt="32 个 Skill" />
 </p>
 
 <p align="center">
@@ -23,7 +23,7 @@
   <a href="https://tikazi.github.io/TIKAZ-AI-Skills/zh/#feedback">反馈与建议</a> ·
   <a href="#60-秒开始">快速开始</a> ·
   <a href="#七套工作流">七套工作流</a> ·
-  <a href="docs/skills-catalog.md">30 Skill 目录</a> ·
+  <a href="docs/skills-catalog.md">32 Skill 目录</a> ·
   <a href="CONTRIBUTING.zh-CN.md">参与贡献</a>
 </p>
 
@@ -45,13 +45,13 @@ TIKAZ AI Skills 是由 **TIKAZ** 主导设计、整合、独立重构和持续�
 验证后交付
 ```
 
-本项目不是 OpenAI 官方仓库。英文是国际默认入口，中文是完整的一等文档镜像；30 个 `SKILL.md` 保持单一英文执行源，避免重复加载和双语版本漂移。
+本项目不是 OpenAI 官方仓库。英文是国际默认入口，中文是完整的一等文档镜像；32 个 `SKILL.md` 保持单一英文执行源，避免重复加载和双语版本漂移。
 
 ## 🧩 七套工作流
 
 | 套件 | Skill 数 | 主要职责 | 典型路径 |
 |---|---:|---|---|
-| **[Context Economy](suites/context-economy/README.zh-CN.md)** | 5 | 高保真上下文准备 | pack → checkpoint → audit → benchmark |
+| **[Context Orchestration](suites/context-economy/README.zh-CN.md)** | 7 | 默认 Economy + 显式 ON 本地上下文 | route → retrieve → protect → pack → audit → benchmark |
 | **[Video Intelligence](suites/video-intelligence/README.zh-CN.md)** | 2 | 可追溯的视频学习 | 来源 → 字幕/ASR → 关键帧 → 证据卡 → 综合 |
 | **[Frontend Design](suites/frontend-design/README.zh-CN.md)** | 2 | 有辨识度的产品界面 | 页面类型 → Design Read → 方向样板 → 实现 → 视觉 QA |
 | **[Engineering](suites/engineering/README.zh-CN.md)** | 6 | 安全的软件交付 | 规格 → 影响图 → 代码 → 测试 → 发布证据 |
@@ -59,15 +59,17 @@ TIKAZ AI Skills 是由 **TIKAZ** 主导设计、整合、独立重构和持续�
 | **[Presentation](suites/presentation/README.zh-CN.md)** | 4 | 经验证的演示文稿 | 叙事 → 格式 → 页面合同 → 渲染 QA → 产物 |
 | **[Visual Content](suites/visual-content/README.zh-CN.md)** | 5 | 可发布的内容资产 | 观点 → 风格 → Shot Card → 制作 → 发布 QA |
 
-共有 **30 个可安装 Skill**，其中包含 7 个套件编排器。需要端到端结果时安装套件；只需要一种明确产物时，可以单独安装子 Skill。完整用途请查看 [30 Skill 目录](docs/skills-catalog.md)。
+共有 **32 个可安装 Skill**。需要端到端结果时安装控制器或套件编排器；只需要一种明确产物时，可以单独安装子 Skill。完整用途请查看 [32 Skill 目录](docs/skills-catalog.md)。
 
-### 30 个 Skill，全部可以单独安装
+### 32 个 Skill，全部可以单独安装
 
 下面每个名称都直接链接到该 Skill 自己的执行合同。需要完整路由时安装**编排器**；只需要一种明确能力时，复制对应的**专项 Skill** 文件夹即可。
 
 | 工作流 | Skill | 角色 | 单独使用时负责 |
 |---|---|---|---|
-| 上下文经济 | [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-economy/index.html) | 编排器 | 自动判断文本、文件、PDF、表格和图片应走压缩、混合还是原始来源路线。 |
+| 上下文编排 | [`context-orchestrator`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-orchestrator/index.html) | 总控 | 在默认 Economy 与显式 ON 本地路线之间路由，并统一证据与成本合同。 |
+| 上下文编排 | [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-economy/index.html) | 默认路线 | 无强制本地模型依赖地处理文本、文件、PDF、表格和图片。 |
+| 上下文编排 | [`context-onpremise`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-onpremise/index.html) | 本地路线 | 合法 ON 触发后使用本地转换、OCR、媒体、视觉、检索、重排与受保护压缩。 |
 | 上下文经济 | [`context-pack`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-pack/index.html) | 专项 | 把文件、目录、代码、日志和结构化数据整理成有预算、可追溯的上下文包。 |
 | 上下文经济 | [`conversation-checkpoint`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/conversation-checkpoint/index.html) | 专项 | 把长对话整理为可恢复的决策、状态、证据和待办。 |
 | 上下文经济 | [`context-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/zh/skills/context-audit/index.html) | 专项 | 审计相关性、重复、可追溯性、安全、缓存和恢复能力。 |
@@ -148,7 +150,7 @@ powershell -NoProfile -ExecutionPolicy Bypass `
   -File '.\scripts\validate_skills.ps1'
 ```
 
-校验覆盖 30 个 Skill 的结构、独立使用合同、TIKAZ 贡献说明、来源政策、可迁移性、路由、UI 元数据和脚本语法。绿色校验代表仓库一致性，不代表当前环境一定具备所有平台权限或可选工具。
+校验覆盖 32 个 Skill 的结构、独立使用合同、TIKAZ 贡献说明、来源政策、可迁移性、路由、UI 元数据和脚本语法。绿色校验代表仓库一致性，不代表当前环境一定具备所有平台权限或可选工具。
 
 ## ⚖️ 作者、来源与许可证
 
@@ -159,6 +161,7 @@ powershell -NoProfile -ExecutionPolicy Bypass `
 ## 🌐 探索 TIKAZ 项目
 
 - [⚡ Context Economy](https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy) — 高保真多模态上下文编译与可复现证据。
+- [🧠 Context On-Premise](https://github.com/TIKAZI/TIKAZ-Codex-Context-OnPremise) — 本地文档、OCR、媒体、视觉、检索与受保护压缩引擎。
 - [🎨 Frontend Design](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) — 从视觉样板到实现的艺术指导型前端工作流。
 - [🎬 Video Intelligence](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) — 带证据分级的跨平台视频阅读与综合。
 - [🛠️ Engineering](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) — 从规格到发布的工程交付。

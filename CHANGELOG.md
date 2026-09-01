@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.12.0 - 2026-09-02
+
+- Added `context-orchestrator` as the deterministic controller for default Context Economy and explicit uppercase-`ON` Context On-Premise.
+- Added independently installable `context-onpremise` with a separate local engine repository and honest benchmark boundaries.
+- Expanded the bilingual catalog and project pages from 30 to 32 Skills.
+- Added visible hit-quality, protected-fact, multimodal, and estimated-context metrics without combining them into a universal score.
+
 ## [0.11.0] - 2026-08-31
 
 ### Added

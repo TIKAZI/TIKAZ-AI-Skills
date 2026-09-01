@@ -8,6 +8,7 @@ Research that materially informed the problem framing includes:
 - colbymchenry `codegraph` and abhigyanpatwari `GitNexus` for code-intelligence problem framing. No GitNexus code or text is distributed; its PolyForm Noncommercial license is not applied to TIKAZ's independently written workflow.
 - addyosmani `agent-skills`, NVIDIA `SkillSpector`, Supabase, phuryn `pm-skills`, Imbad0202 `academic-research-skills`, hardikpandya `stop-slop`, and keepongo `video-summarizer` as research references in their respective domains.
 - Microsoft `MarkItDown`, Docling, LLMLingua/LongLLMLingua, the “Lost in the Middle” and prompt-compression research papers, and OpenAI prompt-caching/compaction documentation informed the Context Economy problem analysis. TIKAZ independently authored the suite terminology, mode decision, deterministic algorithms, artifact contracts, protected-fact checks, tests, and packaging in this repository; no referenced implementation or prose is redistributed.
+- The optional Context On-Premise engine interoperates with MarkItDown, Docling, MinerU, PaddleOCR, FFmpeg, faster-whisper, PySceneDetect, BGE-M3, BGE Reranker, LLMLingua-2, Qwen3-VL, Ollama, Playwright, Defuddle, and yt-dlp. These remain separate third-party works with their own licenses; the monorepo ships only TIKAZ-authored routing and Skill contracts, not model weights or those runtimes.
 
 Full URLs, recorded revisions where known, license observations, contribution types, and distribution status are maintained in [SOURCES.yml](SOURCES.yml).
 

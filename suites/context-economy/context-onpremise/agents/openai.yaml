@@ -1,0 +1,7 @@
+interface:
+  display_name: "上下文-ContextOnPremise"
+  short_description: "ON 触发的本地高保真、多模态与高命中上下文编译器"
+  brand_color: "#60A5FA"
+  default_prompt: "Use $context-onpremise to process this ON request with local multimodal evidence, hybrid retrieval, guarded compression, and explicit quality ledgers."
+policy:
+  allow_implicit_invocation: true

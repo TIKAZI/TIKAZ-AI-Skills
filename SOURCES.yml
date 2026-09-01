@@ -13,6 +13,13 @@ policy: >-
   release gate.
 
 skills:
+  context-orchestrator:
+    mode: original
+    bundled_upstream: false
+    license: MIT
+    release_status: ready
+    tikaz_changes: [deterministic ON trigger grammar, false-positive guards, single-route ownership, shared evidence-slot contract, separate quality and cost ledgers, source-preserving fallback]
+
   context-economy:
     mode: original-integration
     bundled_upstream: false
@@ -27,6 +34,23 @@ skills:
     license: MIT
     release_status: ready
     tikaz_changes: [five-skill product architecture, adaptive text-hybrid-source routing, optional Defuddle web extraction adapter, public-URL safety boundaries, source-preserving web fallback, web extraction cost and fidelity ledger, full context cost ledger, exact-and-structural prompt preparation, generated-PDF fidelity benchmark, reproducible public evidence card, hard-budget completion gate, evidence and efficiency separation]
+
+  context-onpremise:
+    mode: original-integration
+    bundled_upstream: false
+    research_references:
+      - {url: https://github.com/microsoft/markitdown, observed_license: MIT}
+      - {url: https://github.com/docling-project/docling, observed_license: MIT}
+      - {url: https://github.com/opendatalab/MinerU, observed_license: AGPL-3.0}
+      - {url: https://github.com/PaddlePaddle/PaddleOCR, observed_license: Apache-2.0}
+      - {url: https://github.com/SYSTRAN/faster-whisper, observed_license: MIT}
+      - {url: https://huggingface.co/BAAI/bge-m3, observed_license: MIT}
+      - {url: https://huggingface.co/BAAI/bge-reranker-v2-m3, observed_license: Apache-2.0}
+      - {url: https://huggingface.co/microsoft/llmlingua-2-xlm-roberta-large-meetingbank, observed_license: MIT}
+      - {url: https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct, observed_license: Apache-2.0}
+    license: MIT
+    release_status: ready
+    tikaz_changes: [local-first adapter orchestration, protected-literal gates, evidence-slot hybrid retrieval, hash-anchored visual evidence, deterministic code slicing and table reconciliation, versioned full-scenario benchmarks, explicit Pending and fallback contracts]
 
   context-pack:
     mode: clean-room

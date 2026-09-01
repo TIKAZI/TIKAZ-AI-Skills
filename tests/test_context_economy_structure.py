@@ -9,9 +9,11 @@ SUITE = ROOT / "suites" / "context-economy"
 
 
 class ContextEconomyStructureTests(unittest.TestCase):
-    def test_suite_contains_orchestrator_and_four_children(self) -> None:
+    def test_suite_contains_controller_two_routes_and_four_support_skills(self) -> None:
         expected_skills = {
+            "context-orchestrator": SUITE / "context-orchestrator" / "SKILL.md",
             "context-economy": SUITE / "SKILL.md",
+            "context-onpremise": SUITE / "context-onpremise" / "SKILL.md",
             "context-pack": SUITE / "context-pack" / "SKILL.md",
             "conversation-checkpoint": SUITE / "conversation-checkpoint" / "SKILL.md",
             "context-audit": SUITE / "context-audit" / "SKILL.md",

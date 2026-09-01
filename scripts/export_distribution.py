@@ -379,6 +379,8 @@ Source modes, observed licenses, and concrete TIKAZ contributions are recorded i
 
 ## 🌐 Explore the TIKAZ workflow family
 
+[🧠 Context On-Premise](https://github.com/TIKAZI/TIKAZ-Codex-Context-OnPremise) is the optional dependency-rich companion to portable Context Economy.
+
 [🏠 AI Skills](https://github.com/{owner}/{collection}) · [⚡ Context Economy](https://github.com/{owner}/TIKAZ-Codex-Context-Economy) · [🎨 Frontend Design](https://github.com/{owner}/TIKAZ-Codex-Frontend-Design) · [🎬 Video Intelligence](https://github.com/{owner}/TIKAZ-Codex-Video-Intelligence) · [🛠️ Engineering](https://github.com/{owner}/TIKAZ-Codex-Engineering) · [🔬 Research](https://github.com/{owner}/TIKAZ-Codex-Knowledge-Research) · [📽️ Presentation](https://github.com/{owner}/TIKAZ-Codex-Presentation) · [🖼️ Visual Content](https://github.com/{owner}/TIKAZ-Codex-Visual-Content)
 '''
 

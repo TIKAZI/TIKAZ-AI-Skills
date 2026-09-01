@@ -1,0 +1,7 @@
+interface:
+  display_name: "上下文-ContextOrchestrator"
+  short_description: "自动路由轻量与 ON 本地高命中上下文工作流"
+  brand_color: "#60A5FA"
+  default_prompt: "Use $context-orchestrator to prepare this material with the correct default or ON route while preserving evidence and reporting quality/cost separately."
+policy:
+  allow_implicit_invocation: true

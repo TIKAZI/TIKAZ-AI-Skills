@@ -1,16 +1,16 @@
 <p align="center"><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
 
-# Context Economy for Codex
+# Context Orchestration for Codex
 
 <p align="center">
-  <img src="assets/workflow.svg" alt="Context Economy routes a task through five independently installable Skills" width="100%" />
+  <img src="assets/workflow.svg" alt="Context Orchestrator routes a task between Economy and explicit ON-triggered On-Premise workflows" width="100%" />
 </p>
 
-**Fidelity-first context preparation for files, prompts, conversations, tables, and visual evidence.**
+**One evidence contract for portable Context Economy and explicit ON-triggered local multimodal compilation.**
 
 Designed, integrated, independently refactored, and continuously maintained by **TIKAZ**.
 
-Context Economy is not a “compress everything” trick. It prepares the **smallest useful context that can still be checked**: documents become reusable Markdown, task-relevant evidence keeps stable source anchors, protected facts are verified, and visuals follow an explicit Text / Hybrid / Source route instead of being silently discarded or all sent to a vision model.
+Context Orchestrator is not a third compressor. It defaults to dependency-free **Context Economy** and activates **Context On-Premise** only for a valid uppercase `ON` prefix or explicit invocation. Both routes prepare the **smallest useful context that can still be checked**, and return the same evidence, omission, Pending, fallback, and cost ledgers.
 
 The optimization target is **lower context cost without silent information loss**. Reduction percentages are evidence from declared benchmarks, not the product promise.
 
@@ -63,7 +63,9 @@ Every Skill below is independently installable. Use the orchestrator when prepar
 
 | Skill | Use it independently when | Output |
 |---|---|---|
-| [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-economy/index.html) | The input type is mixed or the workflow must choose the route | Route decision, bounded context, omissions, verification limits |
+| [`context-orchestrator`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-orchestrator/index.html) | A task may need either the portable route or explicit ON local processing | Route, shared evidence slots, bounded context, and quality/cost ledgers |
+| [`context-economy`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-economy/index.html) | The default dependency-free route should prepare mixed input safely | Text / Hybrid / Source decision, bounded context, omissions, verification limits |
+| [`context-onpremise`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-onpremise/index.html) | A valid uppercase ON request needs local OCR, media, vision, retrieval, reranking, or guarded compression | Canonical evidence, local retrieval ledger, protected output, fallback and cost data |
 | [`context-pack`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-pack/index.html) | Files, folders, code, or logs need one task-ready handoff | Context Markdown, anchors, visual queue, and cost ledger |
 | [`conversation-checkpoint`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/conversation-checkpoint/index.html) | A long conversation must survive compaction or handoff | Recoverable seven-section task state |
 | [`context-audit`](https://tikazi.github.io/TIKAZ-AI-Skills/skills/context-audit/index.html) | Existing context needs diagnosis without rewriting | Six-dimension health report with anchored findings |
@@ -82,6 +84,8 @@ Copy-Item -Recurse `
 The child Skill does not require the suite orchestrator. It may refer to suite-level documentation when used inside this repository, but its trigger, workflow, output, validation, fallback, example, and limits remain closed in its own `SKILL.md`.
 
 The default CLI uses only the Python standard library and performs no network calls or model inference. Optional converters remain external and replaceable.
+
+The dependency-rich On-Premise engine is published separately at [TIKAZ-Codex-Context-OnPremise](https://github.com/TIKAZI/TIKAZ-Codex-Context-OnPremise); models and local runtimes are never bundled into this monorepo.
 
 See the reproducible [Context Economy method demonstration](../../examples/context-economy-proof.md) and the [fixed-version comparison](../../docs/research/context-compression-comparison.md). The benchmark separates micro correctness from long-context efficiency so protocol overhead cannot hide behind one average.
 
