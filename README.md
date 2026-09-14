@@ -245,6 +245,7 @@ TIKAZ-authored files are released under the [MIT License](LICENSE). Contribution
 
 - [⚡ Context Economy](https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy) — fidelity-first multimodal context compilation with reproducible evidence.
 - [🧠 Context On-Premise](https://github.com/TIKAZI/TIKAZ-Codex-Context-OnPremise) — local document, OCR, media, visual, retrieval, and guarded-compression engine.
+- [🧭 Agent Routing](https://github.com/TIKAZI/TIKAZ-Agent-Routing) — configurable multi-model task routing: delegate only independently verifiable work, keep evidence and final verification with Root.
 - [🎨 Frontend Design](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) — art-directed frontend workflows from visual proof to implementation.
 - [🎬 Video Intelligence](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) — evidence-graded cross-platform video reading and synthesis.
 - [🛠️ Engineering](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) — specification-to-release engineering delivery.

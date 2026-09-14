@@ -162,6 +162,7 @@ powershell -NoProfile -ExecutionPolicy Bypass `
 
 - [⚡ Context Economy](https://github.com/TIKAZI/TIKAZ-Codex-Context-Economy) — 高保真多模态上下文编译与可复现证据。
 - [🧠 Context On-Premise](https://github.com/TIKAZI/TIKAZ-Codex-Context-OnPremise) — 本地文档、OCR、媒体、视觉、检索与受保护压缩引擎。
+- [🧭 Agent Routing](https://github.com/TIKAZI/TIKAZ-Agent-Routing) — 可自定义的多模型任务分工：只委派可独立验收的工作包，由 Root 保留证据与最终验证。
 - [🎨 Frontend Design](https://github.com/TIKAZI/TIKAZ-Codex-Frontend-Design) — 从视觉样板到实现的艺术指导型前端工作流。
 - [🎬 Video Intelligence](https://github.com/TIKAZI/TIKAZ-Codex-Video-Intelligence) — 带证据分级的跨平台视频阅读与综合。
 - [🛠️ Engineering](https://github.com/TIKAZI/TIKAZ-Codex-Engineering) — 从规格到发布的工程交付。
