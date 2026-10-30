@@ -4,6 +4,6 @@
   "type": "module",
   "dependencies": {
     "defuddle": "0.19.2",
-    "linkedom": "0.18.13"
+    "linkedom": "0.18.14"
   }
 }
